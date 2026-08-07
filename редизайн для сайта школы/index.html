@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Школа-лицей №119</title>
+    <meta
+      name="description"
+      content="Современный redesign сайта школы-лицея №119 с акцентом на академические профили, достижения и новости."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-bar">
+        <a href="#" class="brand" aria-label="Школа-лицей №119">
+          <span class="brand-mark">119</span>
+          <span class="brand-text">
+            <strong data-i18n="brandTitle">Школа-лицей</strong>
+            <small data-i18n="brandSubtitle">№119 · Алматы, 8 мкр.</small>
+          </span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Открыть меню" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="main-nav" id="mainNav" aria-label="Главная навигация">
+          <a href="#about" data-i18n="navAbout">О школе</a>
+          <a href="#academic" data-i18n="navAcademy">Академия</a>
+          <a href="#news" data-i18n="navNews">Новости</a>
+          <a href="#contacts" data-i18n="navContacts">Контакты</a>
+        </nav>
+
+        <div class="header-actions">
+          <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">
+            <span class="lang-option active" data-lang="ru">RU</span>
+            <span class="lang-divider">/</span>
+            <span class="lang-option" data-lang="kk">KK</span>
+          </button>
+          <a href="#" class="portal-btn" data-i18n="portalBtn">Электронный портал</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow" data-i18n="heroEyebrow">Высшее качество образования</p>
+            <h1 data-i18n="heroTitle">Школа-лицей №119 — фундамент вашего успешного будущего</h1>
+            <p class="hero-text" data-i18n="heroText">
+              Мы формируем сильных, уверенных и ярких учеников через академические
+              профили, инновационные лаборатории и личный подход к каждому.
+            </p>
+            <div class="hero-actions">
+              <a href="#about" class="btn btn-primary" data-i18n="heroBtnPrimary">Узнать подробнее</a>
+              <a href="#academic" class="btn btn-secondary" data-i18n="heroBtnSecondary">Виртуальный тур</a>
+            </div>
+            <ul class="hero-highlights">
+              <li data-i18n="heroHighlight1">✔ Успешная подготовка к ЕНТ и поступлению в вузы</li>
+              <li data-i18n="heroHighlight2">✔ Программы STEM, ИТ и естественных наук</li>
+              <li data-i18n="heroHighlight3">✔ Современные цифровые пространства и лаборатории</li>
+            </ul>
+          </div>
+
+          <div class="hero-card" aria-label="Информация о лицее">
+            <div class="hero-card-top">
+              <span class="badge">2026</span>
+              <span class="mini-pill" data-i18n="heroCardPill">Новый учебный год</span>
+            </div>
+            <h3 data-i18n="heroCardTitle">Профессиональное развитие и лидерство</h3>
+            <p data-i18n="heroCardText">
+              Лицейский формат обучения сочетает академическую глубину, творческую
+              среду и поддержку наставников.
+            </p>
+            <div class="hero-card-metrics">
+              <div>
+                <strong>95+</strong>
+                <span data-i18n="heroMetric1">средний балл ЕНТ</span>
+              </div>
+              <div>
+                <strong>40+</strong>
+                <span data-i18n="heroMetric2">педагогов и наставников</span>
+              </div>
+              <div>
+                <strong>5</strong>
+                <span data-i18n="heroMetric3">современных STEM-лабораторий</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section class="about-section" id="about">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow" data-i18n="aboutEyebrow">О Школе-лицее</p>
+            <h2 data-i18n="aboutTitle">История, миссия и современный подход</h2>
+          </div>
+
+          <div class="about-intro">
+            <div class="about-text">
+              <h3 data-i18n="aboutIntroTitle">КГУ «Школа-лицей №119» Управления образования города Алматы</h3>
+              <p data-i18n="aboutIntroText">
+                Школа была открыта в конце 1980-х годов, в период активной застройки микрорайонов 
+                «Аксай». Изначально она работала как обычная средняя общеобразовательная школа, но 
+                позже, благодаря высокому уровню преподавания и академическим достижениям, 
+                получила статус «школы-лицея». Сегодня это признанный центр качественного образования 
+                в Алматы.
+              </p>
+            </div>
+          </div>
+
+          <div class="about-grid">
+            <article class="about-card">
+              <span class="about-icon">⏰</span>
+              <h4 data-i18n="aboutCard1Title">График работы</h4>
+              <p>
+                <span data-i18n="aboutCard1Line1">Понедельник — суббота</span><br />
+                <strong>07:00 — 20:00</strong><br />
+                <span class="muted-text" data-i18n="aboutCard1Line3">Обучение в две смены</span>
+              </p>
+            </article>
+
+            <article class="about-card">
+              <span class="about-icon">🌐</span>
+              <h4 data-i18n="aboutCard2Title">Языки обучения</h4>
+              <p>
+                <span data-i18n="aboutCard2Line1">Казахский и русский</span><br />
+                <strong data-i18n="aboutCard2Line2">Смешанная школа</strong><br />
+                <span class="muted-text" data-i18n="aboutCard2Line3">Классы с разными языками обучения</span>
+              </p>
+            </article>
+
+            <article class="about-card">
+              <span class="about-icon">🎓</span>
+              <h4 data-i18n="aboutCard3Title">Особенности</h4>
+              <p>
+                <span data-i18n="aboutCard3Line1">Углубленное изучение</span><br />
+                <strong data-i18n="aboutCard3Line2">профильных предметов</strong><br />
+                <span class="muted-text" data-i18n="aboutCard3Line3">Естественно-математическое направление</span>
+              </p>
+            </article>
+
+            <article class="about-card">
+              <span class="about-icon">📍</span>
+              <h4 data-i18n="aboutCard4Title">Адрес</h4>
+              <p>
+                <span data-i18n="aboutCard4Line1">Ауэзовский район</span><br />
+                <strong>Аксай-4, д. 45/46</strong><br />
+                <span class="muted-text" data-i18n="aboutCard4Line3">г. Алматы, 8 микрорайон</span>
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats Section -->
+      <section class="stats-section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow" data-i18n="statsEyebrow">Наши достижения</p>
+            <h2 data-i18n="statsTitle">Результаты, которые действительно говорят о качестве</h2>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <div class="stat-icon">📈</div>
+              <h3>95+</h3>
+              <p data-i18n="stat1Text">Средний балл ЕНТ среди выпускников</p>
+            </article>
+            <article class="stat-card">
+              <div class="stat-icon">👩‍🏫</div>
+              <h3>40+</h3>
+              <p data-i18n="stat2Text">Педагогов и наставников, работающих с детьми</p>
+            </article>
+            <article class="stat-card">
+              <div class="stat-icon">🧪</div>
+              <h3>5</h3>
+              <p data-i18n="stat3Text">Современных STEM-лабораторий</p>
+            </article>
+            <article class="stat-card">
+              <div class="stat-icon">🌐</div>
+              <h3>100%</h3>
+              <p data-i18n="stat4Text">Цифровая поддержка обучения и коммуникации</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Profiles Section -->
+      <section class="profiles-section" id="academic">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow" data-i18n="profilesEyebrow">Академические профили</p>
+            <h2 data-i18n="profilesTitle">Направления, которые раскрывают талант и формируют карьеру</h2>
+          </div>
+
+          <div class="profiles-grid">
+            <article class="profile-card accent-green">
+              <h3 data-i18n="profile1Title">Физико-математический</h3>
+              <p data-i18n="profile1Text">
+                Глубокое погружение в математику, физику, алгоритмы и проектную
+                деятельность.
+              </p>
+              <button type="button" class="details-toggle" data-i18n="profile1Link">Подробнее</button>
+              <div class="profile-details" data-i18n="profile1Details">Полная информация о физико-математическом профиле с примерами проектов, учебными дисциплинами и карьерными перспективами.</div>
+            </article>
+            <article class="profile-card accent-mint">
+              <h3 data-i18n="profile2Title">Технологический</h3>
+              <p data-i18n="profile2Text">
+                ИТ, программирование, инженерные идеи и цифровые решения для
+                будущих специалистов.
+              </p>
+              <button type="button" class="details-toggle" data-i18n="profile2Link">Подробнее</button>
+              <div class="profile-details" data-i18n="profile2Details">Полная информация о технологическом профиле: программирование, цифровое проектирование и практика в IT-проектах.</div>
+            </article>
+            <article class="profile-card accent-dark">
+              <h3 data-i18n="profile3Title">Биологический</h3>
+              <p data-i18n="profile3Text">
+                Наука, медицина, экология и лабораторные исследования в современной
+                среде.
+              </p>
+              <button type="button" class="details-toggle" data-i18n="profile3Link">Подробнее</button>
+              <div class="profile-details" data-i18n="profile3Details">Полная информация о биологическом профиле: лабораторные исследования, экология и подготовка к естественно-научным направлениям.</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- News Section -->
+      <section class="news-section" id="news">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow" data-i18n="newsEyebrow">Новости и события</p>
+            <h2 data-i18n="newsTitle">Актуальные события из жизни лицея</h2>
+          </div>
+
+          <div class="news-grid">
+            <article class="news-card large-card">
+              <span class="news-tag" data-i18n="newsTag1">Открытие</span>
+              <h3 data-i18n="newsTitle1">Новая STEM-лаборатория приняла первых исследователей</h3>
+              <p data-i18n="newsText1">
+                Ученики уже работают над проектами в области робототехники и умных
+                систем.
+              </p>
+            </article>
+            <article class="news-card">
+              <span class="news-tag" data-i18n="newsTag2">Конкурс</span>
+              <h3 data-i18n="newsTitle2">Лицейские команды стали призёрами городского фестиваля</h3>
+            </article>
+            <article class="news-card">
+              <span class="news-tag" data-i18n="newsTag3">Мероприятие</span>
+              <h3 data-i18n="newsTitle3">День открытых дверей собрал более 400 родителей и учеников</h3>
+            </article>
+            <article class="news-card">
+              <span class="news-tag" data-i18n="newsTag4">Партнёрство</span>
+              <h3 data-i18n="newsTitle4">Новые проекты с вузами и технологическими компаниями</h3>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contacts">
+      <div class="container footer-grid">
+        <div>
+          <h3 data-i18n="footerTitle">Школа-лицей №119</h3>
+          <p data-i18n="footerText">Школа-лицей №119 Алматы, 8 микрорайон — современная образовательная среда для роста, знаний и будущих побед.</p>
+        </div>
+        <div>
+          <h4 data-i18n="footerContactsTitle">Контакты</h4>
+          <ul>
+            <li>+7 (701) 000-00-00</li>
+            <li>info@lyceum119.kz</li>
+            <li data-i18n="footerAddress">Алматы, 8 микрорайон</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const translations = {
+        ru: {
+          brandTitle: 'Школа-лицей',
+          brandSubtitle: '№119 · Алматы, 8 мкр.',
+          navAbout: 'О школе',
+          navAcademy: 'Академия',
+          navNews: 'Новости',
+          navContacts: 'Контакты',
+          portalBtn: 'Электронный портал',
+          heroEyebrow: 'Высшее качество образования',
+          heroTitle: 'Школа-лицей №119 — фундамент вашего успешного будущего',
+          heroText: 'Мы формируем сильных, уверенных и ярких учеников через академические профили, инновационные лаборатории и личный подход к каждому.',
+          heroBtnPrimary: 'Узнать подробнее',
+          heroBtnSecondary: 'Виртуальный тур',
+          heroCardPill: 'Новый учебный год',
+          heroCardTitle: 'Профессиональное развитие и лидерство',
+          heroCardText: 'Лицейский формат обучения сочетает академическую глубину, творческую среду и поддержку наставников.',
+          heroMetric1: 'средний балл ЕНТ',
+          heroMetric2: 'педагогов и наставников',
+          heroMetric3: 'современных STEM-лабораторий',
+          heroHighlight1: '✔ Успешная подготовка к ЕНТ и поступлению в вузы',
+          heroHighlight2: '✔ Программы STEM, ИТ и естественных наук',
+          heroHighlight3: '✔ Современные цифровые пространства и лаборатории',
+          aboutEyebrow: 'О Школе-лицее',
+          aboutTitle: 'История, миссия и современный подход',
+          aboutIntroTitle: 'КГУ «Школа-лицей №119» Управления образования города Алматы',
+          aboutIntroText: 'Школа была открыта в конце 1980-х годов, в период активной застройки микрорайонов «Аксай». Изначально она работала как обычная средняя общеобразовательная школа, но позже, благодаря высокому уровню преподавания и академическим достижениям, получила статус «школы-лицея». Сегодня это признанный центр качественного образования в Алматы.',
+          aboutCard1Title: 'График работы',
+          aboutCard1Line1: 'Понедельник — суббота',
+          aboutCard1Line3: 'Обучение в две смены',
+          aboutCard2Title: 'Языки обучения',
+          aboutCard2Line1: 'Казахский и русский',
+          aboutCard2Line2: 'Смешанная школа',
+          aboutCard2Line3: 'Классы с разными языками обучения',
+          aboutCard3Title: 'Особенности',
+          aboutCard3Line1: 'Углубленное изучение',
+          aboutCard3Line2: 'профильных предметов',
+          aboutCard3Line3: 'Естественно-математическое направление',
+          aboutCard4Title: 'Адрес',
+          aboutCard4Line1: 'Ауэзовский район',
+          aboutCard4Line3: 'г. Алматы, 8 микрорайон',
+          statsEyebrow: 'Наши достижения',
+          statsTitle: 'Результаты, которые действительно говорят о качестве',
+          stat1Text: 'Средний балл ЕНТ среди выпускников',
+          stat2Text: 'Педагогов и наставников, работающих с детьми',
+          stat3Text: 'Современных STEM-лабораторий',
+          stat4Text: 'Цифровая поддержка обучения и коммуникации',
+          profilesEyebrow: 'Академические профили',
+          profilesTitle: 'Направления, которые раскрывают талант и формируют карьеру',
+          profile1Title: 'Физико-математический',
+          profile1Text: 'Глубокое погружение в математику, физику, алгоритмы и проектную деятельность.',
+          profile1Link: 'Подробнее',
+          profile1Collapse: 'Свернуть',
+          profile1Details: 'Полная информация о физико-математическом профиле с примерами проектов, учебными дисциплинами и карьерными перспективами.',
+          profile2Title: 'Технологический',
+          profile2Text: 'ИТ, программирование, инженерные идеи и цифровые решения для будущих специалистов.',
+          profile2Link: 'Подробнее',
+          profile2Collapse: 'Свернуть',
+          profile2Details: 'Полная информация о технологическом профиле: программирование, цифровое проектирование и практика в IT-проектах.',
+          profile3Title: 'Биологический',
+          profile3Text: 'Наука, медицина, экология и лабораторные исследования в современной среде.',
+          profile3Link: 'Подробнее',
+          profile3Collapse: 'Свернуть',
+          profile3Details: 'Полная информация о биологическом профиле: лабораторные исследования, экология и подготовка к естественно-научным направлениям.',
+          newsEyebrow: 'Новости и события',
+          newsTitle: 'Актуальные события из жизни лицея',
+          newsTag1: 'Открытие',
+          newsTitle1: 'Новая STEM-лаборатория приняла первых исследователей',
+          newsText1: 'Ученики уже работают над проектами в области робототехники и умных систем.',
+          newsTag2: 'Конкурс',
+          newsTitle2: 'Лицейские команды стали призёрами городского фестиваля',
+          newsTag3: 'Мероприятие',
+          newsTitle3: 'День открытых дверей собрал более 400 родителей и учеников',
+          newsTag4: 'Партнёрство',
+          newsTitle4: 'Новые проекты с вузами и технологическими компаниями',
+          footerTitle: 'Школа-лицей №119',
+          footerText: 'Школа-лицей №119 Алматы, 8 микрорайон — современная образовательная среда для роста, знаний и будущих побед.',
+          footerContactsTitle: 'Контакты',
+          footerAddress: 'Алматы, 8 микрорайон'
+        },
+        kk: {
+          brandTitle: 'Мектеп-лицей',
+          brandSubtitle: '№119 · Алматы, 8 мкр.',
+          navAbout: 'Мектеп туралы',
+          navAcademy: 'Академия',
+          navNews: 'Жаңалықтар',
+          navContacts: 'Байланыстар',
+          portalBtn: 'Электрондық портал',
+          heroEyebrow: 'Білім берудің жоғары сапасы',
+          heroTitle: '№119 мектеп-лицей — сіздің табысты болашағыңыздың негізі',
+          heroText: 'Біз академиялық профилдер, инновациялық зертханалар және әр оқушыға жеке көзқарас арқылы күшті, сенімді және жарқын оқушыларды қалыптастырамыз.',
+          heroBtnPrimary: 'Толығырақ',
+          heroBtnSecondary: 'Виртуалды тур',
+          heroCardPill: 'Жаңа оқу жылы',
+          heroCardTitle: 'Кәсіби даму және көшбасшылық',
+          heroCardText: 'Лицей форматы оқыту академиялық тереңдікті, шығармашылық ортаны және ұстаздардың қолдауы мен тәжірибесін біріктіреді.',
+          heroMetric1: 'ЕНТ орта баллы',
+          heroMetric2: 'мұғалімдер мен ұстаздар',
+          heroMetric3: 'заманауи STEM-зертханалары',
+          heroHighlight1: '✔ ЕНТ және жоғарғы оқу орнына түсуге табысты дайындық',
+          heroHighlight2: '✔ STEM, IT және жаратылыстану ғылымдары бағдарламалары',
+          heroHighlight3: '✔ Заманауи цифрлық кеңістіктер мен зертханалар',
+          aboutEyebrow: 'Мектеп-лицей туралы',
+          aboutTitle: 'Тарихы, миссиясы және заманауи тәсілі',
+          aboutIntroTitle: 'Алматы қаласы білім басқармасының «№119 мектеп-лицейі» КММ',
+          aboutIntroText: 'Мектеп 1980-ші жылдардың соңында «Ақсай» тұрғын аудандарының белсенді құрылуы кезеңінде ашылды. Бастапқыда ол жай орта мектеп болды, бірақ кейін оқыту деңгейі мен академиялық жетістіктері үшін «мектеп-лицей» мәртебесін алды. Бүгінде бұл Алматыдағы жоғары сапалы білім беру орталығы.',
+          aboutCard1Title: 'Жұмыс кестесі',
+          aboutCard1Line1: 'Дүйсенбі — сенбі',
+          aboutCard1Line3: 'Екі ауысымда оқыту',
+          aboutCard2Title: 'Оқыту тілдері',
+          aboutCard2Line1: 'Қазақ және орыс',
+          aboutCard2Line2: 'Аралас мектеп',
+          aboutCard2Line3: 'Әр түрлі оқыту тілдері бар сыныптар',
+          aboutCard3Title: 'Ерекшеліктері',
+          aboutCard3Line1: 'Тереңдетілген оқу',
+          aboutCard3Line2: 'профильдік пәндер',
+          aboutCard3Line3: 'Жаратылыстану-математикалық бағыт',
+          aboutCard4Title: 'Мекен-жай',
+          aboutCard4Line1: 'Әуезов ауданы',
+          aboutCard4Line3: 'Алматы, 8 микрорайон',
+          statsEyebrow: 'Біздің жетістіктеріміз',
+          statsTitle: 'Сапаны шын мәнінде көрсететін нәтижелер',
+          stat1Text: 'Түлектер арасындағы ЕНТ орта баллы',
+          stat2Text: 'Балалармен жұмыс істейтін мұғалімдер мен ұстаздар',
+          stat3Text: 'Заманауи STEM-зертханалары',
+          stat4Text: 'Білім беруді және коммуникацияны цифрлық қолдау',
+          profilesEyebrow: 'Академиялық профилдер',
+          profilesTitle: 'Талантты ашатын және мансап түзетін бағыттар',
+          profile1Title: 'Физика-математика',
+          profile1Text: 'Математика, физика, алгоритмдер және жобалық қызметке терең ену.',
+          profile1Link: 'Толығырақ',
+          profile1Collapse: 'Жабу',
+          profile1Details: 'Физика-математика профилі туралы толық ақпарат: жобалар, пәндер және мансаптық перспективалар.',
+          profile2Title: 'Технологиялық',
+          profile2Text: 'ИТ, бағдарламалау, инженерлік идеялар және болашақ мамандар үшін цифрлық шешімдер.',
+          profile2Link: 'Толығырақ',
+          profile2Collapse: 'Жабу',
+          profile2Details: 'Технологиялық профилі туралы толық ақпарат: бағдарламалау, цифрлық жобалау және IT жобалардағы тәжірибе.',
+          profile3Title: 'Биологиялық',
+          profile3Text: 'Жаратылыстану, медицина, экология және заманауи ортадағы зертханалық зерттеулер.',
+          profile3Link: 'Толығырақ',
+          profile3Collapse: 'Жабу',
+          profile3Details: 'Биология профилі туралы толық ақпарат: зертханалық зерттеулер, экология және жаратылыстану бағыттарына дайындық.',
+          newsEyebrow: 'Жаңалықтар мен оқиғалар',
+          newsTitle: 'Лицей өмірінен өзекті оқиғалар',
+          newsTag1: 'Ашылу',
+          newsTitle1: 'Жаңа STEM-зертханасы алғашқы зерттеушілерді қабылдады',
+          newsText1: 'Оқушылар робототехника және интеллектуалды жүйелер саласындағы жобалармен жұмыс істеп жатыр.',
+          newsTag2: 'Конкурс',
+          newsTitle2: 'Лицей командасы қалалық фестивальдың жүлдегерлері болды',
+          newsTag3: 'Іс-шара',
+          newsTitle3: 'Ашық есік күні 400-ден астам ата-ана мен оқушыларды жинады',
+          newsTag4: 'Серіктестік',
+          newsTitle4: 'Жоғары оқу орындарымен және технологиялық компаниялармен жаңа жобалар',
+          footerTitle: '№119 мектеп-лицей',
+          footerText: '№119 мектеп-лицей, Алматы, 8 микрорайон — өсу, білім және болашақ жеңістер үшін заманауи білім беру ортасы.',
+          footerContactsTitle: 'Байланыстар',
+          footerAddress: 'Алматы, 8 микрорайон'
+        }
+      };
+
+      const toggleButton = document.getElementById('langToggle');
+      const langOptions = document.querySelectorAll('.lang-option');
+      const elementsToTranslate = document.querySelectorAll('[data-i18n]');
+      let currentLang = 'ru';
+
+      function applyLanguage(lang) {
+        currentLang = lang;
+        document.documentElement.lang = lang;
+        elementsToTranslate.forEach((element) => {
+          const key = element.getAttribute('data-i18n');
+          if (translations[lang][key]) {
+            element.textContent = translations[lang][key];
+          }
+        });
+        langOptions.forEach((option) => {
+          option.classList.toggle('active', option.dataset.lang === lang);
+        });
+      }
+
+      function setupProfileDetails() {
+        const profileCards = document.querySelectorAll('.profile-card');
+        profileCards.forEach((card, index) => {
+          const toggle = card.querySelector('.details-toggle');
+          const details = card.querySelector('.profile-details');
+          if (!toggle || !details) return;
+
+          toggle.addEventListener('click', () => {
+            const expanded = card.classList.toggle('expanded');
+            const key = expanded ? `profile${index + 1}Collapse` : `profile${index + 1}Link`;
+            const translation = translations[currentLang][key];
+            if (translation) {
+              toggle.textContent = translation;
+            }
+          });
+        });
+      }
+
+      toggleButton.addEventListener('click', () => {
+        applyLanguage(currentLang === 'ru' ? 'kk' : 'ru');
+      });
+
+      const menuToggle = document.getElementById('menuToggle');
+      const mainNav = document.getElementById('mainNav');
+
+      if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = mainNav.classList.toggle('open');
+          menuToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+      }
+
+      applyLanguage(currentLang);
+      setupProfileDetails();
+    </script>
+  </body>
+</html>

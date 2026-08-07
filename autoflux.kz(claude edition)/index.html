@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AutoFlux.kz — автомобили в Казахстане</title>
+    <meta
+      name="description"
+      content="AutoFlux.kz — новый автомобильный маркетплейс для поиска, продажи и проверки авто по Казахстану."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="#">
+          <img src="assets/autoflux-logo.svg" alt="AutoFlux.kz логотип" />
+        </a>
+        <div class="topbar-actions">
+          <button class="pill-btn" id="profileOpen">Профиль</button>
+          <button class="pill-btn" id="chatsOpen">Чаты</button>
+          <button class="pill-btn" id="addListingOpen">+ Объявление</button>
+          <button class="mobile-toggle" aria-label="Открыть меню">☰</button>
+        </div>
+        <nav class="nav-links">
+          <a href="#catalog">Объявления</a>
+          <a href="#benefits">Преимущества</a>
+          <a href="#brands">Бренды</a>
+          <a href="#app">Приложение</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Новый автомобильный marketplace для Казахстана</p>
+            <h1>Найди машину <span>быстро</span>, безопасно и выгодно.</h1>
+            <p class="hero-text">
+              AutoFlux.kz объединяет реальные объявления, проверку истории,
+              удобный поиск и поддержку по каждому шагу покупки.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#catalog">Смотреть авто</a>
+              <a class="btn btn-secondary" href="#app">Оценить приложение</a>
+            </div>
+            <div class="hero-tags">
+              <span>Проверка истории</span>
+              <span>Кредит и рассрочка</span>
+              <span>Поддержка 24/7</span>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div class="card-top">
+              <div>
+                <p class="card-label">Популярные сейчас</p>
+                <h3>Топ предложения</h3>
+              </div>
+              <span class="pill">+18% за неделю</span>
+            </div>
+            <div class="mini-list">
+              <div class="mini-item">
+                <strong>Toyota Camry 2023</strong>
+                <span>9.8 млн ₸</span>
+              </div>
+              <div class="mini-item">
+                <strong>Hyundai Tucson 2022</strong>
+                <span>8.2 млн ₸</span>
+              </div>
+              <div class="mini-item">
+                <strong>Kia Sportage 2021</strong>
+                <span>7.4 млн ₸</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="stats">
+          <div class="stat-card">
+            <strong>12 000+</strong>
+            <span>активных объявлений</span>
+          </div>
+          <div class="stat-card">
+            <strong>94%</strong>
+            <span>довольных клиентов</span>
+          </div>
+          <div class="stat-card">
+            <strong>48 часов</strong>
+            <span>среднее время сделки</span>
+          </div>
+        </section>
+
+        <section id="catalog" class="section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Новые объявления</p>
+              <h2>Подборка сильных предложений</h2>
+            </div>
+          </div>
+
+          <div class="filters-panel">
+            <input id="searchInput" type="text" placeholder="Поиск по названию" />
+            <select id="cityFilter">
+              <option value="">Все города</option>
+              <option value="Алматы">Алматы</option>
+              <option value="Астана">Астана</option>
+              <option value="Шымкент">Шымкент</option>
+              <option value="Караганда">Караганда</option>
+            </select>
+            <input id="priceFilter" type="number" min="0" placeholder="Цена до" />
+            <select id="categoryFilter">
+              <option value="all">Все</option>
+              <option value="budget">До 2 млн ₸</option>
+              <option value="pitbike">Питбайки/Мопеды</option>
+              <option value="electric">Электро</option>
+            </select>
+            <button id="clearFilters" class="btn btn-secondary">Сброс</button>
+          </div>
+
+          <div id="listingsGrid" class="card-grid"></div>
+        </section>
+
+        <section id="benefits" class="section split-grid">
+          <div class="panel">
+            <p class="eyebrow">Почему AutoFlux</p>
+            <h2>Платформа, которая делает покупку проще.</h2>
+            <ul class="feature-list">
+              <li>Умный поиск по марке, модели, цене и региону</li>
+              <li>Подробная история авто и юридическая проверка</li>
+              <li>Мгновенная связь с продавцом и безопасные сделки</li>
+            </ul>
+          </div>
+          <div class="panel accent-panel">
+            <h3>Сервис для продавцов</h3>
+            <p>Поднимайте объявления, добавляйте фото и получайте больше контактов.</p>
+            <a class="btn btn-primary" href="#catalog">Подать объявление</a>
+          </div>
+        </section>
+
+        <section id="brands" class="section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Популярные бренды</p>
+              <h2>Автомобили, которые выбирают чаще всего</h2>
+            </div>
+          </div>
+          <div class="brands-row">
+            <span>Toyota</span>
+            <span>Hyundai</span>
+            <span>Kia</span>
+            <span>BMW</span>
+            <span>Mercedes</span>
+            <span>Volkswagen</span>
+          </div>
+        </section>
+
+        <section id="app" class="section app-section">
+          <div class="app-copy">
+            <p class="eyebrow">Мобильное приложение</p>
+            <h2>Смотрите объявления прямо с телефона.</h2>
+            <p>
+              Уведомления о новых предложениях, быстрый поиск и удобный чат — всё в одном приложении.
+            </p>
+            <a class="btn btn-primary" href="#">Скоро в App Store и Google Play</a>
+          </div>
+          <div class="phone-card">
+            <div class="phone-screen">
+              <h3>AutoFlux</h3>
+              <p>Новые подборки каждый день</p>
+              <div class="phone-chip">Toyota • BMW • Kia</div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div>
+          <strong>AutoFlux.kz</strong>
+          <p>Автомобильный маркетплейс нового поколения.</p>
+        </div>
+        <div>
+          <a href="#">О проекте</a>
+          <a href="#">Контакты</a>
+          <a href="#">Поддержка</a>
+        </div>
+      </footer>
+    </div>
+
+    <div class="overlay hidden" id="overlay"></div>
+
+    <div class="modal hidden" id="promoModal">
+      <h3>Продвинуть объявление</h3>
+      <p id="promoTitle">Объявление</p>
+      <div class="promo-options">
+        <button class="promo-option" data-promo-type="top">Поднять в ТОП — 500 ₸</button>
+        <button class="promo-option" data-promo-type="vip">VIP-выделение — 1 000 ₸</button>
+      </div>
+    </div>
+
+    <div class="modal hidden" id="profileModal">
+      <div class="modal-tabs">
+        <button class="tab-btn active" data-tab="profile">Профиль</button>
+        <button class="tab-btn" data-tab="my-listings">Мои объявления</button>
+      </div>
+      <div class="tab-panel" id="profileTab">
+        <form id="profileForm">
+          <label>Имя
+            <input type="text" id="profileName" required />
+          </label>
+          <label>Телефон / Telegram
+            <input type="text" id="profileContact" required />
+          </label>
+          <label>Город по умолчанию
+            <input type="text" id="profileCity" required />
+          </label>
+          <button class="btn btn-primary" type="submit">Сохранить</button>
+        </form>
+      </div>
+      <div class="tab-panel hidden" id="myListingsTab">
+        <div id="myListingsList"></div>
+      </div>
+    </div>
+
+    <div class="modal hidden" id="chatsModal">
+      <h3>Мои чаты</h3>
+      <div id="chatsList"></div>
+    </div>
+
+    <div class="modal hidden" id="contactModal">
+      <h3 id="contactTitle">Чат с продавцом</h3>
+      <p id="contactOwner">Контакт</p>
+      <div id="chatThread" class="chat-thread"></div>
+      <textarea id="contactMessage" rows="2" placeholder="Ваше сообщение..."></textarea>
+      <button class="btn btn-primary" id="sendContact">Отправить</button>
+    </div>
+
+    <div class="modal hidden" id="listingModal">
+      <h3>Новое объявление</h3>
+      <form id="listingForm">
+        <label>Название
+          <input type="text" id="listingTitle" required />
+        </label>
+        <label>Город
+          <input type="text" id="listingCity" required />
+        </label>
+        <label>Цена
+          <input type="number" id="listingPrice" required />
+        </label>
+        <label>Категория
+          <select id="listingCategory">
+            <option value="all">Все</option>
+            <option value="budget">До 2 млн ₸</option>
+            <option value="pitbike">Питбайки/Мопеды</option>
+            <option value="electric">Электро</option>
+          </select>
+        </label>
+        <button class="btn btn-primary" type="submit">Опубликовать</button>
+      </form>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

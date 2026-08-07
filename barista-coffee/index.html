@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barista Coffee — авторский кофе и уютные кофейни</title>
+  <meta name="description" content="Barista Coffee — сеть уютных кофеен. Авторский кофе, интернет-магазин, аренда кофемашин, ремонт и франшиза.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+
+  <!-- Swiper.js -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ======= HEADER / NAV ======= -->
+  <header class="site-header" id="header">
+    <div class="container header-inner">
+      <a href="#hero" class="logo">
+        <img src="https://static.tildacdn.pro/tild6432-6564-4130-b331-303531326633/Barista_Ow.png" alt="Barista Coffee логотип" class="logo-img">
+      </a>
+      <nav class="main-nav" id="mainNav" aria-label="Главная навигация">
+        <a href="#hero">Главная</a>
+        <a href="#shop">Интернет-магазин</a>
+        <a href="#rental">Аренда аппаратов</a>
+        <a href="#repair">Ремонт кофемашин</a>
+        <a href="#franchise">Франшиза</a>
+        <a href="#partners">Партнёры</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <div class="header-actions">
+        <button class="cart-btn" id="cartToggle" aria-label="Открыть корзину">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M6 6h15l-1.5 9h-12L5 3H2"/><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/>
+          </svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="nav-toggle" id="navToggle" aria-label="Открыть меню">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======= HERO ======= -->
+  <section class="hero" id="hero">
+    <div class="swiper hero-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide hero-slide hero-slide--1"></div>
+        <div class="swiper-slide hero-slide hero-slide--2"></div>
+        <div class="swiper-slide hero-slide hero-slide--3"></div>
+        <div class="swiper-slide hero-slide hero-slide--4"></div>
+        <div class="swiper-slide hero-slide hero-slide--5"></div>
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="swiper-pagination hero-pagination"></div>
+    </div>
+    <div class="container hero-content">
+      <span class="hero-badge">Сеть кофеен · С 2015 года</span>
+      <h1 class="hero-title">Barista&nbsp;Coffee — <em>авторский кофе</em> и уютные кофейни</h1>
+      <p class="hero-subtitle">Свежеобжаренные зёрна, профессионализм бариста и атмосфера, в которую хочется возвращаться.</p>
+      <div class="hero-buttons">
+        <a href="#shop" class="btn btn-primary">Попробовать кофе</a>
+        <a href="#franchise" class="btn btn-outline">Открыть франшизу</a>
+      </div>
+    </div>
+    <a href="#shop" class="hero-scroll" aria-label="Прокрутить вниз">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </a>
+  </section>
+
+  <!-- ======= INTERNET SHOP ======= -->
+  <section class="shop section" id="shop">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Интернет-магазин</span>
+        <h2 class="section-title">Каталог товаров</h2>
+        <p class="section-desc">Кофе, аксессуары и кофемашины для дома и офиса с доставкой по всему Казахстану.</p>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters" id="filters">
+        <div class="filter-group">
+          <label>Поиск</label>
+          <input type="text" id="searchInput" class="filter-input" placeholder="Найти кофе, чашку, аппарат...">
+        </div>
+        <div class="filter-group">
+          <label>Категория</label>
+          <select id="categoryFilter" class="filter-select">
+            <option value="all">Все категории</option>
+            <option value="coffee">Кофе</option>
+            <option value="accessories">Аксессуары</option>
+            <option value="machines">Аппараты</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Цена, ₸</label>
+          <div class="price-range">
+            <input type="number" id="minPrice" class="filter-input" placeholder="от" min="0">
+            <span>—</span>
+            <input type="number" id="maxPrice" class="filter-input" placeholder="до" min="0">
+          </div>
+        </div>
+        <div class="filter-group">
+          <label>Сортировка</label>
+          <select id="sortFilter" class="filter-select">
+            <option value="default">По умолчанию</option>
+            <option value="popular">По популярности</option>
+            <option value="price-asc">Цена: по возрастанию</option>
+            <option value="price-desc">Цена: по убыванию</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Products grid -->
+      <div class="products-grid" id="productsGrid"></div>
+      <p class="empty-state" id="emptyState" hidden>По вашему запросу ничего не найдено. Попробуйте изменить фильтры.</p>
+    </div>
+  </section>
+
+  <!-- ======= CART MODAL ======= -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-panel" id="cartPanel" aria-label="Корзина">
+    <div class="cart-panel-head">
+      <h3>Ваша корзина</h3>
+      <button class="cart-close" id="cartClose" aria-label="Закрыть корзину">×</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-empty" id="cartEmpty">
+      <p>Корзина пока пуста.</p>
+      <p>Добавьте что-нибудь вкусное!</p>
+    </div>
+    <div class="cart-footer" id="cartFooter" hidden>
+      <div class="cart-total">
+        <span>Итого:</span>
+        <strong id="cartTotal">0 ₸</strong>
+      </div>
+      <button class="btn btn-primary btn-block" id="checkoutBtn">Оформить заказ</button>
+    </div>
+  </aside>
+
+  <!-- Checkout modal -->
+  <div class="modal-overlay" id="checkoutOverlay" hidden>
+    <div class="modal">
+      <button class="modal-close" id="checkoutClose" aria-label="Закрыть">×</button>
+      <h3>Оформление заказа</h3>
+      <form id="checkoutForm">
+        <label>Имя *<input type="text" name="name" required placeholder="Ваше имя"></label>
+        <label>Телефон *<input type="tel" name="phone" required placeholder="+7 (___) ___-__-__"></label>
+        <label>Email<input type="email" name="email" placeholder="you@mail.com"></label>
+        <label>Адрес доставки<input type="text" name="address" placeholder="Город, улица, дом"></label>
+        <label>Комментарий<textarea name="comment" rows="3" placeholder="Комментарий к заказу"></textarea></label>
+        <button type="submit" class="btn btn-primary btn-block">Подтвердить заказ</button>
+      </form>
+      <div class="form-success" id="checkoutSuccess" hidden>
+        <p>Спасибо! Ваш заказ принят. Менеджер свяжется с вами в ближайшее время.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= RENTAL ======= -->
+  <section class="rental section section--cream" id="rental">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Аренда аппаратов</span>
+        <h2 class="section-title">Кофемашины в аренду</h2>
+        <p class="section-desc">Профессиональное оборудование для офиса, кафе, ресторана. Гибкие условия и сервисное сопровождение.</p>
+      </div>
+      <div class="rental-grid" id="rentalGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Rental request modal -->
+  <div class="modal-overlay" id="rentalOverlay" hidden>
+    <div class="modal">
+      <button class="modal-close" id="rentalClose" aria-label="Закрыть">×</button>
+      <h3>Заявка на аренду</h3>
+      <p id="rentalMachineName" class="modal-subtitle"></p>
+      <form id="rentalForm">
+        <label>Имя *<input type="text" name="name" required placeholder="Ваше имя"></label>
+        <label>Телефон *<input type="tel" name="phone" required placeholder="+7 (___) ___-__-__"></label>
+        <label>Компания / Организация<input type="text" name="company" placeholder="Название компании"></label>
+        <label>Комментарий<textarea name="comment" rows="3" placeholder="Расскажите о ваших задачах"></textarea></label>
+        <button type="submit" class="btn btn-primary btn-block">Отправить заявку</button>
+      </form>
+      <div class="form-success" id="rentalSuccess" hidden>
+        <p>Заявка отправлена! Мы свяжемся с вами для уточнения деталей аренды.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= REPAIR ======= -->
+  <section class="repair section" id="repair">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Ремонт кофемашин</span>
+        <h2 class="section-title">Сервисный центр Barista Coffee</h2>
+        <p class="section-desc">Быстрая диагностика, профессиональный ремонт и регулярное обслуживание кофемашин любых брендов.</p>
+      </div>
+
+      <div class="repair-layout">
+        <div class="repair-left">
+          <div class="repair-photo repair-photo--main"></div>
+          <div class="repair-services">
+            <div class="service-card">
+              <span class="service-icon">🔍</span>
+              <h4>Диагностика</h4>
+              <p>Точная оценка состояния оборудования и выявление причин неисправности.</p>
+            </div>
+            <div class="service-card">
+              <span class="service-icon">🔧</span>
+              <h4>Ремонт</h4>
+              <p>Замена узлов, деталей и устранение любых поломок оригинальными запчастями.</p>
+            </div>
+            <div class="service-card">
+              <span class="service-icon">🛡️</span>
+              <h4>Обслуживание</h4>
+              <p>Регулярная чистка, калибровка и профилактика для долгой работы аппарата.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="repair-right">
+          <div class="repair-photo repair-photo--secondary"></div>
+          <div class="repair-form-wrap">
+            <h3>Оставить заявку на ремонт</h3>
+            <form id="repairForm">
+              <label>Имя *<input type="text" name="name" required placeholder="Ваше имя"></label>
+              <label>Телефон *<input type="tel" name="phone" required placeholder="+7 (___) ___-__-__"></label>
+              <label>Описание проблемы *<textarea name="problem" required rows="4" placeholder="Опишите, что случилось с кофемашиной"></textarea></label>
+              <button type="submit" class="btn btn-primary btn-block">Отправить заявку</button>
+            </form>
+            <div class="form-success" id="repairSuccess" hidden>
+              <p>Заявка принята! Мастер свяжется с вами в течение 15 минут.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FRANCHISE ======= -->
+  <section class="franchise section section--dark" id="franchise">
+    <div class="container">
+      <div class="section-head section-head--light">
+        <span class="section-tag section-tag--light">Франшиза</span>
+        <h2 class="section-title">Откройте свою кофейню с Barista Coffee</h2>
+        <p class="section-desc">Готовая бизнес-модель, поддержка на каждом этапе и узнаваемый бренд.</p>
+      </div>
+
+      <!-- Stats -->
+      <div class="franchise-stats">
+        <div class="stat-card">
+          <span class="stat-number" data-target="30">0</span>
+          <span class="stat-label">кофеен в сети</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" data-target="4500000">0</span><span class="stat-suffix"> ₸</span>
+          <span class="stat-label">средний доход в месяц</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" data-target="24">0</span><span class="stat-suffix">/7</span>
+          <span class="stat-label">поддержка партнёров</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" data-target="98">0</span><span class="stat-suffix">%</span>
+          <span class="stat-label">довольных партнёров</span>
+        </div>
+      </div>
+
+      <!-- Steps infographic -->
+      <div class="franchise-steps">
+        <div class="step">
+          <span class="step-number">01</span>
+          <h4>Заявка</h4>
+          <p>Заполните форму и обсудите концепцию с нами</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <span class="step-number">02</span>
+          <h4>Обучение</h4>
+          <p>Полный курс для управляющего и бариста</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <span class="step-number">03</span>
+          <h4>Запуск</h4>
+          <p>Открытие, поставка и запуск вашей кофейни</p>
+        </div>
+      </div>
+
+      <!-- Testimonials -->
+      <div class="testimonials">
+        <div class="swiper testimonials-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">«Открыли кофейню в Алматы всего за 3 месяца. Команда Barista Coffee сопровождала нас на каждом этапе — от выбора помещения до запуска. Окупились за рекордные 11 месяцев!»</p>
+                <div class="testimonial-author">
+                  <span class="avatar">АК</span>
+                  <div><strong>Айгерим К.</strong><span>Партнёр, Алматы</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">«Поддержка 24/7 — это реально. Помогли с поставкой кофемашин и обучением персонала. Выручка растёт каждый месяц. Рекомендую франшизу Barista Coffee всем!»</p>
+                <div class="testimonial-author">
+                  <span class="avatar">ДС</span>
+                  <div><strong>Данияр С.</strong><span>Партнёр, Астана</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">«Качество кофе и рецептуры на высшем уровне. Гости всегда в восторге. Barista Coffee — это семья, которая поддержит в любой ситуации.»</p>
+                <div class="testimonial-author">
+                  <span class="avatar">МЖ</span>
+                  <div><strong>Малика Ж.</strong><span>Партнёр, Шымкент</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+
+      <div class="franchise-cta">
+        <a href="#franchiseForm" class="btn btn-primary btn-lg scroll-to">Узнать подробнее</a>
+      </div>
+
+      <!-- Franchise form -->
+      <div class="franchise-form-wrap" id="franchiseForm">
+        <h3>Заявка на франшизу</h3>
+        <form id="franchiseFormEl">
+          <div class="form-row">
+            <label>Имя *<input type="text" name="name" required placeholder="Ваше имя"></label>
+            <label>Телефон *<input type="tel" name="phone" required placeholder="+7 (___) ___-__-__"></label>
+          </div>
+          <div class="form-row">
+            <label>Город<input type="text" name="city" placeholder="Ваш город"></label>
+            <label>Бюджет<select name="budget"><option>до 10 млн ₸</option><option>10–20 млн ₸</option><option>более 20 млн ₸</option></select></label>
+          </div>
+          <label>Комментарий<textarea name="comment" rows="3" placeholder="Расскажите о вашем опыте и планах"></textarea></label>
+          <button type="submit" class="btn btn-primary btn-block">Отправить заявку</button>
+        </form>
+        <div class="form-success" id="franchiseSuccess" hidden>
+          <p>Спасибо за интерес к франшизе! Наш менеджер свяжется с вами в течение дня.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= PARTNERS ======= -->
+  <section class="partners section" id="partners">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Партнёры</span>
+        <h2 class="section-title">Нам доверяют</h2>
+        <p class="section-desc">Мы сотрудничаем с ведущими производителями кофе и оборудования.</p>
+      </div>
+
+      <div class="partners-logos">
+        <div class="partner-logo"><img src="https://static.tildacdn.pro/tild6462-3862-4632-b735-393461383036/bi.png" alt="Логотип партнёра 1"></div>
+        <div class="partner-logo"><img src="https://static.tildacdn.pro/tild6366-6562-4133-b437-653266626162/de.png" alt="Логотип партнёра 2"></div>
+        <div class="partner-logo"><img src="https://static.tildacdn.pro/tild3365-6536-4363-a238-613761666463/hc.png" alt="Логотип партнёра 3"></div>
+        <div class="partner-logo"><img src="https://static.tildacdn.pro/tild6364-3832-4663-b466-653431383932/tt.png" alt="Логотип партнёра 4"></div>
+        <div class="partner-logo"><img src="https://static.tildacdn.pro/tild6238-6238-4135-b862-393838666535/res.png" alt="Логотип партнёра 5"></div>
+        <div class="partner-logo"><img src="https://static.tildacdn.pro/tild3833-3638-4636-b430-373337396237/td.png" alt="Логотип партнёра 6"></div>
+        <div class="partner-logo"><img src="https://static.tildacdn.pro/tild6135-3463-4364-b039-323333373666/papa.png" alt="Логотип партнёра 7"></div>
+        <div class="partner-logo"><img src="https://static.tildacdn.pro/tild3534-3161-4462-b364-663566653138/unnamed-2.jpg" alt="Логотип партнёра 8"></div>
+      </div>
+
+      <div class="partner-cards">
+        <div class="partner-card">
+          <div class="partner-photo partner-photo--1"></div>
+          <h4>Кофейные бренды</h4>
+          <p>Прямые поставки свежеобжаренного кофе от лучших мировых обжарщиков.</p>
+        </div>
+        <div class="partner-card">
+          <div class="partner-photo partner-photo--2"></div>
+          <h4>Производители техники</h4>
+          <p>Сертифицированное оборудование для кофеен и домашнего использования.</p>
+        </div>
+        <div class="partner-card">
+          <div class="partner-photo partner-photo--3"></div>
+          <h4>Логистика и доставка</h4>
+          <p>Надёжные партнёры по доставке кофе и аппаратов в любой город.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CONTACTS ======= -->
+  <section class="contacts section section--cream" id="contacts">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Контакты</span>
+        <h2 class="section-title">Свяжитесь с нами</h2>
+        <p class="section-desc">Мы всегда рады ответить на ваши вопросы.</p>
+      </div>
+
+      <div class="contacts-layout">
+        <div class="contacts-info">
+          <div class="contact-item">
+            <span class="contact-icon">📍</span>
+            <div>
+              <h4>Адрес</h4>
+              <p>г. Алматы, пр. Абая 123, БЦ «Бар»</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📞</span>
+            <div>
+              <h4>Телефон</h4>
+              <p><a href="tel:+77273553455">+7 (727) 355-34-55</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">✉️</span>
+            <div>
+              <h4>Email</h4>
+              <p><a href="mailto:info@baristacoffee.kz">info@baristacoffee.kz</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">🕒</span>
+            <div>
+              <h4>Режим работы</h4>
+              <p>Ежедневно с 8:00 до 23:00</p>
+            </div>
+          </div>
+          <div class="contact-item contact-item--instagram">
+            <span class="contact-icon">📷</span>
+            <div>
+              <h4>Instagram</h4>
+              <p><a href="https://www.instagram.com/baristacoffee.kz/" target="_blank" rel="noopener noreferrer">@baristacoffee.kz</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap">
+          <h3>Форма обратной связи</h3>
+          <form id="contactForm">
+            <label>Имя *<input type="text" name="name" required placeholder="Ваше имя"></label>
+            <label>Телефон или email *<input type="text" name="contact" required placeholder="+7 (___) ___-__-__ или email"></label>
+            <label>Сообщение *<textarea name="message" required rows="4" placeholder="Ваше сообщение"></textarea></label>
+            <button type="submit" class="btn btn-primary btn-block">Отправить сообщение</button>
+          </form>
+          <div class="form-success" id="contactSuccess" hidden>
+            <p>Сообщение отправлено! Мы ответим вам в ближайшее время.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2906.0!2d76.945!3d43.222!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDEzJzE5LjIiTiA3NsKwNTYnNDIuMCJF!5e0!3m2!1sru!2skz!4v1610000000000!5m2!1sru!2skz"
+          width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade" title="Карта: Barista Coffee"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="#hero" class="logo">
+        <img src="https://static.tildacdn.pro/tild6432-6564-4130-b331-303531326633/Barista_Ow.png" alt="Barista Coffee логотип" class="logo-img">
+        <span class="logo-text">Barista&nbsp;Coffee</span>
+      </a>
+      <p class="footer-text">Авторский кофе, уютные кофейни, аренда и ремонт кофемашин, франшиза.</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/baristacoffee.kz/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-link">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+          </svg>
+        </a>
+      </div>
+      <nav class="footer-nav">
+        <a href="#shop">Магазин</a>
+        <a href="#rental">Аренда</a>
+        <a href="#repair">Ремонт</a>
+        <a href="#franchise">Франшиза</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <p class="footer-copy">© 2026 Barista Coffee. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+</task_progress>
+- [x] Fetch reference images from baristacoffee.kz
+- [x] Set up project structure (barista-coffee folder)
+- [x] Create index.html (all sections: hero, store, rental, repair, franchise, partners, contacts)
+- [ ] Create styles.css (premium coffee theme, responsive)
+- [ ] Create script.js (filters, cart, sliders, forms)
+- [ ] Test and verify
+</task_progress>
+</write_to_file>

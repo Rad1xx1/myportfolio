@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IITD | Кибербезопасность и IT-дистрибуция</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+  <style>
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --ink: #111318;
+      --muted: rgba(255, 255, 255, 0.68);
+      --soft: rgba(255, 255, 255, 0.46);
+      --line: rgba(255, 255, 255, 0.1);
+      --panel: rgba(255, 255, 255, 0.05);
+      --panel-strong: rgba(255, 255, 255, 0.08);
+      --red: #e11d48;
+      --red-dark: #4c0519;
+      --red-soft: rgba(225, 29, 72, 0.18);
+      --cream: #f5f2f2;
+      --max: 1240px;
+      --radius: 16px;
+      --ease: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--black);
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 82% 8%, rgba(225, 29, 72, 0.23), transparent 30%),
+        radial-gradient(circle at 6% 34%, rgba(148, 163, 184, 0.15), transparent 28%),
+        #000000;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 86%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: linear-gradient(180deg, transparent, #000000 74%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.74);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      width: min(100%, var(--max));
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+
+    .logo img {
+      width: 132px;
+      height: 48px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 28px rgba(225, 29, 72, 0.18));
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(12px, 2vw, 24px);
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      white-space: nowrap;
+      transition: color 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 0 0 auto;
+    }
+
+    .search-mini {
+      position: relative;
+      width: 210px;
+    }
+
+    .search-mini input {
+      width: 100%;
+      height: 42px;
+      padding: 0 40px 0 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.05);
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    .search-mini input:focus {
+      border-color: rgba(225, 29, 72, 0.58);
+      box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.12);
+    }
+
+    .search-mini svg {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      color: rgba(255, 255, 255, 0.52);
+      transform: translateY(-50%);
+    }
+
+    .header-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 1px solid rgba(225, 29, 72, 0.52);
+      border-radius: 999px;
+      color: var(--white);
+      background: rgba(225, 29, 72, 0.14);
+      font-size: 14px;
+      font-weight: 800;
+      transition: all 0.3s var(--ease);
+    }
+
+    .header-action:hover {
+      background: var(--red);
+      box-shadow: 0 14px 32px rgba(225, 29, 72, 0.24);
+      transform: translateY(-2px);
+    }
+
+    .section-inner {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 76px);
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: min(100%, var(--max));
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.78fr);
+      align-items: center;
+      gap: clamp(36px, 5vw, 76px);
+      margin: 0 auto;
+      padding: 70px 24px 88px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 24px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--red);
+      box-shadow: 0 0 18px rgba(225, 29, 72, 0.8);
+    }
+
+    .hero h1 {
+      max-width: 800px;
+      margin: 0;
+      color: var(--white);
+      font-size: clamp(44px, 7vw, 92px);
+      font-weight: 800;
+      line-height: 0.94;
+      letter-spacing: -0.05em;
+    }
+
+    .hero h1 span {
+      color: transparent;
+      background: linear-gradient(135deg, #ffffff 0%, #e11d48 58%, #7f1d1d 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 1.5vw, 20px);
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .button-primary,
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 800;
+      transition: all 0.32s var(--ease);
+    }
+
+    .button-primary {
+      border: 1px solid rgba(225, 29, 72, 0.72);
+      color: var(--white);
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      box-shadow: 0 16px 42px rgba(225, 29, 72, 0.28);
+    }
+
+    .button-secondary {
+      border: 1px solid var(--line);
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .button-primary:hover,
+    .button-secondary:hover {
+      transform: translateY(-3px);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 52px;
+    }
+
+    .stat {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: var(--soft);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 560px;
+      display: grid;
+      place-items: center;
+    }
+
+    .cyber-orbit {
+      position: absolute;
+      width: min(46vw, 560px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, rgba(225, 29, 72, 0.2), transparent 34%),
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.06), transparent 62%);
+      animation: spin 32s linear infinite;
+    }
+
+    .cyber-orbit::before,
+    .cyber-orbit::after {
+      content: "";
+      position: absolute;
+      inset: 11%;
+      border: 1px dashed rgba(255, 255, 255, 0.13);
+      border-radius: 50%;
+    }
+
+    .cyber-orbit::after {
+      inset: 25%;
+      border-style: solid;
+      border-color: rgba(225, 29, 72, 0.28);
+      animation: spin 18s linear infinite reverse;
+    }
+
+    .security-illustration {
+      position: relative;
+      width: min(100%, 520px);
+      filter: drop-shadow(0 34px 62px rgba(225, 29, 72, 0.18));
+    }
+
+    .security-illustration svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .float-card {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      color: rgba(255, 255, 255, 0.86);
+      background: rgba(0, 0, 0, 0.62);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.36);
+      backdrop-filter: blur(16px);
+      font-size: 13px;
+      font-weight: 800;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .float-card::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 16px rgba(34, 197, 94, 0.8);
+    }
+
+    .float-card.one {
+      top: 80px;
+      left: 6px;
+    }
+
+    .float-card.two {
+      right: 0;
+      bottom: 112px;
+      animation-delay: -2s;
+    }
+
+    .section {
+      padding: clamp(68px, 8vw, 116px) 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 34px;
+    }
+
+    .section-kicker {
+      margin: 0 0 12px;
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      max-width: 780px;
+      margin: 0;
+      font-size: clamp(30px, 4vw, 54px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .section-text {
+      max-width: 540px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .solution-card,
+    .process-card,
+    .job-card,
+    .partner-card,
+    .cta-panel {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.025));
+    }
+
+    .solution-card {
+      min-height: 230px;
+      padding: 24px;
+      transition: all 0.35s var(--ease);
+    }
+
+    .solution-card:hover {
+      border-color: rgba(225, 29, 72, 0.34);
+      box-shadow: 0 20px 60px rgba(225, 29, 72, 0.12);
+      transform: translateY(-5px);
+    }
+
+    .solution-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 28px;
+      border-radius: 14px;
+      background: rgba(225, 29, 72, 0.14);
+      color: var(--red);
+    }
+
+    .solution-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .solution-card h3,
+    .process-card h3,
+    .job-card h3 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .solution-card p,
+    .process-card p,
+    .job-card p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .infra-section {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(58px, 8vw, 100px) 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 92% 6%, rgba(225, 29, 72, 0.2), transparent 20%),
+        linear-gradient(105deg, #f7f7f8 0%, #f4eeee 62%, #ffd2d2 100%);
+    }
+
+    .infra-section::before,
+    .infra-section::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.5;
+      background:
+        repeating-radial-gradient(ellipse at center, transparent 0 7px, rgba(225, 29, 72, 0.22) 8px 9px);
+      transform: rotate(-10deg);
+    }
+
+    .infra-section::before {
+      right: -100px;
+      top: -150px;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+    }
+
+    .infra-section::after {
+      left: -180px;
+      bottom: -240px;
+      width: 900px;
+      height: 320px;
+      border-radius: 50%;
+      transform: rotate(-5deg);
+    }
+
+    .infra-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 30px;
+    }
+
+    .infra-number {
+      width: 84px;
+      height: 84px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border: 1px solid rgba(17, 19, 24, 0.26);
+      border-radius: 50%;
+      color: rgba(17, 19, 24, 0.78);
+      font-size: 28px;
+      font-weight: 500;
+    }
+
+    .infra-head h2 {
+      margin: 0;
+      color: #d9193d;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .infra-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px 30px;
+    }
+
+    .infra-pill {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 26px;
+      border: 1px solid rgba(17, 19, 24, 0.06);
+      border-radius: 999px;
+      color: #171923;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 18px 48px rgba(148, 66, 66, 0.08);
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.32s var(--ease);
+    }
+
+    .infra-pill:hover {
+      color: #ffffff;
+      background: linear-gradient(135deg, #e11d48, #4c0519);
+      transform: translateY(-4px);
+    }
+
+    .infra-pill span {
+      color: #e11d48;
+      font-size: 20px;
+      font-weight: 500;
+      transition: color 0.32s var(--ease);
+    }
+
+    .infra-pill:hover span {
+      color: #ffffff;
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+      gap: 18px;
+    }
+
+    .clip-stage {
+      position: relative;
+      min-height: 420px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 75% 18%, rgba(225, 29, 72, 0.32), transparent 34%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025));
+    }
+
+    .clip-stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(120deg, transparent 0 42%, rgba(255, 255, 255, 0.08) 42% 43%, transparent 43% 100%),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 18px);
+      animation: scan 7s linear infinite;
+    }
+
+    .clip-hud {
+      position: absolute;
+      inset: 28px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .hud-card {
+      min-height: 128px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.42);
+      backdrop-filter: blur(16px);
+    }
+
+    .hud-card strong {
+      display: block;
+      margin-bottom: 34px;
+      color: #ffffff;
+      font-size: 15px;
+    }
+
+    .hud-line {
+      height: 8px;
+      margin-top: 9px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .hud-line::before {
+      content: "";
+      display: block;
+      width: 64%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #e11d48, #ffffff);
+      animation: pulseWidth 3s var(--ease) infinite;
+    }
+
+    .clip-play {
+      position: absolute;
+      left: 28px;
+      bottom: 28px;
+      z-index: 2;
+      gap: 10px;
+      border: 0;
+    }
+
+    .clip-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .clip-button {
+      min-height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+      text-align: left;
+      transition: all 0.3s var(--ease);
+    }
+
+    .clip-button:hover,
+    .clip-button.is-active {
+      border-color: rgba(225, 29, 72, 0.42);
+      background: rgba(225, 29, 72, 0.14);
+      transform: translateY(-3px);
+    }
+
+    .clip-button span {
+      display: block;
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .clip-button strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+
+    .modules-section {
+      padding: clamp(68px, 8vw, 116px) 0;
+      overflow: hidden;
+    }
+
+    .modules-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 34px;
+    }
+
+    .modules-title {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.94);
+      font-size: clamp(30px, 4vw, 54px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .modules-subtitle {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .modules-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 0 0 auto;
+    }
+
+    .nav-button {
+      width: 48px;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.04);
+      transition: all 0.35s var(--ease);
+    }
+
+    .nav-button svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      transition: transform 0.35s var(--ease);
+    }
+
+    .nav-button:hover,
+    .nav-button:focus-visible {
+      border-color: rgba(225, 29, 72, 0.55);
+      background: rgba(225, 29, 72, 0.16);
+      box-shadow: 0 10px 28px rgba(225, 29, 72, 0.18);
+      outline: none;
+    }
+
+    .btn-prev:hover svg {
+      transform: translateX(-2px);
+    }
+
+    .btn-next:hover svg {
+      transform: translateX(2px);
+    }
+
+    .nav-button.swiper-button-disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .modules-slider,
+    .modules-slider .swiper {
+      overflow: visible;
+    }
+
+    .modules-slider .swiper-wrapper {
+      align-items: stretch;
+    }
+
+    .modules-slider .swiper-slide {
+      height: auto;
+    }
+
+    .module-card {
+      position: relative;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.04);
+      isolation: isolate;
+      transform: translateZ(0);
+      transition: all 0.35s var(--ease);
+    }
+
+    .module-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0;
+      background: linear-gradient(135deg, #e11d48 0%, #4c0519 100%);
+      transition: opacity 0.35s var(--ease);
+    }
+
+    .module-card:hover {
+      border-color: transparent;
+      box-shadow: 0 12px 30px rgba(225, 29, 72, 0.25);
+      transform: translateY(-6px);
+    }
+
+    .module-card:hover::before {
+      opacity: 1;
+    }
+
+    .module-card__text {
+      display: block;
+      min-width: 0;
+      overflow: hidden;
+      color: rgba(255, 255, 255, 0.94);
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: 0;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      transition: transform 0.35s var(--ease), color 0.35s var(--ease);
+    }
+
+    .module-card:hover .module-card__text {
+      color: var(--white);
+      transform: translateX(4px);
+    }
+
+    .swiper-pagination {
+      position: static;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 32px;
+    }
+
+    .swiper-pagination-bullet {
+      width: 8px;
+      height: 8px;
+      margin: 0 !important;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.26);
+      opacity: 1;
+      transition: all 0.35s var(--ease);
+    }
+
+    .swiper-pagination-bullet-active {
+      width: 30px;
+      background: var(--red);
+    }
+
+    .partners-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .search-large {
+      position: relative;
+      width: min(100%, 520px);
+    }
+
+    .search-large input {
+      width: 100%;
+      min-height: 54px;
+      padding: 0 52px 0 18px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.055);
+      outline: none;
+    }
+
+    .search-large input:focus {
+      border-color: rgba(225, 29, 72, 0.58);
+      box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.12);
+    }
+
+    .search-large svg {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      width: 20px;
+      height: 20px;
+      color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-50%);
+    }
+
+    .search-count {
+      color: var(--soft);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .partner-card {
+      min-height: 96px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px;
+      transition: all 0.3s var(--ease);
+    }
+
+    .partner-card:hover {
+      border-color: rgba(225, 29, 72, 0.38);
+      background: rgba(225, 29, 72, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .partner-card strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.25;
+    }
+
+    .partner-card span {
+      display: block;
+      margin-top: 8px;
+      color: var(--soft);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .partner-arrow {
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--red);
+    }
+
+    .empty-state {
+      display: none;
+      padding: 24px;
+      border: 1px dashed rgba(255, 255, 255, 0.18);
+      border-radius: var(--radius);
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .jobs-layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 20px;
+    }
+
+    .jobs-tabs {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .job-tab {
+      min-height: 54px;
+      padding: 0 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.045);
+      text-align: left;
+      font-weight: 800;
+      transition: all 0.3s var(--ease);
+    }
+
+    .job-tab.is-active,
+    .job-tab:hover {
+      color: #ffffff;
+      border-color: rgba(225, 29, 72, 0.44);
+      background: rgba(225, 29, 72, 0.16);
+    }
+
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .job-card {
+      padding: 24px;
+      transition: all 0.3s var(--ease);
+    }
+
+    .job-card:hover {
+      border-color: rgba(225, 29, 72, 0.36);
+      transform: translateY(-4px);
+    }
+
+    .job-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.78);
+      background: rgba(255, 255, 255, 0.075);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .job-apply {
+      margin-top: 20px;
+      border: 0;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .process-card {
+      min-height: 210px;
+      padding: 24px;
+    }
+
+    .process-number {
+      display: inline-flex;
+      margin-bottom: 42px;
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
+      gap: 20px;
+    }
+
+    .contact-card,
+    .contact-form {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.025));
+    }
+
+    .contact-card {
+      padding: 30px;
+    }
+
+    .contact-card h2 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .contact-card p {
+      margin: 18px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .contact-list a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      color: rgba(255, 255, 255, 0.84);
+      background: rgba(255, 255, 255, 0.04);
+      transition: all 0.3s var(--ease);
+    }
+
+    .contact-list a:hover {
+      color: #ffffff;
+      border-color: rgba(225, 29, 72, 0.34);
+      background: rgba(225, 29, 72, 0.12);
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 14px;
+      padding: 24px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.055);
+      outline: none;
+    }
+
+    .field input,
+    .field select {
+      height: 50px;
+      padding: 0 14px;
+    }
+
+    .field textarea {
+      min-height: 118px;
+      resize: vertical;
+      padding: 14px;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: rgba(225, 29, 72, 0.58);
+      box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.12);
+    }
+
+    .form-status {
+      min-height: 22px;
+      color: #22c55e;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .site-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 28px 0;
+      color: var(--soft);
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      width: min(100%, var(--max));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+      max-width: 360px;
+      padding: 16px 18px;
+      border: 1px solid rgba(34, 197, 94, 0.32);
+      border-radius: 16px;
+      color: #ffffff;
+      background: rgba(12, 18, 24, 0.94);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.42);
+      opacity: 0;
+      transform: translateY(18px);
+      pointer-events: none;
+      transition: all 0.3s var(--ease);
+    }
+
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    @keyframes scan {
+      to {
+        transform: translateY(36px);
+      }
+    }
+
+    @keyframes pulseWidth {
+      0%,
+      100% {
+        width: 42%;
+      }
+
+      50% {
+        width: 92%;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .hero-inner,
+      .media-grid,
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 420px;
+      }
+
+      .cyber-orbit {
+        width: min(82vw, 520px);
+      }
+
+      .solutions-grid,
+      .process-grid,
+      .partners-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .infra-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .search-mini {
+        display: none;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .nav {
+        min-height: auto;
+        flex-wrap: wrap;
+        padding-top: 14px;
+        padding-bottom: 14px;
+      }
+
+      .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .header-action {
+        display: none;
+      }
+
+      .section-head,
+      .modules-header,
+      .partners-toolbar,
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero-stats,
+      .solutions-grid,
+      .process-grid,
+      .partners-grid,
+      .jobs-grid,
+      .infra-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .jobs-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .jobs-tabs {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .job-tab {
+        flex: 0 0 auto;
+      }
+
+      .modules-nav {
+        align-self: flex-end;
+      }
+
+      .infra-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .section-inner,
+      .hero-inner,
+      .nav,
+      .footer-inner {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .hero-actions,
+      .header-tools {
+        width: 100%;
+      }
+
+      .button-primary,
+      .button-secondary {
+        width: 100%;
+      }
+
+      .hero-visual {
+        min-height: 330px;
+      }
+
+      .float-card {
+        display: none;
+      }
+
+      .clip-hud {
+        grid-template-columns: 1fr;
+        inset: 18px;
+      }
+
+      .module-card__text,
+      .infra-pill {
+        font-size: 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Основная навигация">
+      <a class="logo" href="#top" aria-label="IITD">
+        <img src="assets/itld-logo.png" alt="IITD">
+      </a>
+
+      <div class="nav-links">
+        <a href="#solutions">Решения</a>
+        <a href="#infrastructure">Инфраструктура</a>
+        <a href="#modules">Модули ИБ</a>
+        <a href="#partners">Партнеры</a>
+        <a href="#vacancies">Вакансии</a>
+        <a href="#contacts">Контакты</a>
+      </div>
+
+      <div class="header-tools">
+        <div class="search-mini">
+          <input class="site-search" type="search" placeholder="Поиск по сайту" aria-label="Поиск по сайту">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.8 18.2A7.4 7.4 0 1 0 10.8 3.4a7.4 7.4 0 0 0 0 14.8ZM16.2 16.2 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <a class="header-action" href="#contacts">Запросить аудит</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title" data-search="кибербезопасность аудит защита инфраструктура soc distribution">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">Cybersecurity distribution</p>
+          <h1 id="hero-title">Кибербезопасность для <span>устойчивого бизнеса</span></h1>
+          <p class="hero-copy">
+            IITD помогает компаниям выстраивать защиту от современных угроз: от аудита
+            инфраструктуры и подбора решений до внедрения, обучения и поддержки.
+          </p>
+          <div class="hero-actions">
+            <a class="button-primary" href="#modules">Посмотреть модули защиты</a>
+            <a class="button-secondary" href="#partners">Перейти к партнерам</a>
+          </div>
+          <div class="hero-stats" aria-label="Ключевые показатели">
+            <div class="stat">
+              <strong>16</strong>
+              <span>модулей информационной безопасности</span>
+            </div>
+            <div class="stat">
+              <strong>36</strong>
+              <span>технологических партнеров в каталоге</span>
+            </div>
+            <div class="stat">
+              <strong>360°</strong>
+              <span>защита данных, сети, устройств и доступа</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="cyber-orbit"></div>
+          <div class="security-illustration">
+            <svg viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M279 44L429 102V240C429 356 365 443 280 500C194 442 131 356 131 240V102L279 44Z" fill="url(#shield)" stroke="rgba(255,255,255,.22)" stroke-width="2"/>
+              <path d="M280 98L382 138V244C382 322 339 383 280 426C220 383 178 322 178 244V138L280 98Z" fill="rgba(255,255,255,.035)" stroke="rgba(255,255,255,.16)"/>
+              <path d="M239 275L267 303L326 226" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M96 150H48M96 150L132 186M463 153H512M463 153L428 188M94 402H48M94 402L130 365M466 401H512M466 401L430 365" stroke="rgba(255,255,255,.28)" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="48" cy="150" r="9" fill="#e11d48"/>
+              <circle cx="512" cy="153" r="9" fill="#e11d48"/>
+              <circle cx="48" cy="402" r="9" fill="#e11d48"/>
+              <circle cx="512" cy="401" r="9" fill="#e11d48"/>
+              <circle cx="280" cy="276" r="142" stroke="rgba(225,29,72,.28)" stroke-width="2" stroke-dasharray="8 12"/>
+              <defs>
+                <linearGradient id="shield" x1="145" y1="78" x2="407" y2="470" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#e11d48"/>
+                  <stop offset="1" stop-color="#25020c"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="float-card one">Threats blocked</div>
+          <div class="float-card two">Zero trust ready</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="solutions" data-search="решения защита периметра контроль доступа данные облака">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Решения</p>
+            <h2 class="section-title">Закрываем критичные зоны цифровой защиты</h2>
+          </div>
+          <p class="section-text">
+            Строим архитектуру безопасности вокруг реальных рисков: данные, пользователи,
+            устройства, сеть, облако и операционные процессы.
+          </p>
+        </div>
+
+        <div class="solutions-grid">
+          <article class="solution-card">
+            <div class="solution-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3L20 7V12C20 17 16.5 20.5 12 22C7.5 20.5 4 17 4 12V7L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+            <h3>Защита периметра</h3>
+            <p>DDoS, IDS, NDR и анализ сетевой активности для раннего обнаружения атак.</p>
+          </article>
+          <article class="solution-card">
+            <div class="solution-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 11V8A5 5 0 0 1 17 8V11M6 11H18V21H6V11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>Контроль доступа</h3>
+            <p>IAM, MFA и PAM для защиты учетных записей, ролей и привилегированных действий.</p>
+          </article>
+          <article class="solution-card">
+            <div class="solution-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7L12 3L20 7V17L12 21L4 17V7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 12L20 7M12 12V21M12 12L4 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <h3>Защита данных</h3>
+            <p>DLP, политики безопасности и контроль утечек в корпоративной среде.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="infra-section" id="infrastructure" data-search="it инфраструктура nat observability storage балансировка хранение">
+      <div class="section-inner">
+        <div class="infra-head">
+          <div class="infra-number">02</div>
+          <h2>IT-Инфраструктура</h2>
+        </div>
+        <div class="infra-grid">
+          <a class="infra-pill" href="#contacts"><span>01</span>NAT операторского класса</a>
+          <a class="infra-pill" href="#contacts"><span>02</span>Observability Pipelines</a>
+          <a class="infra-pill" href="#contacts"><span>03</span>Балансировка нагрузки</a>
+          <a class="infra-pill" href="#contacts"><span>04</span>Системы хранения данных</a>
+          <a class="infra-pill" href="#contacts"><span>05</span>Управление IT-инфраструктурой</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="media" data-search="видео клипы презентация компания демонстрация">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Видео</p>
+            <h2 class="section-title">Короткие клипы о защите и интеграции</h2>
+          </div>
+          <p class="section-text">Интерактивный медиа-блок: выбирай сценарий, запускай клип и смотри, как меняется визуальная сцена.</p>
+        </div>
+        <div class="media-grid">
+          <div class="clip-stage" aria-live="polite">
+            <div class="clip-hud">
+              <div class="hud-card">
+                <strong class="clip-title">Security Operations</strong>
+                <div class="hud-line"></div>
+                <div class="hud-line"></div>
+                <div class="hud-line"></div>
+              </div>
+              <div class="hud-card">
+                <strong class="clip-metric">Threat intelligence</strong>
+                <div class="hud-line"></div>
+                <div class="hud-line"></div>
+                <div class="hud-line"></div>
+              </div>
+            </div>
+            <button class="button-primary clip-play" type="button">▶ Запустить клип</button>
+          </div>
+          <div class="clip-list">
+            <button class="clip-button is-active" type="button" data-title="Security Operations" data-metric="Threat intelligence"><span>01 · Киберзащита</span><strong>SOC, мониторинг и реагирование</strong></button>
+            <button class="clip-button" type="button" data-title="Partner Ecosystem" data-metric="Vendor enablement"><span>02 · Партнеры</span><strong>Технологическая экосистема IITD</strong></button>
+            <button class="clip-button" type="button" data-title="Infrastructure Control" data-metric="Network visibility"><span>03 · Инфраструктура</span><strong>Сеть, данные и устойчивость</strong></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="modules-section" id="modules" data-search="bas cti ddos dlp edr iam ids mdm mfa ndr nta pam sandbox siem soar spm">
+      <div class="section-inner">
+        <div class="modules-header">
+          <div>
+            <p class="section-kicker">03 · Информационная безопасность</p>
+            <h2 class="modules-title">Модули киберзащиты</h2>
+            <p class="modules-subtitle">Интерактивная витрина решений для ключевых сценариев защиты.</p>
+          </div>
+          <div class="modules-nav" aria-label="Навигация по модулям">
+            <button class="nav-button btn-prev" type="button" aria-label="Предыдущий слайд"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18L9 12L15 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="nav-button btn-next" type="button" aria-label="Следующий слайд"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6L15 12L9 18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+        <div class="modules-slider">
+          <div class="swiper" aria-label="Слайдер модулей информационной безопасности">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="partners" data-search="партнеры vendors a10 automox bitsight censys cribl crowdstrike">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Партнеры</p>
+            <h2 class="section-title">Технологическая экосистема</h2>
+          </div>
+          <p class="section-text">Все ссылки кликабельны и ведут на страницы партнеров. Поиск фильтрует список мгновенно.</p>
+        </div>
+        <div class="partners-toolbar">
+          <div class="search-large">
+            <input id="partnerSearch" type="search" placeholder="Найти партнера: CrowdStrike, Wallix, A10..." aria-label="Поиск партнера">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.8 18.2A7.4 7.4 0 1 0 10.8 3.4a7.4 7.4 0 0 0 0 14.8ZM16.2 16.2 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <span class="search-count" id="partnerCount"></span>
+        </div>
+        <div class="partners-grid" id="partnersGrid"></div>
+        <div class="empty-state" id="partnersEmpty">Ничего не найдено. Попробуй другой запрос.</div>
+      </div>
+    </section>
+
+    <section class="section" id="vacancies" data-search="вакансии работа frontend analyst engineer sales presales">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Вакансии</p>
+            <h2 class="section-title">Команда, которая строит защиту</h2>
+          </div>
+          <p class="section-text">Вкладки работают: можно переключать направления и откликаться на вакансии через форму ниже.</p>
+        </div>
+        <div class="jobs-layout">
+          <div class="jobs-tabs" id="jobTabs" aria-label="Фильтр вакансий"></div>
+          <div class="jobs-grid" id="jobsGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process" data-search="подход аудит архитектура внедрение развитие">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Подход</p>
+            <h2 class="section-title">От оценки рисков до внедрения</h2>
+          </div>
+        </div>
+        <div class="process-grid">
+          <article class="process-card"><span class="process-number">01</span><h3>Аудит</h3><p>Фиксируем активы, угрозы, слабые места и приоритеты защиты.</p></article>
+          <article class="process-card"><span class="process-number">02</span><h3>Архитектура</h3><p>Подбираем стек решений и связываем его с бизнес-процессами.</p></article>
+          <article class="process-card"><span class="process-number">03</span><h3>Внедрение</h3><p>Запускаем модули, интеграции, политики и сценарии реагирования.</p></article>
+          <article class="process-card"><span class="process-number">04</span><h3>Развитие</h3><p>Помогаем масштабировать защиту и поддерживать устойчивость.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contacts" data-search="контакты форма заявка аудит консультация">
+      <div class="section-inner">
+        <div class="contact-layout">
+          <div class="contact-card">
+            <p class="section-kicker">Контакты</p>
+            <h2>Готовы усилить защиту инфраструктуры?</h2>
+            <p>Оставьте заявку на аудит, партнерство или вакансию. Форма валидируется и показывает статус отправки прямо на странице.</p>
+            <div class="contact-list">
+              <a href="mailto:security@iitd.kz"><span>security@iitd.kz</span><span>→</span></a>
+              <a href="tel:+77000000000"><span>+7 700 000 00 00</span><span>→</span></a>
+              <a href="#partners"><span>Каталог партнеров</span><span>→</span></a>
+            </div>
+          </div>
+
+          <form class="contact-form" id="contactForm">
+            <div class="field">
+              <label for="requestType">Тип обращения</label>
+              <select id="requestType" name="requestType">
+                <option>Аудит кибербезопасности</option>
+                <option>Партнерство</option>
+                <option>Отклик на вакансию</option>
+                <option>Общая консультация</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="name">Имя</label>
+              <input id="name" name="name" type="text" placeholder="Как к вам обращаться" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="name@company.kz" required>
+            </div>
+            <div class="field">
+              <label for="message">Сообщение</label>
+              <textarea id="message" name="message" placeholder="Опишите задачу или вакансию"></textarea>
+            </div>
+            <button class="button-primary" type="submit">Отправить заявку</button>
+            <div class="form-status" id="formStatus" role="status"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>© 2026 IITD</span>
+      <span>Cybersecurity · Distribution · Integration</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const securityModules = [
+      "01 — BAS · Симуляция атак",
+      "02 — CTI · Разведка угроз",
+      "03 — DDoS · Защита от атак",
+      "04 — DLP · Защита от утечек",
+      "05 — EDR · Защита устройств",
+      "06 — IAM · Контроль доступа",
+      "07 — IDS · Сетевые ловушки",
+      "08 — MDM · Защита smartphones",
+      "09 — MFA · Двухфакторный вход",
+      "10 — NDR · Перехват угроз",
+      "11 — NTA · Анализ трафика",
+      "12 — PAM · Админ-доступ",
+      "13 — Sandbox · Песочница",
+      "14 — SIEM · Анализ логов",
+      "15 — SOAR · Автоматизация защиты",
+      "16 — SPM · Управление политиками"
+    ];
+
+    const partners = [
+      ["A10 Networks", "https://iit-d.kz/a10-networks/"],
+      ["Automox", "https://iit-d.kz/automox/"],
+      ["Bitsight", "https://iit-d.kz/bitsight/"],
+      ["Censys", "https://iit-d.kz/censys/"],
+      ["Cribl", "https://iit-d.kz/cribl/"],
+      ["CrowdStrike", "https://iit-d.kz/crowdstrike/"],
+      ["Cyber Unit Technologies", "https://iit-d.kz/cyber-unit-technologies/"],
+      ["Exabeam", "https://iit-d.kz/exabeam/"],
+      ["Fastly", "https://iit-d.kz/fastly/"],
+      ["Gatewatcher", "https://iit-d.kz/gatewatcher/"],
+      ["GTB technologies", "https://iit-d.kz/gtb-technologies/"],
+      ["Hexnode", "https://iit-d.kz/hexnode/"],
+      ["Holm Security", "https://iit-d.kz/holm-security/"],
+      ["Infinidat", "https://iit-d.kz/infinidat/"],
+      ["Infodas", "https://iit-d.kz/infodas/"],
+      ["Lepide", "https://iit-d.kz/lepide/"],
+      ["Lookout", "https://iit-d.kz/lookout/"],
+      ["NACVIEW", "https://iit-d.kz/nacview/"],
+      ["Nakivo", "https://iit-d.kz/nakivo/"],
+      ["NetBrain", "https://iit-d.kz/netbrain/"],
+      ["Niagara Networks", "https://iit-d.kz/niagara-networks/"],
+      ["Outkept", "https://iit-d.kz/outkept/"],
+      ["Picus Security", "https://iit-d.kz/picus-security/"],
+      ["Ping Identity", "https://iit-d.kz/ping-identity/"],
+      ["Protectimus", "https://iit-d.kz/protectimus/"],
+      ["RedSeal", "https://iit-d.kz/redseal/"],
+      ["Safetica", "https://iit-d.kz/safetica/"],
+      ["Sonar", "https://iit-d.kz/sonar/"],
+      ["SOTI", "https://iit-d.kz/soti/"],
+      ["Spin.AI", "https://iit-d.kz/spin-ai/"],
+      ["Sycope", "https://iit-d.kz/sycope/"],
+      ["TerraZone", "https://iit-d.kz/terrazone/"],
+      ["Threema", "https://iit-d.kz/threema/"],
+      ["Vectra AI", "https://iit-d.kz/vectra-ai/"],
+      ["WALLIX", "https://iit-d.kz/wallix/"],
+      ["ZeroFox", "https://iit-d.kz/zerofox/"]
+    ];
+
+    const jobs = [
+      { area: "Security", title: "Cybersecurity Presales Engineer", tags: ["Алматы", "Middle+", "ИБ"], text: "Подбор решений, демо, пилоты и техническая поддержка партнерских продаж." },
+      { area: "Security", title: "SOC Analyst", tags: ["Remote", "L2", "Monitoring"], text: "Мониторинг событий, расследования, правила корреляции и реагирование на инциденты." },
+      { area: "Sales", title: "Partner Account Manager", tags: ["B2B", "Vendors", "Sales"], text: "Развитие партнерской сети, воронка, совместные активности и запуск новых направлений." },
+      { area: "Engineering", title: "Infrastructure Engineer", tags: ["Network", "Storage", "Hybrid"], text: "Проектирование инфраструктуры, интеграции, отказоустойчивость и документация." },
+      { area: "Marketing", title: "Product Marketing Manager", tags: ["Content", "Events", "Cyber"], text: "Упаковка продуктовых направлений, кампании, презентации и мероприятия для партнеров." }
+    ];
+
+    const wrapper = document.querySelector(".swiper-wrapper");
+    const partnersGrid = document.getElementById("partnersGrid");
+    const partnerSearch = document.getElementById("partnerSearch");
+    const partnerCount = document.getElementById("partnerCount");
+    const partnersEmpty = document.getElementById("partnersEmpty");
+    const jobTabs = document.getElementById("jobTabs");
+    const jobsGrid = document.getElementById("jobsGrid");
+    const toast = document.getElementById("toast");
+
+    securityModules.forEach((moduleName, index) => {
+      const slide = document.createElement("div");
+      slide.className = "swiper-slide";
+      slide.setAttribute("role", "group");
+      slide.setAttribute("aria-label", `${index + 1} из ${securityModules.length}`);
+      slide.innerHTML = `<article class="module-card" aria-label="${moduleName}"><span class="module-card__text">${moduleName}</span></article>`;
+      wrapper.appendChild(slide);
+    });
+
+    if (window.Swiper) {
+      new Swiper(".swiper", {
+        grabCursor: true,
+        speed: 650,
+        watchOverflow: true,
+        slidesPerView: 1,
+        spaceBetween: 16,
+        navigation: {
+          nextEl: ".btn-next",
+          prevEl: ".btn-prev"
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true
+        },
+        breakpoints: {
+          640: { slidesPerView: 2, spaceBetween: 20 },
+          900: { slidesPerView: 3, spaceBetween: 24 },
+          1200: { slidesPerView: 4, spaceBetween: 24 }
+        }
+      });
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("is-visible");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove("is-visible"), 2800);
+    }
+
+    function renderPartners(query = "") {
+      const normalized = query.trim().toLowerCase();
+      const filtered = partners.filter(([name]) => name.toLowerCase().includes(normalized));
+      partnersGrid.innerHTML = "";
+      filtered.forEach(([name, url]) => {
+        const card = document.createElement("a");
+        card.className = "partner-card";
+        card.href = url;
+        card.target = "_blank";
+        card.rel = "noopener";
+        card.dataset.search = name.toLowerCase();
+        card.innerHTML = `<div><strong>${name}</strong><span>Компания</span></div><span class="partner-arrow">↗</span>`;
+        partnersGrid.appendChild(card);
+      });
+      partnerCount.textContent = `${filtered.length} из ${partners.length}`;
+      partnersEmpty.style.display = filtered.length ? "none" : "block";
+    }
+
+    function renderJobTabs(active = "Все") {
+      const areas = ["Все", ...new Set(jobs.map((job) => job.area))];
+      jobTabs.innerHTML = "";
+      areas.forEach((area) => {
+        const button = document.createElement("button");
+        button.className = `job-tab${area === active ? " is-active" : ""}`;
+        button.type = "button";
+        button.textContent = area;
+        button.addEventListener("click", () => {
+          renderJobTabs(area);
+          renderJobs(area);
+        });
+        jobTabs.appendChild(button);
+      });
+    }
+
+    function renderJobs(area = "Все") {
+      const filtered = area === "Все" ? jobs : jobs.filter((job) => job.area === area);
+      jobsGrid.innerHTML = "";
+      filtered.forEach((job) => {
+        const card = document.createElement("article");
+        card.className = "job-card";
+        card.innerHTML = `
+          <div class="job-meta">${job.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>
+          <h3>${job.title}</h3>
+          <p>${job.text}</p>
+          <button class="button-primary job-apply" type="button" data-job="${job.title}">Откликнуться</button>
+        `;
+        jobsGrid.appendChild(card);
+      });
+    }
+
+    function runSiteSearch(value) {
+      const query = value.trim().toLowerCase();
+      if (!query) {
+        return;
+      }
+
+      const partnerMatch = partners.find(([name]) => name.toLowerCase().includes(query));
+      if (partnerMatch) {
+        document.getElementById("partners").scrollIntoView({ behavior: "smooth" });
+        partnerSearch.value = query;
+        renderPartners(query);
+        showToast(`Найден партнер: ${partnerMatch[0]}`);
+        return;
+      }
+
+      const section = [...document.querySelectorAll("[data-search]")].find((item) =>
+        item.dataset.search.toLowerCase().includes(query) || item.textContent.toLowerCase().includes(query)
+      );
+
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+        showToast("Раздел найден и открыт");
+      } else {
+        showToast("Ничего не найдено. Попробуйте другой запрос.");
+      }
+    }
+
+    document.querySelectorAll(".site-search").forEach((input) => {
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          runSiteSearch(input.value);
+        }
+      });
+    });
+
+    partnerSearch.addEventListener("input", (event) => renderPartners(event.target.value));
+
+    document.addEventListener("click", (event) => {
+      const applyButton = event.target.closest(".job-apply");
+      if (!applyButton) {
+        return;
+      }
+
+      document.getElementById("requestType").value = "Отклик на вакансию";
+      document.getElementById("message").value = `Хочу откликнуться на вакансию: ${applyButton.dataset.job}`;
+      document.getElementById("contacts").scrollIntoView({ behavior: "smooth" });
+      showToast("Вакансия добавлена в форму отклика");
+    });
+
+    document.querySelectorAll(".clip-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".clip-button").forEach((item) => item.classList.remove("is-active"));
+        button.classList.add("is-active");
+        document.querySelector(".clip-title").textContent = button.dataset.title;
+        document.querySelector(".clip-metric").textContent = button.dataset.metric;
+        showToast(`Клип выбран: ${button.dataset.title}`);
+      });
+    });
+
+    document.querySelector(".clip-play").addEventListener("click", () => {
+      showToast("Клип запущен: демонстрационная анимация активна");
+    });
+
+    document.getElementById("contactForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const status = document.getElementById("formStatus");
+
+      if (!form.checkValidity()) {
+        status.textContent = "Проверьте имя и email.";
+        form.reportValidity();
+        return;
+      }
+
+      status.textContent = "Заявка подготовлена. В реальном проекте здесь подключается CRM или почта.";
+      showToast("Заявка успешно обработана на странице");
+      form.reset();
+    });
+
+    renderPartners();
+    renderJobTabs();
+    renderJobs();
+  </script>
+</body>
+</html>

@@ -1,0 +1,3402 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlaystoreX - Gaming Trading Platform</title>
+  <meta name="description" content="PlaystoreX is a serious gaming marketplace with trade tools, live chat rooms, buyer protection, and a premium dual-language interface." />
+  <style>
+    :root {
+      --bg: #071018;
+      --bg-2: #0b1622;
+      --panel: rgba(10, 18, 28, 0.86);
+      --panel-2: rgba(15, 25, 38, 0.92);
+      --stroke: rgba(143, 184, 255, 0.14);
+      --stroke-2: rgba(143, 184, 255, 0.22);
+      --text: #ecf3ff;
+      --muted: #8fa6c3;
+      --muted-2: #67809d;
+      --primary: #4f8cff;
+      --primary-2: #77b1ff;
+      --accent: #30d6a3;
+      --warn: #ffbd59;
+      --danger: #ff6b81;
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+      --shadow-soft: 0 10px 30px rgba(15, 24, 35, 0.34);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --max: 1440px;
+      --header-h: 76px;
+    }
+
+    [data-theme="light"] {
+      --bg: #eef4fb;
+      --bg-2: #f7fbff;
+      --panel: rgba(255, 255, 255, 0.88);
+      --panel-2: rgba(255, 255, 255, 0.96);
+      --stroke: rgba(57, 88, 130, 0.12);
+      --stroke-2: rgba(57, 88, 130, 0.18);
+      --text: #0d1723;
+      --muted: #58708a;
+      --muted-2: #7b92a9;
+      --shadow: 0 18px 60px rgba(31, 49, 73, 0.12);
+      --shadow-soft: 0 10px 28px rgba(31, 49, 73, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(79, 140, 255, 0.20), transparent 22%),
+        radial-gradient(circle at 90% 18%, rgba(48, 214, 163, 0.12), transparent 20%),
+        radial-gradient(circle at 50% 100%, rgba(255, 189, 89, 0.10), transparent 28%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 84px 84px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.5), transparent 78%);
+      pointer-events: none;
+      opacity: 0.26;
+      z-index: 0;
+    }
+
+    a, button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .shell {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .skip {
+      position: absolute;
+      left: 16px;
+      top: -40px;
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      z-index: 20;
+      transition: top 180ms ease;
+    }
+    .skip:focus { top: 12px; }
+
+    .topline {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(20px);
+      background: linear-gradient(180deg, rgba(6, 11, 18, 0.92), rgba(6, 11, 18, 0.66));
+      border-bottom: 1px solid var(--stroke);
+      height: var(--header-h);
+    }
+    [data-theme="light"] .topline {
+      background: linear-gradient(180deg, rgba(238, 244, 251, 0.92), rgba(238, 244, 251, 0.72));
+    }
+
+    .topbar {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      flex: 0 0 auto;
+    }
+
+    .brand-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,0.6), transparent 16%),
+        linear-gradient(135deg, #0d1a2a, #12253a 45%, #1f4ea8 100%);
+      border: 1px solid rgba(119, 177, 255, 0.4);
+      box-shadow: 0 14px 30px rgba(79, 140, 255, 0.18);
+      color: #fff;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+    }
+
+    .brand-copy { min-width: 0; }
+    .brand-title {
+      font-size: 0.98rem;
+      font-weight: 900;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .brand-sub {
+      margin-top: 4px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .search {
+      position: relative;
+      flex: 1 1 420px;
+      min-width: 160px;
+      max-width: 560px;
+      margin-left: 6px;
+    }
+    .search input {
+      width: 100%;
+      height: 46px;
+      padding: 0 54px 0 16px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      outline: none;
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background 180ms ease;
+    }
+    [data-theme="light"] .search input { background: rgba(255,255,255,0.78); }
+    .search input:focus {
+      border-color: rgba(79, 140, 255, 0.55);
+      box-shadow: 0 0 0 4px rgba(79, 140, 255, 0.12);
+      transform: translateY(-1px);
+    }
+    .search-ico {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      pointer-events: none;
+      font-size: 0.95rem;
+    }
+    .search-drop {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      right: 0;
+      background: var(--panel-2);
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: none;
+      z-index: 50;
+      max-height: 420px;
+    }
+    .search-drop.open { display: block; }
+    .search-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--stroke);
+      cursor: pointer;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+    .search-item:hover { background: rgba(79, 140, 255, 0.08); }
+    .search-thumb {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex: 0 0 auto;
+      background: linear-gradient(135deg, rgba(79,140,255,0.18), rgba(48,214,163,0.18));
+      border: 1px solid var(--stroke);
+    }
+    .search-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .search-main { min-width: 0; flex: 1; }
+    .search-name { font-size: 0.92rem; font-weight: 800; }
+    .search-meta { font-size: 0.76rem; color: var(--muted); margin-top: 2px; }
+    .search-price { font-weight: 900; color: var(--primary-2); margin-left: auto; white-space: nowrap; }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+      flex: 0 0 auto;
+    }
+    .chip-btn {
+      height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+    [data-theme="light"] .chip-btn { background: rgba(255,255,255,0.72); }
+    .chip-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(79, 140, 255, 0.42);
+      box-shadow: 0 12px 30px rgba(79, 140, 255, 0.10);
+    }
+    .chip-btn.primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 14px 30px rgba(79, 140, 255, 0.22);
+    }
+    .chip-btn.success {
+      background: linear-gradient(135deg, #1dd39a, #48e2b0);
+      color: #052116;
+      border-color: transparent;
+    }
+    .chip-badge {
+      min-width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      padding: 0 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--danger);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 900;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: #fff;
+      font-weight: 900;
+      border: 2px solid rgba(255,255,255,0.12);
+      box-shadow: 0 10px 22px rgba(79,140,255,0.22);
+      flex: 0 0 auto;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 255px minmax(0, 1fr) 350px;
+      gap: 18px;
+      align-items: start;
+      padding: 18px 0 30px;
+    }
+
+    .sidebar,
+    .main,
+    .rightbar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid var(--stroke);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .panel-title {
+      font-size: 0.92rem;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+    .panel-sub {
+      margin-top: 4px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .panel-body { padding: 18px; }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .nav-item {
+      border: 1px solid transparent;
+      border-radius: 16px;
+      padding: 13px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      background: transparent;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, color 160ms ease;
+    }
+    .nav-item:hover {
+      transform: translateX(3px);
+      background: rgba(79, 140, 255, 0.08);
+      color: var(--text);
+    }
+    .nav-item.active {
+      background: linear-gradient(135deg, rgba(79, 140, 255, 0.14), rgba(48, 214, 163, 0.10));
+      border-color: var(--stroke-2);
+      color: var(--text);
+    }
+    .nav-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--stroke);
+      font-size: 1rem;
+      flex: 0 0 auto;
+    }
+    .nav-meta {
+      margin-left: auto;
+      font-size: 0.74rem;
+      color: var(--muted-2);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 430px;
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(circle at 20% 18%, rgba(79,140,255,0.40), transparent 18%),
+        radial-gradient(circle at 76% 8%, rgba(48,214,163,0.18), transparent 16%),
+        radial-gradient(circle at 66% 70%, rgba(255,189,89,0.18), transparent 18%),
+        linear-gradient(135deg, rgba(9,17,27,0.95), rgba(16,28,42,0.90));
+      border: 1px solid rgba(120, 160, 230, 0.16);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    [data-theme="light"] .hero {
+      background:
+        radial-gradient(circle at 20% 18%, rgba(79,140,255,0.18), transparent 18%),
+        radial-gradient(circle at 76% 8%, rgba(48,214,163,0.13), transparent 16%),
+        radial-gradient(circle at 66% 70%, rgba(255,189,89,0.10), transparent 18%),
+        linear-gradient(135deg, rgba(255,255,255,0.92), rgba(244,248,255,0.94));
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -40% auto auto -10%;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(79,140,255,0.18), transparent 68%);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -120px -120px auto;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(48,214,163,0.13), transparent 68%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: 18px;
+      padding: 28px;
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      justify-content: center;
+      min-height: 372px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(79, 140, 255, 0.12);
+      border: 1px solid rgba(79, 140, 255, 0.24);
+      color: var(--text);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 20px rgba(48, 214, 163, 0.6);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 4.8vw, 5.4rem);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+      max-width: 10ch;
+    }
+    .hero-copy p {
+      margin: 0;
+      max-width: 60ch;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .metric {
+      padding: 14px 15px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    [data-theme="light"] .metric { background: rgba(255,255,255,0.66); }
+    .metric strong {
+      display: block;
+      font-size: 1.12rem;
+      margin-bottom: 4px;
+    }
+    .metric span {
+      font-size: 0.77rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .hero-side {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .status-card {
+      flex: 1;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(11, 19, 31, 0.96), rgba(15, 27, 42, 0.94));
+      border: 1px solid rgba(120, 160, 230, 0.14);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    [data-theme="light"] .status-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(244,248,255,0.96));
+    }
+    .status-card::before {
+      content: "";
+      position: absolute;
+      inset: -18% auto auto 28%;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(79,140,255,0.12), transparent 72%);
+      pointer-events: none;
+    }
+    .status-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .status-badge {
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(48, 214, 163, 0.10);
+      border: 1px solid rgba(48, 214, 163, 0.20);
+      color: var(--accent);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .status-graph {
+      height: 160px;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(79, 140, 255, 0.12), transparent),
+        linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid var(--stroke);
+      position: relative;
+      overflow: hidden;
+    }
+    .status-graph::before,
+    .status-graph::after {
+      content: "";
+      position: absolute;
+      inset: auto 12px 18px 12px;
+      height: 84px;
+      border-left: 2px solid rgba(79,140,255,0.0);
+      border-bottom: 2px solid rgba(79,140,255,0.0);
+    }
+    .graph-line {
+      position: absolute;
+      inset: 22px 14px 24px 14px;
+      background:
+        linear-gradient(90deg, transparent 0 12%, rgba(79,140,255,0.35) 12% 14%, transparent 14% 25%, rgba(48,214,163,0.35) 25% 27%, transparent 27% 100%),
+        linear-gradient(180deg, transparent 0 72%, rgba(79,140,255,0.2) 72% 74%, transparent 74% 100%);
+      clip-path: polygon(0 72%, 10% 66%, 18% 70%, 28% 58%, 37% 60%, 46% 44%, 58% 50%, 68% 36%, 78% 42%, 88% 28%, 100% 24%, 100% 100%, 0 100%);
+      animation: pulseWave 8s ease-in-out infinite alternate;
+      border-radius: 16px;
+      filter: drop-shadow(0 0 14px rgba(79,140,255,0.18));
+    }
+    .graph-grid {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.10) 1px, transparent 1px);
+      background-size: 100% 28px, 34px 100%;
+      opacity: 0.18;
+    }
+    .status-kpis {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 10px;
+    }
+    .mini-kpi {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--stroke);
+      font-size: 0.82rem;
+    }
+    .mini-kpi b { color: var(--text); }
+    .mini-kpi span { color: var(--muted); }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-bottom: 8px;
+    }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .section-title {
+      margin: 0;
+      font-size: 1.02rem;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+    .section-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.84rem;
+      max-width: 60ch;
+      line-height: 1.5;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .filter {
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+    [data-theme="light"] .filter { background: rgba(255,255,255,0.7); }
+    .filter:hover { transform: translateY(-1px); }
+    .filter.active {
+      background: linear-gradient(135deg, rgba(79,140,255,0.18), rgba(48,214,163,0.10));
+      border-color: rgba(79,140,255,0.30);
+      color: var(--text);
+    }
+
+    .grid-products {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+      transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(79,140,255,0.26);
+      box-shadow: 0 20px 44px rgba(0,0,0,0.18);
+    }
+    .product {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+    .product-media {
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(79,140,255,0.18), rgba(48,214,163,0.08));
+    }
+    .product-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 14%),
+        linear-gradient(135deg, rgba(0,0,0,0.08), rgba(0,0,0,0.30));
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .product-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.04) contrast(1.03);
+      transform: scale(1.02);
+      transition: transform 300ms ease;
+    }
+    .card:hover .product-media img { transform: scale(1.07); }
+    .badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(9, 15, 22, 0.70);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: #fff;
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      z-index: 2;
+      backdrop-filter: blur(8px);
+    }
+    .fav {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.88);
+      border: none;
+      display: grid;
+      place-items: center;
+      color: #0f2034;
+      z-index: 2;
+      transition: transform 160ms ease, background 160ms ease;
+    }
+    .fav:hover { transform: scale(1.06); }
+    .fav.on {
+      background: linear-gradient(135deg, var(--danger), #ff8ca0);
+      color: #fff;
+    }
+
+    .product-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+    .product-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+    }
+    .product-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+    .product-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+    .rating {
+      font-size: 0.78rem;
+      color: var(--warn);
+      white-space: nowrap;
+      font-weight: 800;
+    }
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .price {
+      font-size: 1.28rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+    .subprice {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--stroke);
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+    .tag.green { color: #66e2b6; border-color: rgba(48,214,163,0.24); background: rgba(48,214,163,0.08); }
+    .tag.blue { color: #96bbff; border-color: rgba(79,140,255,0.24); background: rgba(79,140,255,0.08); }
+    .tag.amber { color: #ffd18a; border-color: rgba(255,189,89,0.24); background: rgba(255,189,89,0.08); }
+
+    .product-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .list {
+      display: grid;
+      gap: 12px;
+    }
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--stroke);
+    }
+    .list-cover {
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      overflow: hidden;
+      flex: 0 0 auto;
+      background: rgba(79,140,255,0.12);
+      border: 1px solid var(--stroke);
+    }
+    .list-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .list-main { min-width: 0; flex: 1; }
+    .list-title { font-size: 0.92rem; font-weight: 900; margin: 0; }
+    .list-sub { font-size: 0.76rem; color: var(--muted); margin-top: 2px; line-height: 1.35; }
+    .list-price { font-weight: 900; color: var(--primary-2); white-space: nowrap; }
+
+    .chat-layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 0;
+      min-height: 560px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--stroke);
+      background: var(--panel);
+      box-shadow: var(--shadow-soft);
+    }
+    .chat-side {
+      background: rgba(255,255,255,0.03);
+      border-right: 1px solid var(--stroke);
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--stroke);
+    }
+    .chat-search {
+      position: relative;
+      margin-top: 10px;
+    }
+    .chat-search input {
+      width: 100%;
+      height: 38px;
+      border-radius: 999px;
+      padding: 0 14px 0 40px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      outline: none;
+    }
+    .chat-search .ico {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+    .channel-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .channel {
+      border-radius: 999px;
+      height: 32px;
+      padding: 0 12px;
+      border: 1px solid var(--stroke);
+      background: transparent;
+      color: var(--muted);
+      transition: all 160ms ease;
+    }
+    .channel.active {
+      background: rgba(79,140,255,0.16);
+      color: var(--text);
+      border-color: rgba(79,140,255,0.30);
+    }
+    .threads {
+      flex: 1;
+      overflow: auto;
+    }
+    .thread {
+      display: flex;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--stroke);
+      cursor: pointer;
+      transition: background 160ms ease;
+      position: relative;
+    }
+    .thread:hover { background: rgba(79,140,255,0.06); }
+    .thread.active { background: rgba(79,140,255,0.10); }
+    .thread .avatar { width: 42px; height: 42px; }
+    .thread-main { min-width: 0; flex: 1; }
+    .thread-title { font-size: 0.88rem; font-weight: 900; }
+    .thread-preview {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .thread-time {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 0.72rem;
+      color: var(--muted-2);
+    }
+    .thread-unread {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-main {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .conversation-head {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--stroke);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .conv-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .conv-meta {
+      min-width: 0;
+    }
+    .conv-title { font-size: 0.96rem; font-weight: 900; }
+    .conv-sub { font-size: 0.76rem; color: var(--muted); margin-top: 2px; }
+    .conv-tools { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tool {
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      transition: all 160ms ease;
+    }
+    .tool:hover { color: var(--text); border-color: rgba(79,140,255,0.26); transform: translateY(-1px); }
+
+    .messages {
+      flex: 1;
+      overflow: auto;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(79,140,255,0.05), transparent 20%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    }
+
+    .day-sep {
+      margin: 4px auto;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--stroke);
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .msg {
+      display: flex;
+      gap: 10px;
+      max-width: min(82%, 820px);
+      align-items: flex-end;
+      animation: fadeUp 220ms ease both;
+    }
+    .msg.me { margin-left: auto; flex-direction: row-reverse; }
+    .msg .avatar { width: 32px; height: 32px; font-size: 0.78rem; flex-shrink: 0; }
+    .bubble {
+      padding: 12px 14px;
+      border-radius: 18px 18px 18px 6px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--stroke);
+      color: var(--text);
+      box-shadow: var(--shadow-soft);
+      line-height: 1.55;
+      font-size: 0.92rem;
+    }
+    .msg.me .bubble {
+      background: linear-gradient(135deg, rgba(79,140,255,0.22), rgba(48,214,163,0.14));
+      border-color: rgba(79,140,255,0.22);
+      border-radius: 18px 18px 6px 18px;
+    }
+    .bubble .meta {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .meta .seen { color: #8ac5ff; font-weight: 700; }
+
+    .typing {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 18px 18px 18px 6px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--stroke);
+      width: fit-content;
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--muted);
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+    .dot:nth-child(2) { animation-delay: 0.15s; }
+    .dot:nth-child(3) { animation-delay: 0.3s; }
+
+    .composer {
+      padding: 14px;
+      border-top: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .composer-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .composer textarea {
+      flex: 1;
+      min-height: 52px;
+      max-height: 120px;
+      resize: vertical;
+      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      outline: none;
+      padding: 12px 14px;
+      line-height: 1.5;
+    }
+    .composer textarea:focus {
+      border-color: rgba(79,140,255,0.35);
+      box-shadow: 0 0 0 4px rgba(79,140,255,0.10);
+    }
+    .send {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      box-shadow: 0 14px 28px rgba(79,140,255,0.18);
+    }
+    .quick-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .quick {
+      height: 30px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      transition: all 160ms ease;
+      font-size: 0.76rem;
+    }
+    .quick:hover {
+      color: var(--text);
+      border-color: rgba(79,140,255,0.24);
+      background: rgba(79,140,255,0.08);
+    }
+
+    .wallet-card {
+      position: relative;
+      overflow: hidden;
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(12, 20, 31, 0.95), rgba(17, 31, 47, 0.94));
+      border: 1px solid rgba(79, 140, 255, 0.16);
+      box-shadow: var(--shadow);
+    }
+    [data-theme="light"] .wallet-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.94), rgba(242,247,255,0.98));
+    }
+    .wallet-head { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+    .wallet-balance { font-size: 1.9rem; font-weight: 900; letter-spacing: -0.04em; margin-top: 6px; }
+    .wallet-note { font-size: 0.78rem; color: var(--muted); line-height: 1.5; max-width: 34ch; margin-top: 6px; }
+    .wallet-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+    .feed {
+      display: grid;
+      gap: 10px;
+    }
+    .feed-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--stroke);
+    }
+    .feed-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(79,140,255,0.12);
+      border: 1px solid var(--stroke);
+      flex: 0 0 auto;
+    }
+    .feed-title { font-size: 0.86rem; font-weight: 900; }
+    .feed-sub { font-size: 0.76rem; color: var(--muted); margin-top: 3px; line-height: 1.45; }
+
+    .achievements {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .ach {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--stroke);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .ach.on {
+      background: linear-gradient(135deg, rgba(79,140,255,0.14), rgba(48,214,163,0.08));
+      border-color: rgba(79,140,255,0.26);
+    }
+    .ach-ico {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--stroke);
+      font-size: 1.05rem;
+      flex: 0 0 auto;
+    }
+    .ach-title { font-size: 0.84rem; font-weight: 900; }
+    .ach-sub { font-size: 0.74rem; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+
+    .settings {
+      display: grid;
+      gap: 12px;
+    }
+    .setting {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--stroke);
+    }
+    .setting-main { min-width: 0; }
+    .setting-title { font-size: 0.84rem; font-weight: 900; }
+    .setting-sub { font-size: 0.75rem; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+    .toggle {
+      position: relative;
+      width: 52px;
+      height: 30px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid var(--stroke);
+      flex: 0 0 auto;
+    }
+    .toggle::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 3px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      transform: translateY(-50%);
+      transition: left 180ms ease, background 180ms ease;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+    .toggle.on {
+      background: rgba(48,214,163,0.18);
+      border-color: rgba(48,214,163,0.22);
+    }
+    .toggle.on::after { left: 26px; background: #dffef3; }
+
+    .lang-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .lang {
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      text-align: center;
+      transition: all 160ms ease;
+    }
+    .lang.active {
+      border-color: rgba(79,140,255,0.30);
+      background: rgba(79,140,255,0.10);
+    }
+    .lang b { display: block; font-size: 1rem; }
+    .lang span { display: block; margin-top: 2px; font-size: 0.74rem; color: var(--muted); }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 11, 0.62);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+    .overlay.open { display: flex; }
+    .modal {
+      width: min(980px, 100%);
+      max-height: 92vh;
+      overflow: auto;
+      background: var(--panel-2);
+      border: 1px solid var(--stroke);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+    .modal-head {
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--stroke);
+    }
+    .modal-title { font-size: 0.98rem; font-weight: 900; }
+    .modal-body { padding: 20px; }
+    .modal-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.95fr);
+      gap: 18px;
+    }
+    .modal-gallery {
+      border-radius: 22px;
+      overflow: hidden;
+      min-height: 360px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--stroke);
+      position: relative;
+    }
+    .modal-gallery img { width: 100%; height: 100%; object-fit: cover; min-height: 360px; }
+    .modal-info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .modal-price {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+    .modal-text { color: var(--muted); line-height: 1.75; font-size: 0.92rem; }
+    .details {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .detail {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+    }
+    .detail span { color: var(--muted); font-size: 0.82rem; }
+    .detail b { font-size: 0.84rem; }
+    .review-list { display: grid; gap: 10px; margin-top: 12px; }
+    .review {
+      display: flex;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+    }
+    .review-text { font-size: 0.82rem; color: var(--muted); margin-top: 2px; line-height: 1.45; }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 400px;
+      height: 100vh;
+      background: var(--panel-2);
+      border-left: 1px solid var(--stroke);
+      box-shadow: -16px 0 50px rgba(0,0,0,0.22);
+      z-index: 90;
+      transition: right 240ms ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .cart-drawer.open { right: 0; }
+    .drawer-body { flex: 1; overflow: auto; padding: 16px; }
+    .cart-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      margin-bottom: 10px;
+    }
+    .cart-thumb {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      overflow: hidden;
+      flex: 0 0 auto;
+      background: rgba(79,140,255,0.12);
+      border: 1px solid var(--stroke);
+    }
+    .cart-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .cart-main { min-width: 0; flex: 1; }
+    .cart-title { font-size: 0.88rem; font-weight: 900; }
+    .cart-sub { font-size: 0.74rem; color: var(--muted); margin-top: 2px; line-height: 1.45; }
+    .cart-price { font-size: 0.94rem; font-weight: 900; color: var(--primary-2); margin-top: 4px; }
+    .remove {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+    }
+    .remove:hover { background: rgba(255,107,129,0.14); color: var(--danger); }
+    .drawer-foot {
+      padding: 14px 16px;
+      border-top: 1px solid var(--stroke);
+      display: grid;
+      gap: 12px;
+    }
+
+    .toast-wrap {
+      position: fixed;
+      top: calc(var(--header-h) + 14px);
+      right: 16px;
+      display: grid;
+      gap: 8px;
+      z-index: 120;
+      pointer-events: none;
+    }
+    .toast {
+      min-width: 280px;
+      max-width: 360px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: var(--panel-2);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      animation: toastIn 220ms ease both;
+    }
+    .toast.ok { border-color: rgba(48,214,163,0.22); }
+    .toast.err { border-color: rgba(255,107,129,0.24); }
+    .toast .icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(79,140,255,0.14);
+      border: 1px solid var(--stroke);
+      flex: 0 0 auto;
+    }
+    .toast-title { font-size: 0.84rem; font-weight: 900; }
+    .toast-text { font-size: 0.76rem; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+
+    .support {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 110;
+    }
+    .support-btn {
+      width: 58px;
+      height: 58px;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: #fff;
+      font-size: 1.18rem;
+      box-shadow: 0 18px 34px rgba(79,140,255,0.26);
+    }
+    .support-panel {
+      position: absolute;
+      right: 0;
+      bottom: 72px;
+      width: 360px;
+      max-width: calc(100vw - 34px);
+      background: var(--panel-2);
+      border: 1px solid var(--stroke);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: none;
+    }
+    .support-panel.open { display: block; }
+    .sup-head {
+      padding: 14px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--stroke);
+    }
+    .sup-title { font-size: 0.9rem; font-weight: 900; }
+    .sup-sub { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
+    .sup-msgs {
+      height: 240px;
+      overflow: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: rgba(255,255,255,0.02);
+    }
+    .sup-bubble {
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      font-size: 0.82rem;
+      line-height: 1.5;
+      max-width: 92%;
+    }
+    .sup-bubble.me {
+      margin-left: auto;
+      background: rgba(79,140,255,0.16);
+      border-color: rgba(79,140,255,0.22);
+    }
+    .sup-quick {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid var(--stroke);
+    }
+    .sup-quick button {
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      padding: 0 10px;
+      font-size: 0.74rem;
+    }
+    .sup-bar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 12px 12px;
+    }
+    .sup-bar input {
+      flex: 1;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      padding: 0 14px;
+      outline: none;
+    }
+    .sup-bar button {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .footer {
+      padding: 20px 0 34px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    .desktop-only { display: block; }
+    .mobile-only { display: none; }
+
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.34);
+      backdrop-filter: blur(6px);
+      z-index: 80;
+      display: none;
+    }
+    .drawer-backdrop.open { display: block; }
+
+    .ripple {
+      position: absolute;
+      inset: auto auto 0 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(79,140,255,0.40);
+      animation: ripple 2.8s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes ripple {
+      0% { transform: translate(26vw, 20vh) scale(0.6); opacity: 0.0; }
+      15% { opacity: 0.4; }
+      100% { transform: translate(78vw, 66vh) scale(22); opacity: 0; }
+    }
+    @keyframes pulseWave {
+      from { transform: translateY(0px) scale(1); opacity: 0.9; }
+      to   { transform: translateY(4px) scale(1.01); opacity: 1; }
+    }
+    @keyframes bounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.55; }
+      40% { transform: translateY(-5px); opacity: 1; }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (max-width: 1320px) {
+      .layout { grid-template-columns: 240px minmax(0, 1fr); }
+      .rightbar { grid-column: 1 / -1; }
+      .grid-products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 1080px) {
+      .topbar {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 10px 0 12px;
+      }
+      .search { order: 5; flex: 1 1 100%; max-width: none; margin-left: 0; }
+      .actions { margin-left: 0; }
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-side { flex-direction: row; }
+      .status-card { min-height: 280px; }
+      .metric-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .chat-layout { grid-template-columns: 1fr; }
+      .chat-side { border-right: 0; border-bottom: 1px solid var(--stroke); }
+      .drawer { width: min(94vw, 400px); }
+      .modal-grid { grid-template-columns: 1fr; }
+      .desktop-only { display: none; }
+      .mobile-only { display: inline-flex; }
+    }
+
+    @media (max-width: 760px) {
+      .shell { width: min(var(--max), calc(100% - 18px)); }
+      .hero-grid, .panel-body, .modal-body, .drawer-body { padding-left: 14px; padding-right: 14px; }
+      .hero-grid { padding-top: 18px; padding-bottom: 18px; }
+      .hero-copy { min-height: auto; }
+      .hero-side { flex-direction: column; }
+      .grid-products { grid-template-columns: 1fr; }
+      .metric-row { grid-template-columns: 1fr; }
+      .achievements { grid-template-columns: 1fr; }
+      .support-panel { width: min(94vw, 360px); }
+      .cart-drawer { width: min(92vw, 390px); right: -100%; }
+      .actions .chip-btn:not(.primary):not(.success) { display: none; }
+      h1 { max-width: 100%; }
+      .section-head { flex-direction: column; align-items: start; }
+      .conv-tools { display: none; }
+      .chat-layout { min-height: 660px; }
+      .messages { padding: 14px; }
+      .toast-wrap { right: 10px; left: 10px; }
+      .toast { min-width: 0; max-width: none; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#content" class="skip">Skip to content</a>
+  <div class="topline">
+    <div class="shell topbar">
+      <div class="brand" role="button" tabindex="0" onclick="setPage('home')">
+        <div class="brand-badge">PX</div>
+        <div class="brand-copy">
+          <div class="brand-title">PlaystoreX</div>
+          <div class="brand-sub" data-i18n="brandSub">Serious gaming marketplace and community</div>
+        </div>
+      </div>
+
+      <div class="search">
+        <input id="searchInput" type="search" placeholder="Search games, services, accounts, skins..." autocomplete="off" />
+        <div class="search-ico">⌕</div>
+        <div class="search-drop" id="searchDrop"></div>
+      </div>
+
+      <div class="actions">
+        <button class="chip-btn desktop-only" id="langBtn" type="button" aria-label="Toggle language">RU / EN</button>
+        <button class="chip-btn" id="themeBtn" type="button" aria-label="Toggle theme">☾</button>
+        <button class="chip-btn" type="button" onclick="setPage('chat')">Live chat</button>
+        <button class="chip-btn primary" type="button" onclick="toggleCart()">Cart <span class="chip-badge" id="cartCount">0</span></button>
+        <button class="chip-btn success" type="button" onclick="openModal('sellModal')">Sell item</button>
+        <div class="avatar" title="Player profile" onclick="setPage('profile')" id="profileAvatar">PX</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" onclick="toggleCart(false)"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Cart">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title" data-i18n="cartTitle">Checkout cart</div>
+        <div class="panel-sub" data-i18n="cartSub">Your selected games and services are listed here.</div>
+      </div>
+      <button class="tool" onclick="toggleCart(false)">✕</button>
+    </div>
+    <div class="drawer-body" id="cartBody"></div>
+    <div class="drawer-foot">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;">
+        <span data-i18n="cartTotal">Total</span>
+        <b id="cartTotal">$0.00</b>
+      </div>
+      <button class="chip-btn primary" onclick="openModal('checkoutModal')" style="justify-content:center;" data-i18n="checkoutBtn">Proceed to checkout</button>
+    </div>
+  </aside>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <main class="shell" id="content">
+    <section class="layout">
+      <aside class="sidebar">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title" data-i18n="navTitle">Navigation</div>
+              <div class="panel-sub" data-i18n="navSub">Store, community, support and user center.</div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="nav-list">
+              <a class="nav-item active" href="#home" onclick="setPage('home')"><span class="nav-icon">⌂</span><span data-i18n="navHome">Home</span><span class="nav-meta">01</span></a>
+              <a class="nav-item" href="#store" onclick="setPage('store')"><span class="nav-icon">⛊</span><span data-i18n="navStore">Store</span><span class="nav-meta">02</span></a>
+              <a class="nav-item" href="#trading" onclick="setPage('trading')"><span class="nav-icon">⇄</span><span data-i18n="navTrading">Trading</span><span class="nav-meta">03</span></a>
+              <a class="nav-item" href="#chat" onclick="setPage('chat')"><span class="nav-icon">✦</span><span data-i18n="navChat">Chats</span><span class="nav-meta">04</span></a>
+              <a class="nav-item" href="#profile" onclick="setPage('profile')"><span class="nav-icon">◫</span><span data-i18n="navProfile">Profile</span><span class="nav-meta">05</span></a>
+              <a class="nav-item" href="#settings" onclick="setPage('settings')"><span class="nav-icon">⚙</span><span data-i18n="navSettings">Settings</span><span class="nav-meta">06</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title" data-i18n="onlineTitle">Live community</div>
+              <div class="panel-sub" data-i18n="onlineSub">Active rooms and players online.</div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="list">
+              <div class="list-item">
+                <div class="avatar">7K</div>
+                <div class="list-main">
+                  <div class="list-title" data-i18n="room1">Arena Traders</div>
+                  <div class="list-sub" data-i18n="room1Sub">4,218 players • 128 live deals</div>
+                </div>
+                <div class="tag blue">LIVE</div>
+              </div>
+              <div class="list-item">
+                <div class="avatar">SG</div>
+                <div class="list-main">
+                  <div class="list-title" data-i18n="room2">Squad Zone</div>
+                  <div class="list-sub" data-i18n="room2Sub">Voice lobby • team search</div>
+                </div>
+                <div class="tag green">HOT</div>
+              </div>
+              <div class="list-item">
+                <div class="avatar">SP</div>
+                <div class="list-main">
+                  <div class="list-title" data-i18n="room3">Support Desk</div>
+                  <div class="list-sub" data-i18n="room3Sub">Moderators online • instant reply</div>
+                </div>
+                <div class="tag amber">24/7</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <section class="main">
+        <article class="hero card" id="home">
+          <div class="ripple"></div>
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <div class="eyebrow" data-i18n="heroEye">Premium game commerce system</div>
+              <h1 data-i18n="heroTitle">Buy, trade, chat, and level up the ecosystem</h1>
+              <p data-i18n="heroText">
+                PlaystoreX is built as a serious game marketplace with a full trading flow, seller analytics, protected checkout,
+                live community rooms, support channels, and a premium interface that feels closer to a product platform than a simple storefront.
+              </p>
+              <div class="hero-actions">
+                <button class="chip-btn primary" onclick="setPage('store')" data-i18n="heroBtn1">Explore store</button>
+                <button class="chip-btn" onclick="setPage('chat')" data-i18n="heroBtn2">Open live chats</button>
+                <button class="chip-btn success" onclick="openModal('sellModal')" data-i18n="heroBtn3">Start selling</button>
+              </div>
+              <div class="metric-row">
+                <div class="metric">
+                  <strong>4.9/5</strong>
+                  <span data-i18n="m1">Buyer trust based on ratings, escrow and verification.</span>
+                </div>
+                <div class="metric">
+                  <strong>128</strong>
+                  <span data-i18n="m2">Live deals across accounts, skins, boosts and services.</span>
+                </div>
+                <div class="metric">
+                  <strong>24/7</strong>
+                  <span data-i18n="m3">Support desk and moderation room with active staff.</span>
+                </div>
+                <div class="metric">
+                  <strong>RU / EN</strong>
+                  <span data-i18n="m4">Language switch for a wider player base and global feel.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-side">
+              <div class="status-card">
+                <div class="status-top">
+                  <div>
+                    <div class="panel-title" data-i18n="statusTitle">Market pulse</div>
+                    <div class="panel-sub" data-i18n="statusSub">The current platform flow and live demand.</div>
+                  </div>
+                  <div class="status-badge" data-i18n="statusBadge">Online now</div>
+                </div>
+                <div class="status-graph">
+                  <div class="graph-grid"></div>
+                  <div class="graph-line"></div>
+                </div>
+                <div class="status-kpis">
+                  <div class="mini-kpi"><span data-i18n="kpi1L">Peak sellers online</span><b>1,284</b></div>
+                  <div class="mini-kpi"><span data-i18n="kpi2L">Average response</span><b>46 sec</b></div>
+                  <div class="mini-kpi"><span data-i18n="kpi3L">Escrow success</span><b>99.1%</b></div>
+                </div>
+              </div>
+              <div class="status-card" style="min-height: 120px;">
+                <div class="status-top">
+                  <div>
+                    <div class="panel-title" data-i18n="networkTitle">Network</div>
+                    <div class="panel-sub" data-i18n="networkSub">Verified sellers, chat moderation and protection.</div>
+                  </div>
+                  <div class="avatar">PX</div>
+                </div>
+                <div class="tag-row">
+                  <span class="tag blue" data-i18n="net1">Verified sellers</span>
+                  <span class="tag green" data-i18n="net2">Protected checkout</span>
+                  <span class="tag amber" data-i18n="net3">Guild chats</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <section class="section card" id="store">
+          <div class="panel-head" style="border-bottom: 1px solid var(--stroke);">
+            <div>
+              <h2 class="section-title" data-i18n="storeTitle">Featured store</h2>
+              <p class="section-note" data-i18n="storeNote">Curated gaming accounts, top-up services, skins, boosts, and digital items with clear tags and live pricing.</p>
+            </div>
+            <div class="filters" id="filters"></div>
+          </div>
+          <div class="panel-body">
+            <div class="grid-products" id="productGrid"></div>
+          </div>
+        </section>
+
+        <section class="section card" id="trading">
+          <div class="panel-head">
+            <div>
+              <h2 class="section-title" data-i18n="tradeTitle">Trading desk</h2>
+              <p class="section-note" data-i18n="tradeNote">A more serious marketplace layer for active listings, quick evaluations, and fast operations.</p>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="grid-products" id="tradingGrid"></div>
+          </div>
+        </section>
+
+        <section class="section card" id="chat">
+          <div class="panel-head">
+            <div>
+              <h2 class="section-title" data-i18n="chatTitle">Community chats</h2>
+              <p class="section-note" data-i18n="chatNote">Three persistent channels with long message history, live replies, and support-style quick actions.</p>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="chat-layout">
+              <aside class="chat-side">
+                <div class="chat-header">
+                  <div class="section-title" style="font-size:0.88rem;" data-i18n="chatRooms">Rooms</div>
+                  <div class="panel-sub" data-i18n="chatRoomsSub">Pick a room to switch the conversation stream.</div>
+                  <div class="chat-search">
+                    <span class="ico">⌕</span>
+                    <input id="threadSearch" type="search" placeholder="Search conversations..." />
+                  </div>
+                  <div class="channel-tabs" id="roomTabs"></div>
+                </div>
+                <div class="threads" id="threadList"></div>
+              </aside>
+              <section class="chat-main">
+                <div class="conversation-head">
+                  <div class="conv-left">
+                    <div class="avatar" id="convAvatar">PX</div>
+                    <div class="conv-meta">
+                      <div class="conv-title" id="convTitle">—</div>
+                      <div class="conv-sub" id="convSub">—</div>
+                    </div>
+                  </div>
+                  <div class="conv-tools">
+                    <button class="tool" onclick="sendQuick('Need a fair trade? Check sellers with escrow.')">Escrow</button>
+                    <button class="tool" onclick="sendQuick('Can someone price-check this account?')">Price check</button>
+                    <button class="tool" onclick="sendQuick('Looking for a reliable booster for tonight.')">Find booster</button>
+                  </div>
+                </div>
+                <div class="messages" id="messages"></div>
+                <div class="composer">
+                  <div class="quick-row">
+                    <button class="quick" onclick="sendQuick('LF team for ranked grind, region EU, no mic needed.')">LF team</button>
+                    <button class="quick" onclick="sendQuick('Can a mod review this offer for safety?')">Ask mod</button>
+                    <button class="quick" onclick="sendQuick('Who has a good price for this skin bundle?')">Price ask</button>
+                    <button class="quick" onclick="sendQuick('Payment confirmed, waiting for delivery.')">Payment status</button>
+                  </div>
+                  <div class="composer-row">
+                    <textarea id="chatInput" rows="2" placeholder="Write a message..."></textarea>
+                    <button class="send" onclick="sendMessage()" aria-label="Send message">➤</button>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <aside class="rightbar">
+        <div class="wallet-card card" id="profile">
+          <div class="wallet-head">
+            <div>
+              <div class="panel-title" data-i18n="walletTitle">Player wallet</div>
+              <div class="wallet-balance" id="walletBalance">$2,480.00</div>
+              <div class="wallet-note" data-i18n="walletNote">A clean balance view with deposits, recent activity and payout tracking.</div>
+            </div>
+            <div class="avatar">PM</div>
+          </div>
+          <div class="wallet-actions">
+            <button class="chip-btn primary" onclick="openModal('depositModal')" data-i18n="depositBtn">Deposit</button>
+            <button class="chip-btn" onclick="openModal('withdrawModal')" data-i18n="withdrawBtn">Withdraw</button>
+            <button class="chip-btn success" onclick="openModal('statsModal')" data-i18n="statsBtn">View stats</button>
+          </div>
+        </div>
+
+        <div class="panel" id="settings">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title" data-i18n="settingsTitle">Settings</div>
+              <div class="panel-sub" data-i18n="settingsSub">Theme, language and live platform behavior.</div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="settings">
+              <div class="setting">
+                <div class="setting-main">
+                  <div class="setting-title" data-i18n="setting1">Dark mode</div>
+                  <div class="setting-sub" data-i18n="setting1Sub">Serious gaming interface with premium contrast.</div>
+                </div>
+                <div class="toggle on" id="themeToggle" onclick="toggleTheme()"></div>
+              </div>
+              <div class="setting">
+                <div class="setting-main">
+                  <div class="setting-title" data-i18n="setting2">Language</div>
+                  <div class="setting-sub" data-i18n="setting2Sub">Switch between Russian and English instantly.</div>
+                </div>
+                <div class="lang-grid">
+                  <button class="lang active" id="ruLang" onclick="setLang('ru')"><b>RU</b><span>Русский</span></button>
+                  <button class="lang" id="enLang" onclick="setLang('en')"><b>EN</b><span>English</span></button>
+                </div>
+              </div>
+              <div class="setting">
+                <div class="setting-main">
+                  <div class="setting-title" data-i18n="setting3">Notifications</div>
+                  <div class="setting-sub" data-i18n="setting3Sub">Alerts for messages, offers and completed orders.</div>
+                </div>
+                <div class="toggle on" id="notifyToggle" onclick="toggleNotify()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" id="achievements">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title" data-i18n="achTitle">Achievements</div>
+              <div class="panel-sub" data-i18n="achSub">Progress badges make the platform feel alive.</div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="achievements">
+              <div class="ach on">
+                <div class="ach-ico">★</div>
+                <div>
+                  <div class="ach-title" data-i18n="ach1">Trusted seller</div>
+                  <div class="ach-sub" data-i18n="ach1Sub">100% order completion and escrow-ready profile.</div>
+                </div>
+              </div>
+              <div class="ach on">
+                <div class="ach-ico">☰</div>
+                <div>
+                  <div class="ach-title" data-i18n="ach2">Community voice</div>
+                  <div class="ach-sub" data-i18n="ach2Sub">Posted 50+ messages across live rooms.</div>
+                </div>
+              </div>
+              <div class="ach">
+                <div class="ach-ico">⟡</div>
+                <div>
+                  <div class="ach-title" data-i18n="ach3">Pro trader</div>
+                  <div class="ach-sub" data-i18n="ach3Sub">Unlocked after 30 successful deals.</div>
+                </div>
+              </div>
+              <div class="ach">
+                <div class="ach-ico">⚡</div>
+                <div>
+                  <div class="ach-title" data-i18n="ach4">Fast responder</div>
+                  <div class="ach-sub" data-i18n="ach4Sub">Average reply time under one minute.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" id="activity">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title" data-i18n="activityTitle">Recent activity</div>
+              <div class="panel-sub" data-i18n="activitySub">Live updates from the marketplace.</div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="feed" id="activityFeed"></div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="footer" data-i18n="footer">
+      PlaystoreX • Serious gaming marketplace, chat network, and trading platform
+    </section>
+  </main>
+
+  <div class="overlay" id="productModal" aria-hidden="true">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title" id="modalTitle">Product</div>
+          <div class="panel-sub" id="modalSub">Marketplace details</div>
+        </div>
+        <button class="tool" onclick="closeModal('productModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="modal-gallery"><img id="modalImg" alt="Product preview" /></div>
+          <div class="modal-info">
+            <div>
+              <div class="modal-price" id="modalPrice">$0.00</div>
+              <div class="modal-text" id="modalDesc"></div>
+            </div>
+            <div class="details" id="modalDetails"></div>
+            <div class="tag-row" id="modalTags"></div>
+            <div class="product-actions">
+              <button class="chip-btn primary" id="modalCartBtn">Add to cart</button>
+              <button class="chip-btn" onclick="openModal('checkoutModal')">Buy now</button>
+            </div>
+            <div class="review-list" id="modalReviews"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="checkoutModal" aria-hidden="true">
+    <div class="modal" style="width:min(720px,100%);">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title" data-i18n="checkoutTitle">Secure checkout</div>
+          <div class="panel-sub" data-i18n="checkoutSub">Escrow, wallet, and payment choice in one flow.</div>
+        </div>
+        <button class="tool" onclick="closeModal('checkoutModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="grid-products" style="grid-template-columns:1fr 1fr;">
+          <div class="card" style="padding:16px;">
+            <div class="section-title" style="margin-bottom:10px;" data-i18n="checkoutMethod">Payment method</div>
+            <div class="filters">
+              <button class="filter active" onclick="choosePay(this,'wallet')">Wallet</button>
+              <button class="filter" onclick="choosePay(this,'card')">Card</button>
+              <button class="filter" onclick="choosePay(this,'crypto')">Crypto</button>
+              <button class="filter" onclick="choosePay(this,'paypal')">PayPal</button>
+            </div>
+            <div class="section-note" style="margin-top:12px;" data-i18n="checkoutSafe">
+              Your payment goes through protected checkout with order confirmation and message support.
+            </div>
+          </div>
+          <div class="card" style="padding:16px;">
+            <div class="section-title" data-i18n="checkoutSummary">Order summary</div>
+            <div class="list" id="checkoutSummary" style="margin-top:12px;"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+              <span data-i18n="checkoutTotal">Total</span>
+              <b id="checkoutTotal">$0.00</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="sellModal" aria-hidden="true">
+    <div class="modal" style="width:min(760px,100%);">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title" data-i18n="sellTitle">Create listing</div>
+          <div class="panel-sub" data-i18n="sellSub">Sell accounts, skins, boosts, services or digital goods.</div>
+        </div>
+        <button class="tool" onclick="closeModal('sellModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="grid-products" style="grid-template-columns:1fr 1fr;">
+          <div class="card" style="padding:16px;">
+            <div class="section-title" style="margin-bottom:10px;" data-i18n="sellForm">Listing details</div>
+            <div class="settings">
+              <div class="setting"><div class="setting-main"><div class="setting-title" data-i18n="sellField1">Title</div><div class="setting-sub">Give it a precise, trusted name.</div></div><div class="toggle on"></div></div>
+              <div class="setting"><div class="setting-main"><div class="setting-title" data-i18n="sellField2">Category</div><div class="setting-sub">Accounts, skins, services or boosts.</div></div><div class="toggle on"></div></div>
+              <div class="setting"><div class="setting-main"><div class="setting-title" data-i18n="sellField3">Verification</div><div class="setting-sub">Show proof to unlock buyer trust.</div></div><div class="toggle on"></div></div>
+            </div>
+          </div>
+          <div class="card" style="padding:16px;">
+            <div class="section-title" data-i18n="sellPreview">Preview</div>
+            <div class="section-note" style="margin-top:8px;" data-i18n="sellPreviewText">
+              A professional listing template with tags, price, screenshots, and a clean seller rating.
+            </div>
+            <div class="list-item" style="margin-top:12px;">
+              <div class="list-cover"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" alt=""></div>
+              <div class="list-main">
+                <div class="list-title">Elite rank account</div>
+                <div class="list-sub">Verified seller • 98% completion • fast delivery</div>
+              </div>
+              <div class="list-price">$79</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="depositModal" aria-hidden="true">
+    <div class="modal" style="width:min(640px,100%);">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title" data-i18n="depositTitle">Deposit funds</div>
+          <div class="panel-sub" data-i18n="depositSub">Add balance to your wallet for quick buying and secure trading.</div>
+        </div>
+        <button class="tool" onclick="closeModal('depositModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="list">
+          <div class="list-item"><div class="avatar">W</div><div class="list-main"><div class="list-title">$50 starter pack</div><div class="list-sub">Instant top-up for new buyers.</div></div><div class="list-price">$50</div></div>
+          <div class="list-item"><div class="avatar">P</div><div class="list-main"><div class="list-title">$100 pro pack</div><div class="list-sub">Best for active traders and multiple items.</div></div><div class="list-price">$100</div></div>
+          <div class="list-item"><div class="avatar">V</div><div class="list-main"><div class="list-title">$250 vault pack</div><div class="list-sub">Premium balance for heavy marketplace activity.</div></div><div class="list-price">$250</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="withdrawModal" aria-hidden="true">
+    <div class="modal" style="width:min(640px,100%);">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title" data-i18n="withdrawTitle">Withdraw earnings</div>
+          <div class="panel-sub" data-i18n="withdrawSub">Move earnings to bank card, wallet, or crypto address.</div>
+        </div>
+        <button class="tool" onclick="closeModal('withdrawModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="filters">
+          <button class="filter active">Card</button>
+          <button class="filter">USDT</button>
+          <button class="filter">BTC</button>
+          <button class="filter">PayPal</button>
+        </div>
+        <div class="section-note" style="margin-top:14px;" data-i18n="withdrawInfo">
+          Withdrawals are shown with a delay estimate, fee preview, and verification requirements.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="statsModal" aria-hidden="true">
+    <div class="modal" style="width:min(820px,100%);">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title" data-i18n="statsTitle">Platform stats</div>
+          <div class="panel-sub" data-i18n="statsSub">Marketplace activity, trust score and chat activity.</div>
+        </div>
+        <button class="tool" onclick="closeModal('statsModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="grid-products" style="grid-template-columns:repeat(4,1fr);">
+          <div class="metric"><strong>91%</strong><span data-i18n="statA">Profile verification rate.</span></div>
+          <div class="metric"><strong>27k</strong><span data-i18n="statB">Messages sent in community rooms.</span></div>
+          <div class="metric"><strong>18m</strong><span data-i18n="statC">Average market time per listing.</span></div>
+          <div class="metric"><strong>1.8k</strong><span data-i18n="statD">Completed protected orders this month.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      lang: localStorage.getItem("px-lang") || "ru",
+      theme: localStorage.getItem("px-theme") || "dark",
+      notify: localStorage.getItem("px-notify") !== "off",
+      cart: [],
+      selected: null,
+      category: "all",
+      room: "support",
+      thread: "support-1",
+      payment: "wallet",
+      favorites: new Set(JSON.parse(localStorage.getItem("px-favs") || "[]")),
+      activity: []
+    };
+
+    const i18n = {
+      ru: {
+        brandSub: "Серьёзная игровая платформа с торговлей и чатом",
+        navTitle: "Навигация",
+        navSub: "Магазин, сообщество, поддержка и профиль.",
+        navHome: "Главная",
+        navStore: "Магазин",
+        navTrading: "Торговля",
+        navChat: "Чаты",
+        navProfile: "Профиль",
+        navSettings: "Настройки",
+        onlineTitle: "Живое сообщество",
+        onlineSub: "Активные комнаты и игроки онлайн.",
+        room1: "Arena Traders", room1Sub: "4 218 игроков • 128 сделок онлайн",
+        room2: "Squad Zone", room2Sub: "Голосовая комната • поиск тиммейтов",
+        room3: "Support Desk", room3Sub: "Модераторы онлайн • мгновенный ответ",
+        heroEye: "Premium game commerce system",
+        heroTitle: "Покупай, торгуй, общайся и прокачивай экосистему",
+        heroText: "PlaystoreX построен как серьёзная игровая платформа с полным циклом торговли, аналитикой продавца, защищённой оплатой, живыми чатами, поддержкой и премиальным интерфейсом.",
+        heroBtn1: "Открыть магазин",
+        heroBtn2: "Открыть чаты",
+        heroBtn3: "Начать продавать",
+        m1: "Доверие покупателей основано на рейтингах, escrow и проверке.",
+        m2: "Активные сделки по аккаунтам, скинам, бустам и сервисам.",
+        m3: "Круглосуточная поддержка и модерация сообщества.",
+        m4: "Переключение языков для глобального ощущения платформы.",
+        statusTitle: "Market pulse",
+        statusSub: "Текущий поток спроса и активности на платформе.",
+        statusBadge: "Online now",
+        kpi1L: "Пик продавцов онлайн",
+        kpi2L: "Средний ответ",
+        kpi3L: "Успешность escrow",
+        networkTitle: "Сеть",
+        networkSub: "Верифицированные продавцы, чат-модерация и защита.",
+        net1: "Верифицированные продавцы",
+        net2: "Защищённая оплата",
+        net3: "Гильд-чаты",
+        storeTitle: "Featured store",
+        storeNote: "Подборка аккаунтов, топ-ап сервисов, скинов, бустов и цифровых предметов с живыми ценами.",
+        tradeTitle: "Trading desk",
+        tradeNote: "Более серьёзный слой рынка для активных объявлений, быстрых оценок и операций.",
+        chatTitle: "Community chats",
+        chatNote: "Три постоянных канала с историей сообщений, быстрыми ответами и поддержкой.",
+        chatRooms: "Комнаты",
+        chatRoomsSub: "Выберите комнату, чтобы сменить поток беседы.",
+        walletTitle: "Player wallet",
+        walletNote: "Чистый баланс, пополнения, история операций и отслеживание выплат.",
+        depositBtn: "Пополнить",
+        withdrawBtn: "Вывести",
+        statsBtn: "Статистика",
+        settingsTitle: "Settings",
+        settingsSub: "Тема, язык и поведение платформы.",
+        setting1: "Тёмная тема",
+        setting1Sub: "Серьёзный игровой интерфейс с премиальным контрастом.",
+        setting2: "Язык",
+        setting2Sub: "Мгновенное переключение между русским и английским.",
+        setting3: "Уведомления",
+        setting3Sub: "Оповещения о сообщениях, офферах и заказах.",
+        achTitle: "Достижения",
+        achSub: "Прогресс-значки делают платформу живой.",
+        ach1: "Trusted seller",
+        ach1Sub: "100% завершённых заказов и готовность к escrow.",
+        ach2: "Community voice",
+        ach2Sub: "50+ сообщений в живых комнатах.",
+        ach3: "Pro trader",
+        ach3Sub: "Открывается после 30 успешных сделок.",
+        ach4: "Fast responder",
+        ach4Sub: "Среднее время ответа менее минуты.",
+        activityTitle: "Recent activity",
+        activitySub: "Живые обновления с рынка.",
+        footer: "PlaystoreX • Серьёзная игровая платформа, чат-сеть и торговый сервис",
+        cartTitle: "Корзина",
+        cartSub: "Выбранные игры и сервисы отображаются здесь.",
+        cartTotal: "Итого",
+        checkoutBtn: "Перейти к оплате",
+        checkoutTitle: "Безопасная оплата",
+        checkoutSub: "Escrow, кошелёк и выбор оплаты в одном потоке.",
+        checkoutMethod: "Способ оплаты",
+        checkoutSafe: "Платёж идёт через защищённую оплату с подтверждением заказа и поддержкой в чате.",
+        checkoutSummary: "Сводка заказа",
+        checkoutTotal: "Итог",
+        sellTitle: "Создать объявление",
+        sellSub: "Продавайте аккаунты, скины, бусты, сервисы или цифровые товары.",
+        sellForm: "Данные объявления",
+        sellField1: "Название",
+        sellField2: "Категория",
+        sellField3: "Проверка",
+        sellPreview: "Превью",
+        sellPreviewText: "Профессиональный шаблон объявления с тегами, ценой, скриншотами и рейтингом продавца.",
+        depositTitle: "Пополнение",
+        depositSub: "Добавьте баланс в кошелёк для быстрых покупок и безопасной торговли.",
+        withdrawTitle: "Вывод средств",
+        withdrawSub: "Выводите заработок на карту, кошелёк или криптоадрес.",
+        withdrawInfo: "Выводы отображаются с оценкой задержки, комиссией и требованиями верификации.",
+        statsTitle: "Статистика платформы",
+        statsSub: "Активность рынка, рейтинг доверия и чат-активность.",
+        statA: "Процент верификации профилей.",
+        statB: "Сообщений в сообществах.",
+        statC: "Среднее время на рынке для объявления.",
+        statD: "Завершённых защищённых заказов за месяц.",
+        p1Badge: "Top seller", p1Title: "Cyber Arena Account", p1Meta: "Verified • shooter • 125 hours", p1Rating: "4.9", p1Price: "$89", p1Sub: "High-tier shooter account with clean stats, linked email, and transfer support.",
+        p2Badge: "Hot", p2Title: "Battle Pass Boost", p2Meta: "Rank push • duo queue • fast delivery", p2Rating: "4.8", p2Price: "$34", p2Sub: "Rank and battle pass boost with transparent progress updates and live chat support.",
+        p3Badge: "Rare", p3Title: "Legend Skin Bundle", p3Meta: "Skins • cosmetics • premium set", p3Rating: "4.9", p3Price: "$126", p3Sub: "Curated cosmetics bundle for collectors, content creators and status-focused players.",
+        p4Badge: "Service", p4Title: "Team Finder Package", p4Meta: "Guild support • voice lobby • matchmaking", p4Rating: "5.0", p4Price: "$19", p4Sub: "A smarter team-search package with room boosts, event alerts and organized lobbies.",
+        t1Badge: "Trading", t1Title: "MMO Vault Keyset", t1Meta: "Secure transfer • fast escrow", t1Rating: "4.9", t1Price: "$58", t1Sub: "Rare keyset with full delivery notes, trusted seller status and escrow protection.",
+        t2Badge: "Verified", t2Title: "RPG Starter Vault", t2Meta: "New player bundle • starter pack", t2Rating: "4.7", t2Price: "$24", t2Sub: "Ideal starter inventory with gear, currency and account setup help.",
+        t3Badge: "Premium", t3Title: "Streamer Boost Room", t3Meta: "Audience growth • fast queue", t3Rating: "4.8", t3Price: "$42", t3Sub: "For creators who want a fast community lift with clear delivery timeline.",
+        t4Badge: "Service", t4Title: "Coach Session", t4Meta: "1 hour • strategy review • live audit", t4Rating: "5.0", t4Price: "$29", t4Sub: "Serious coaching, screen review and practical progression plan for competitive play.",
+        all: "All", accounts: "Accounts", skins: "Skins", services: "Services", boosts: "Boosts",
+        liveTag: "LIVE", dealTag: "Verified", safeTag: "Escrow"
+      },
+      en: {
+        brandSub: "Serious gaming platform with trading and live chat",
+        navTitle: "Navigation",
+        navSub: "Store, community, support and user center.",
+        navHome: "Home",
+        navStore: "Store",
+        navTrading: "Trading",
+        navChat: "Chats",
+        navProfile: "Profile",
+        navSettings: "Settings",
+        onlineTitle: "Live community",
+        onlineSub: "Active rooms and players online.",
+        room1: "Arena Traders", room1Sub: "4,218 players • 128 live deals",
+        room2: "Squad Zone", room2Sub: "Voice lobby • team search",
+        room3: "Support Desk", room3Sub: "Moderators online • instant reply",
+        heroEye: "Premium game commerce system",
+        heroTitle: "Buy, trade, chat, and level up the ecosystem",
+        heroText: "PlaystoreX is built as a serious game marketplace with a full trading flow, seller analytics, protected checkout, live community rooms, support channels, and a premium interface that feels closer to a product platform than a simple storefront.",
+        heroBtn1: "Explore store",
+        heroBtn2: "Open live chats",
+        heroBtn3: "Start selling",
+        m1: "Buyer trust based on ratings, escrow and verification.",
+        m2: "Active deals across accounts, skins, boosts and services.",
+        m3: "24/7 support desk and community moderation.",
+        m4: "Language switch for a global platform feel.",
+        statusTitle: "Market pulse",
+        statusSub: "The current platform flow and live demand.",
+        statusBadge: "Online now",
+        kpi1L: "Peak sellers online",
+        kpi2L: "Average response",
+        kpi3L: "Escrow success",
+        networkTitle: "Network",
+        networkSub: "Verified sellers, chat moderation and protection.",
+        net1: "Verified sellers",
+        net2: "Protected checkout",
+        net3: "Guild chats",
+        storeTitle: "Featured store",
+        storeNote: "Curated gaming accounts, top-up services, skins, boosts, and digital items with clear tags and live pricing.",
+        tradeTitle: "Trading desk",
+        tradeNote: "A more serious marketplace layer for active listings, quick evaluations, and fast operations.",
+        chatTitle: "Community chats",
+        chatNote: "Three persistent channels with long message history, live replies, and support-style quick actions.",
+        chatRooms: "Rooms",
+        chatRoomsSub: "Pick a room to switch the conversation stream.",
+        walletTitle: "Player wallet",
+        walletNote: "A clean balance view with deposits, recent activity and payout tracking.",
+        depositBtn: "Deposit",
+        withdrawBtn: "Withdraw",
+        statsBtn: "View stats",
+        settingsTitle: "Settings",
+        settingsSub: "Theme, language and live platform behavior.",
+        setting1: "Dark mode",
+        setting1Sub: "Serious gaming interface with premium contrast.",
+        setting2: "Language",
+        setting2Sub: "Switch between Russian and English instantly.",
+        setting3: "Notifications",
+        setting3Sub: "Alerts for messages, offers and completed orders.",
+        achTitle: "Achievements",
+        achSub: "Progress badges make the platform feel alive.",
+        ach1: "Trusted seller",
+        ach1Sub: "100% order completion and escrow-ready profile.",
+        ach2: "Community voice",
+        ach2Sub: "Posted 50+ messages across live rooms.",
+        ach3: "Pro trader",
+        ach3Sub: "Unlocked after 30 successful deals.",
+        ach4: "Fast responder",
+        ach4Sub: "Average reply time under one minute.",
+        activityTitle: "Recent activity",
+        activitySub: "Live updates from the marketplace.",
+        footer: "PlaystoreX • Serious gaming marketplace, chat network, and trading platform",
+        cartTitle: "Cart",
+        cartSub: "Your selected games and services are listed here.",
+        cartTotal: "Total",
+        checkoutBtn: "Proceed to checkout",
+        checkoutTitle: "Secure checkout",
+        checkoutSub: "Escrow, wallet, and payment choice in one flow.",
+        checkoutMethod: "Payment method",
+        checkoutSafe: "Your payment goes through protected checkout with order confirmation and message support.",
+        checkoutSummary: "Order summary",
+        checkoutTotal: "Total",
+        sellTitle: "Create listing",
+        sellSub: "Sell accounts, skins, boosts, services or digital goods.",
+        sellForm: "Listing details",
+        sellField1: "Title",
+        sellField2: "Category",
+        sellField3: "Verification",
+        sellPreview: "Preview",
+        sellPreviewText: "A professional listing template with tags, price, screenshots, and a clean seller rating.",
+        depositTitle: "Deposit funds",
+        depositSub: "Add balance to your wallet for quick buying and secure trading.",
+        withdrawTitle: "Withdraw earnings",
+        withdrawSub: "Move earnings to bank card, wallet, or crypto address.",
+        withdrawInfo: "Withdrawals are shown with a delay estimate, fee preview, and verification requirements.",
+        statsTitle: "Platform stats",
+        statsSub: "Marketplace activity, trust score and chat activity.",
+        statA: "Profile verification rate.",
+        statB: "Messages sent in community rooms.",
+        statC: "Average market time per listing.",
+        statD: "Completed protected orders this month.",
+        p1Badge: "Top seller", p1Title: "Cyber Arena Account", p1Meta: "Verified • shooter • 125 hours", p1Rating: "4.9", p1Price: "$89", p1Sub: "High-tier shooter account with clean stats, linked email, and transfer support.",
+        p2Badge: "Hot", p2Title: "Battle Pass Boost", p2Meta: "Rank push • duo queue • fast delivery", p2Rating: "4.8", p2Price: "$34", p2Sub: "Rank and battle pass boost with transparent progress updates and live chat support.",
+        p3Badge: "Rare", p3Title: "Legend Skin Bundle", p3Meta: "Skins • cosmetics • premium set", p3Rating: "4.9", p3Price: "$126", p3Sub: "Curated cosmetics bundle for collectors, content creators and status-focused players.",
+        p4Badge: "Service", p4Title: "Team Finder Package", p4Meta: "Guild support • voice lobby • matchmaking", p4Rating: "5.0", p4Price: "$19", p4Sub: "A smarter team-search package with room boosts, event alerts and organized lobbies.",
+        t1Badge: "Trading", t1Title: "MMO Vault Keyset", t1Meta: "Secure transfer • fast escrow", t1Rating: "4.9", t1Price: "$58", t1Sub: "Rare keyset with full delivery notes, trusted seller status and escrow protection.",
+        t2Badge: "Verified", t2Title: "RPG Starter Vault", t2Meta: "New player bundle • starter pack", t2Rating: "4.7", t2Price: "$24", t2Sub: "Ideal starter inventory with gear, currency and account setup help.",
+        t3Badge: "Premium", t3Title: "Streamer Boost Room", t3Meta: "Audience growth • fast queue", t3Rating: "4.8", t3Price: "$42", t3Sub: "For creators who want a fast community lift with clear delivery timeline.",
+        t4Badge: "Service", t4Title: "Coach Session", t4Meta: "1 hour • strategy review • live audit", t4Rating: "5.0", t4Price: "$29", t4Sub: "Serious coaching, screen review and practical progression plan for competitive play.",
+        all: "All", accounts: "Accounts", skins: "Skins", services: "Services", boosts: "Boosts",
+        liveTag: "LIVE", dealTag: "Verified", safeTag: "Escrow"
+      }
+    };
+
+    const products = [
+      {
+        id: "p1",
+        category: "accounts",
+        type: "account",
+        image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80",
+        titleKey: "p1Title",
+        metaKey: "p1Meta",
+        subKey: "p1Sub",
+        badgeKey: "p1Badge",
+        price: 89,
+        ratingKey: "p1Rating",
+        tags: ["blue", "safeTag", "dealTag"],
+        details: [
+          ["Region", "Global"],
+          ["Delivery", "15 min"],
+          ["Protection", "Escrow"],
+          ["Condition", "Verified"]
+        ],
+        reviews: [
+          "Fast transfer and clean communication.",
+          "Protected deal and exactly as described."
+        ]
+      },
+      {
+        id: "p2",
+        category: "boosts",
+        type: "boost",
+        image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80",
+        titleKey: "p2Title",
+        metaKey: "p2Meta",
+        subKey: "p2Sub",
+        badgeKey: "p2Badge",
+        price: 34,
+        ratingKey: "p2Rating",
+        tags: ["green", "liveTag"],
+        details: [
+          ["Queue", "Duo"],
+          ["Speed", "Fast"],
+          ["Tracking", "Live"],
+          ["Plan", "7 days"]
+        ],
+        reviews: [
+          "Progress updates were clear and on schedule.",
+          "Clean boost, no drama, good support."
+        ]
+      },
+      {
+        id: "p3",
+        category: "skins",
+        type: "cosmetic",
+        image: "https://images.unsplash.com/photo-1538481199705-c6cbf1f2a7d5?auto=format&fit=crop&w=1200&q=80",
+        titleKey: "p3Title",
+        metaKey: "p3Meta",
+        subKey: "p3Sub",
+        badgeKey: "p3Badge",
+        price: 126,
+        ratingKey: "p3Rating",
+        tags: ["amber", "safeTag"],
+        details: [
+          ["Bundle", "Legend"],
+          ["Edition", "Premium"],
+          ["Status", "Rare"],
+          ["Delivery", "Instant"]
+        ],
+        reviews: [
+          "Perfect for collectors and creators.",
+          "Bundle matched preview exactly."
+        ]
+      },
+      {
+        id: "p4",
+        category: "services",
+        type: "service",
+        image: "https://images.unsplash.com/photo-1511512578047-3f0c6ff5c2cb?auto=format&fit=crop&w=1200&q=80",
+        titleKey: "p4Title",
+        metaKey: "p4Meta",
+        subKey: "p4Sub",
+        badgeKey: "p4Badge",
+        price: 19,
+        ratingKey: "p4Rating",
+        tags: ["blue", "dealTag"],
+        details: [
+          ["Format", "Package"],
+          ["Room", "Team chat"],
+          ["Boost", "High"],
+          ["Support", "Included"]
+        ],
+        reviews: [
+          "Strong for squads and event planning.",
+          "Good structure, quick room access."
+        ]
+      }
+    ];
+
+    const trading = [
+      { id: "t1", category: "accounts", type: "vault", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80" },
+      { id: "t2", category: "accounts", type: "starter", image: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=1200&q=80" },
+      { id: "t3", category: "services", type: "creator", image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80" },
+      { id: "t4", category: "services", type: "coach", image: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=1200&q=80" }
+    ];
+
+    const rooms = {
+      support: {
+        name: "Support Desk",
+        sub: "Moderators, order help and safety checks",
+        avatar: "SP",
+        tabs: ["support", "trade", "guild"],
+        threads: [
+          {
+            id: "support-1",
+            name: "Mira • Support Lead",
+            avatar: "MR",
+            time: "09:14",
+            unread: 2,
+            preview: "We reviewed your order and escrow is ready.",
+            online: true,
+            messages: [
+              { me: false, name: "Mira", time: "09:10", text: "Morning. I checked the order queue and the seller is fully verified." },
+              { me: true, name: "You", time: "09:11", text: "Nice. Is the transfer protected?" },
+              { me: false, name: "Mira", time: "09:12", text: "Yes. Escrow is active until the buyer confirms delivery. If anything feels off, just ping support in this room." },
+              { me: false, name: "Mira", time: "09:14", text: "Also, your listing quality score improved after the latest upload." }
+            ]
+          },
+          {
+            id: "support-2",
+            name: "Jax • Moderator",
+            avatar: "JX",
+            time: "08:41",
+            unread: 0,
+            preview: "Please attach screenshots if you need dispute help.",
+            online: true,
+            messages: [
+              { me: false, name: "Jax", time: "08:31", text: "If a listing looks suspicious, open it and use the report button. We review it fast." },
+              { me: false, name: "Jax", time: "08:41", text: "Please attach screenshots if you need dispute help. It makes the case faster." }
+            ]
+          }
+        ]
+      },
+      trade: {
+        name: "Arena Traders",
+        sub: "Price checks, listings and escrow negotiations",
+        avatar: "AT",
+        tabs: ["support", "trade", "guild"],
+        threads: [
+          {
+            id: "trade-1",
+            name: "Nero • Seller",
+            avatar: "NR",
+            time: "10:02",
+            unread: 1,
+            preview: "I can drop the price if escrow is used.",
+            online: true,
+            messages: [
+              { me: false, name: "Nero", time: "09:58", text: "This rank account is still available. It includes clean stats and linked email." },
+              { me: true, name: "You", time: "09:59", text: "Can you do a price check with the same setup but faster delivery?" },
+              { me: false, name: "Nero", time: "10:00", text: "Yes, I can trim it if escrow is used and the buyer confirms quickly." },
+              { me: false, name: "Nero", time: "10:02", text: "I can drop the price if escrow is used." }
+            ]
+          },
+          {
+            id: "trade-2",
+            name: "Aria • Price Check",
+            avatar: "AR",
+            time: "09:22",
+            unread: 0,
+            preview: "Legend cosmetics are trending this week.",
+            online: true,
+            messages: [
+              { me: false, name: "Aria", time: "09:18", text: "Legend cosmetics are trending this week. The market moved up about 12%." },
+              { me: false, name: "Aria", time: "09:22", text: "If you post a clean bundle with proof, it will move faster than individual pieces." }
+            ]
+          }
+        ]
+      },
+      guild: {
+        name: "Squad Zone",
+        sub: "Team search, voice lobbies and event planning",
+        avatar: "SZ",
+        tabs: ["support", "trade", "guild"],
+        threads: [
+          {
+            id: "guild-1",
+            name: "Luna • Raid Lead",
+            avatar: "LN",
+            time: "11:07",
+            unread: 3,
+            preview: "We need one support and one sniper for tonight.",
+            online: true,
+            messages: [
+              { me: false, name: "Luna", time: "11:00", text: "We need one support and one sniper for tonight. Region is EU and the lobby opens at 19:00." },
+              { me: true, name: "You", time: "11:02", text: "I can join for a few rounds if the team is balanced." },
+              { me: false, name: "Luna", time: "11:04", text: "Perfect. I'll pin your slot. Bring your usual loadout and no late join please." },
+              { me: false, name: "Luna", time: "11:07", text: "Voice room is set. We only need clean comms and one backup strategy." }
+            ]
+          },
+          {
+            id: "guild-2",
+            name: "Rex • Coach",
+            avatar: "RX",
+            time: "10:10",
+            unread: 0,
+            preview: "I posted a breakdown of the last tournament run.",
+            online: false,
+            messages: [
+              { me: false, name: "Rex", time: "10:10", text: "I posted a breakdown of the last tournament run. The mistakes were mostly rotations, not aim." },
+              { me: false, name: "Rex", time: "10:10", text: "I can host a 20-minute review in the voice room later tonight." }
+            ]
+          }
+        ]
+      }
+    };
+
+    const liveActivity = [
+      { icon: "◎", title: "New verified account sold", text: "A shooter account closed through escrow with a 4.9 rating.", type: "ok" },
+      { icon: "✦", title: "Community chat spike", text: "Arena Traders crossed 4k members online during peak hours.", type: "info" },
+      { icon: "⚑", title: "Boost package updated", text: "Battle Pass Boost now includes live progress updates.", type: "ok" },
+      { icon: "⟟", title: "Support response record", text: "Median reply time improved to under one minute.", type: "info" }
+    ];
+
+    const catalogItems = [...products];
+    const tradingItems = trading.map((x, index) => ({
+      id: x.id,
+      category: x.category,
+      type: x.type,
+      image: x.image,
+      title: index === 0 ? "MMO Vault Keyset" : index === 1 ? "RPG Starter Vault" : index === 2 ? "Streamer Boost Room" : "Coach Session",
+      meta: index === 0 ? "Secure transfer • fast escrow" : index === 1 ? "New player bundle • starter pack" : index === 2 ? "Audience growth • fast queue" : "1 hour • strategy review • live audit",
+      desc: index === 0 ? "Rare keyset with full delivery notes, trusted seller status and escrow protection." :
+            index === 1 ? "Ideal starter inventory with gear, currency and account setup help." :
+            index === 2 ? "For creators who want a fast community lift with clear delivery timeline." :
+                          "Serious coaching, screen review and practical progression plan for competitive play.",
+      price: index === 0 ? 58 : index === 1 ? 24 : index === 2 ? 42 : 29,
+      rating: index === 0 ? "4.9" : index === 1 ? "4.7" : index === 2 ? "4.8" : "5.0",
+      badge: index === 0 ? "Trading" : index === 1 ? "Verified" : index === 2 ? "Premium" : "Service",
+      tags: index === 0 ? ["blue", "safeTag"] : index === 1 ? ["green", "dealTag"] : index === 2 ? ["amber", "liveTag"] : ["blue", "dealTag"],
+      details: [
+        ["Mode", index === 2 ? "Live" : "Protected"],
+        ["Delivery", index === 0 ? "15 min" : index === 1 ? "10 min" : index === 2 ? "Same day" : "Scheduled"],
+        ["Escrow", "Included"],
+        ["Seller", "Verified"]
+      ]
+    }));
+
+    const els = {
+      searchInput: document.getElementById("searchInput"),
+      searchDrop: document.getElementById("searchDrop"),
+      productGrid: document.getElementById("productGrid"),
+      tradingGrid: document.getElementById("tradingGrid"),
+      filters: document.getElementById("filters"),
+      threadList: document.getElementById("threadList"),
+      messages: document.getElementById("messages"),
+      roomTabs: document.getElementById("roomTabs"),
+      convAvatar: document.getElementById("convAvatar"),
+      convTitle: document.getElementById("convTitle"),
+      convSub: document.getElementById("convSub"),
+      chatInput: document.getElementById("chatInput"),
+      walletBalance: document.getElementById("walletBalance"),
+      cartBody: document.getElementById("cartBody"),
+      cartDrawer: document.getElementById("cartDrawer"),
+      cartCount: document.getElementById("cartCount"),
+      cartTotal: document.getElementById("cartTotal"),
+      drawerBackdrop: document.getElementById("drawerBackdrop"),
+      checkoutSummary: document.getElementById("checkoutSummary"),
+      checkoutTotal: document.getElementById("checkoutTotal"),
+      toastWrap: document.getElementById("toastWrap"),
+      themeToggle: document.getElementById("themeToggle"),
+      notifyToggle: document.getElementById("notifyToggle"),
+      langBtn: document.getElementById("langBtn"),
+      themeBtn: document.getElementById("themeBtn"),
+      ruLang: document.getElementById("ruLang"),
+      enLang: document.getElementById("enLang"),
+      activityFeed: document.getElementById("activityFeed"),
+      profileAvatar: document.getElementById("profileAvatar"),
+      modalTitle: document.getElementById("modalTitle"),
+      modalSub: document.getElementById("modalSub"),
+      modalImg: document.getElementById("modalImg"),
+      modalPrice: document.getElementById("modalPrice"),
+      modalDesc: document.getElementById("modalDesc"),
+      modalDetails: document.getElementById("modalDetails"),
+      modalTags: document.getElementById("modalTags"),
+      modalReviews: document.getElementById("modalReviews"),
+      modalCartBtn: document.getElementById("modalCartBtn"),
+      body: document.body
+    };
+
+    const transNodes = [...document.querySelectorAll("[data-i18n]")];
+
+    function applyI18n(lang) {
+      const dict = i18n[lang];
+      transNodes.forEach((node) => {
+        const key = node.getAttribute("data-i18n");
+        if (dict[key]) node.textContent = dict[key];
+      });
+
+      els.ruLang.classList.toggle("active", lang === "ru");
+      els.enLang.classList.toggle("active", lang === "en");
+      els.langBtn.textContent = lang === "ru" ? "RU / EN" : "EN / RU";
+      document.documentElement.lang = lang;
+      localStorage.setItem("px-lang", lang);
+      updateFilters();
+      renderProducts();
+      renderTrading();
+      renderThreads();
+      renderChat();
+      renderActivity();
+      renderCart();
+      renderCheckout();
+      showToast(lang === "ru" ? "Язык обновлён" : "Language switched", lang === "ru" ? "Интерфейс адаптирован под выбранный язык." : "The interface has been updated for the selected language.", "ok");
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      els.themeToggle.classList.toggle("on", theme === "dark");
+      els.themeBtn.textContent = theme === "dark" ? "☾" : "☼";
+      localStorage.setItem("px-theme", theme);
+    }
+
+    function toggleTheme() {
+      state.theme = state.theme === "dark" ? "light" : "dark";
+      applyTheme(state.theme);
+      showToast(state.lang === "ru" ? "Тема обновлена" : "Theme updated", state.theme === "dark" ? (state.lang === "ru" ? "Тёмный режим включён." : "Dark mode enabled.") : (state.lang === "ru" ? "Светлый режим включён." : "Light mode enabled."), "ok");
+    }
+
+    function toggleNotify() {
+      state.notify = !state.notify;
+      els.notifyToggle.classList.toggle("on", state.notify);
+      localStorage.setItem("px-notify", state.notify ? "on" : "off");
+      showToast(state.lang === "ru" ? "Уведомления" : "Notifications", state.notify ? (state.lang === "ru" ? "Оповещения включены." : "Alerts enabled.") : (state.lang === "ru" ? "Оповещения выключены." : "Alerts disabled."), "ok");
+    }
+
+    function setLang(lang) {
+      state.lang = lang;
+      localStorage.setItem("px-lang", lang);
+      applyI18n(lang);
+    }
+
+    function setPage(page) {
+      document.querySelectorAll(".nav-item").forEach((el) => el.classList.remove("active"));
+      const map = {
+        home: 0,
+        store: 1,
+        trading: 2,
+        chat: 3,
+        profile: 4,
+        settings: 5
+      };
+      const items = [...document.querySelectorAll(".nav-item")];
+      if (items[map[page]]) items[map[page]].classList.add("active");
+      const target = document.getElementById(page);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function showToast(title, text, type = "info") {
+      const node = document.createElement("div");
+      node.className = `toast ${type}`;
+      node.innerHTML = `
+        <div class="icon">${type === "ok" ? "✓" : type === "err" ? "!" : "i"}</div>
+        <div>
+          <div class="toast-title">${escapeHtml(title)}</div>
+          <div class="toast-text">${escapeHtml(text)}</div>
+        </div>`;
+      els.toastWrap.appendChild(node);
+      setTimeout(() => node.remove(), 3400);
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function updateFilters() {
+      const dict = i18n[state.lang];
+      const filterValues = [
+        ["all", dict.all],
+        ["accounts", dict.accounts],
+        ["skins", dict.skins],
+        ["services", dict.services],
+        ["boosts", dict.boosts]
+      ];
+      els.filters.innerHTML = filterValues.map(([key, label]) => `
+        <button class="filter ${state.category === key ? "active" : ""}" onclick="setCategory('${key}')">${label}</button>
+      `).join("");
+    }
+
+    function setCategory(category) {
+      state.category = category;
+      updateFilters();
+      renderProducts();
+    }
+
+    function favToggle(id) {
+      if (state.favorites.has(id)) state.favorites.delete(id);
+      else state.favorites.add(id);
+      localStorage.setItem("px-favs", JSON.stringify([...state.favorites]));
+      renderProducts();
+      renderTrading();
+      showToast(state.lang === "ru" ? "Избранное обновлено" : "Favorites updated", state.lang === "ru" ? "Список любимых товаров изменён." : "Your favorite items list has changed.", "ok");
+    }
+
+    function addToCart(item) {
+      state.cart.push(item);
+      renderCart();
+      renderCheckout();
+      showToast(state.lang === "ru" ? "Добавлено в корзину" : "Added to cart", `${item.title} ${state.lang === "ru" ? "успешно добавлен." : "has been added."}`, "ok");
+    }
+
+    function removeFromCart(index) {
+      state.cart.splice(index, 1);
+      renderCart();
+      renderCheckout();
+    }
+
+    function calcTotal() {
+      return state.cart.reduce((sum, item) => sum + item.price, 0);
+    }
+
+    function money(value) {
+      return `$${value.toFixed(2)}`;
+    }
+
+    function renderProducts() {
+      const dict = i18n[state.lang];
+      const filtered = catalogItems.filter((item) => state.category === "all" ? true : item.category === state.category);
+      els.productGrid.innerHTML = filtered.map((item) => {
+        const fav = state.favorites.has(item.id);
+        return `
+          <article class="card product">
+            <div class="product-media">
+              <img src="${item.image}" alt="${escapeHtml(dict[item.titleKey])}" loading="lazy" />
+              <div class="badge">${escapeHtml(dict[item.badgeKey])}</div>
+              <button class="fav ${fav ? "on" : ""}" onclick="favToggle('${item.id}')" aria-label="Favorite">${fav ? "♥" : "♡"}</button>
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <div>
+                  <h3 class="product-title">${escapeHtml(dict[item.titleKey])}</h3>
+                  <div class="product-meta">${escapeHtml(dict[item.metaKey])}</div>
+                </div>
+                <div class="rating">★ ${dict[item.ratingKey]}</div>
+              </div>
+              <div class="price-row">
+                <div>
+                  <div class="price">${money(item.price)}</div>
+                  <div class="subprice">${escapeHtml(dict[item.subKey])}</div>
+                </div>
+              </div>
+              <div class="tag-row">
+                <span class="tag ${item.tags[0]}">${dict[item.tags[0]] || item.tags[0]}</span>
+                <span class="tag">${dict[item.tags[1]] || item.tags[1]}</span>
+                <span class="tag">${dict[item.tags[2]] || item.tags[2]}</span>
+              </div>
+              <div class="product-actions">
+                <button class="chip-btn primary" style="flex:1;justify-content:center;" onclick='openProduct(${JSON.stringify(item.id)})'>Details</button>
+                <button class="chip-btn" style="flex:1;justify-content:center;" onclick='quickBuy(${JSON.stringify(item.id)})'>Buy</button>
+              </div>
+            </div>
+          </article>`;
+      }).join("");
+    }
+
+    function renderTrading() {
+      const dict = i18n[state.lang];
+      els.tradingGrid.innerHTML = tradingItems.map((item, index) => {
+        const prod = products[index];
+        const fav = state.favorites.has(prod.id);
+        return `
+          <article class="card product">
+            <div class="product-media">
+              <img src="${item.image}" alt="${escapeHtml(item.title)}" loading="lazy" />
+              <div class="badge">${escapeHtml(item.badge)}</div>
+              <button class="fav ${fav ? "on" : ""}" onclick="favToggle('${prod.id}')" aria-label="Favorite">${fav ? "♥" : "♡"}</button>
+            </div>
+            <div class="product-body">
+              <div class="product-top">
+                <div>
+                  <h3 class="product-title">${escapeHtml(item.title)}</h3>
+                  <div class="product-meta">${escapeHtml(item.meta)}</div>
+                </div>
+                <div class="rating">★ ${item.rating}</div>
+              </div>
+              <div class="price-row">
+                <div>
+                  <div class="price">${money(item.price)}</div>
+                  <div class="subprice">${escapeHtml(item.desc)}</div>
+                </div>
+              </div>
+              <div class="tag-row">
+                <span class="tag ${item.tags[0]}">${dict[item.tags[0]] || item.tags[0]}</span>
+                <span class="tag">${dict[item.tags[1]] || item.tags[1]}</span>
+              </div>
+              <div class="product-actions">
+                <button class="chip-btn primary" style="flex:1;justify-content:center;" onclick='openTrade(${index})'>Open</button>
+                <button class="chip-btn" style="flex:1;justify-content:center;" onclick='quickBuy(${JSON.stringify(prod.id)})'>Queue</button>
+              </div>
+            </div>
+          </article>`;
+      }).join("");
+    }
+
+    function renderThreads() {
+      const room = rooms[state.room];
+      const dict = i18n[state.lang];
+      els.roomTabs.innerHTML = room.tabs.map((tab) => `
+        <button class="channel ${tab === state.room ? "active" : ""}" onclick="setRoom('${tab}')">${dict[tab]}</button>
+      `).join("");
+      els.threadList.innerHTML = room.threads.map((thread) => `
+        <div class="thread ${thread.id === state.thread ? "active" : ""}" onclick="selectThread('${thread.id}')">
+          <div class="avatar">${thread.avatar}</div>
+          <div class="thread-main">
+            <div class="thread-title">${escapeHtml(thread.name)}</div>
+            <div class="thread-preview">${escapeHtml(thread.preview)}</div>
+          </div>
+          <div class="thread-time">${thread.time}</div>
+          ${thread.unread ? `<div class="thread-unread">${thread.unread}</div>` : ""}
+        </div>
+      `).join("");
+    }
+
+    function currentThread() {
+      const room = rooms[state.room];
+      return room.threads.find((t) => t.id === state.thread) || room.threads[0];
+    }
+
+    function renderChat() {
+      const thread = currentThread();
+      const room = rooms[state.room];
+      els.convAvatar.textContent = thread.avatar;
+      els.convTitle.textContent = thread.name;
+      els.convSub.textContent = `${room.name} • ${room.sub}`;
+      els.messages.innerHTML = thread.messages.map((msg) => `
+        <div class="msg ${msg.me ? "me" : ""}">
+          <div class="avatar">${msg.me ? "YU" : thread.avatar}</div>
+          <div class="bubble">
+            ${escapeHtml(msg.text)}
+            <div class="meta">
+              <span>${escapeHtml(msg.name)}</span>
+              <span>${escapeHtml(msg.time)}</span>
+              ${msg.me ? `<span class="seen">✓✓</span>` : ""}
+            </div>
+          </div>
+        </div>
+      `).join("") + `
+        <div class="typing" id="typingBubble" style="display:none;">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>`;
+      els.messages.scrollTop = els.messages.scrollHeight;
+    }
+
+    function renderActivity() {
+      els.activityFeed.innerHTML = liveActivity.map((item) => `
+        <div class="feed-item">
+          <div class="feed-icon">${item.icon}</div>
+          <div>
+            <div class="feed-title">${escapeHtml(item.title)}</div>
+            <div class="feed-sub">${escapeHtml(item.text)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function renderCart() {
+      els.cartCount.textContent = state.cart.length;
+      els.cartBody.innerHTML = state.cart.length ? state.cart.map((item, index) => `
+        <div class="cart-item">
+          <div class="cart-thumb"><img src="${item.image}" alt="${escapeHtml(item.title)}" /></div>
+          <div class="cart-main">
+            <div class="cart-title">${escapeHtml(item.title)}</div>
+            <div class="cart-sub">${escapeHtml(item.meta)}</div>
+            <div class="cart-price">${money(item.price)}</div>
+          </div>
+          <button class="remove" onclick="removeFromCart(${index})">✕</button>
+        </div>
+      `).join("") : `
+        <div class="panel-body" style="text-align:center;color:var(--muted);padding-top:30px;">
+          <div style="font-size:2rem;margin-bottom:8px;">◌</div>
+          <div>${state.lang === "ru" ? "Корзина пуста" : "Cart is empty"}</div>
+        </div>`;
+      els.cartTotal.textContent = money(calcTotal());
+    }
+
+    function renderCheckout() {
+      els.checkoutSummary.innerHTML = state.cart.length ? state.cart.map((item) => `
+        <div class="list-item">
+          <div class="avatar">${item.title.slice(0, 2).toUpperCase()}</div>
+          <div class="list-main">
+            <div class="list-title">${escapeHtml(item.title)}</div>
+            <div class="list-sub">${escapeHtml(item.meta)}</div>
+          </div>
+          <div class="list-price">${money(item.price)}</div>
+        </div>
+      `).join("") : `
+        <div class="section-note">${state.lang === "ru" ? "Добавьте товар в корзину, чтобы увидеть чек-аут." : "Add an item to the cart to see checkout details."}</div>`;
+      els.checkoutTotal.textContent = money(calcTotal());
+    }
+
+    function openProduct(id) {
+      const item = products.find((x) => x.id === id);
+      if (!item) return;
+      state.selected = item;
+      const dict = i18n[state.lang];
+      els.modalTitle.textContent = dict[item.titleKey];
+      els.modalSub.textContent = dict[item.metaKey];
+      els.modalImg.src = item.image;
+      els.modalPrice.textContent = money(item.price);
+      els.modalDesc.textContent = dict[item.subKey];
+      els.modalDetails.innerHTML = item.details.map(([label, value]) => `
+        <div class="detail"><span>${label}</span><b>${value}</b></div>
+      `).join("");
+      els.modalTags.innerHTML = item.tags.map((tag) => `<span class="tag ${tag}">${dict[tag] || tag}</span>`).join("");
+      els.modalReviews.innerHTML = item.reviews.map((text) => `
+        <div class="review">
+          <div class="avatar">R</div>
+          <div>
+            <div class="list-title">Verified review</div>
+            <div class="review-text">${escapeHtml(text)}</div>
+          </div>
+        </div>`).join("");
+      els.modalCartBtn.onclick = () => addToCart({
+        id: item.id,
+        title: dict[item.titleKey],
+        meta: dict[item.metaKey],
+        price: item.price,
+        image: item.image
+      });
+      openModal("productModal");
+    }
+
+    function openTrade(index) {
+      const item = tradingItems[index];
+      const prod = products[index];
+      openProduct(prod.id);
+      showToast(state.lang === "ru" ? "Торговая карточка открыта" : "Trading card opened", item.title, "info");
+    }
+
+    function quickBuy(id) {
+      const item = products.find((x) => x.id === id);
+      if (!item) return;
+      const dict = i18n[state.lang];
+      addToCart({
+        id: item.id,
+        title: dict[item.titleKey],
+        meta: dict[item.metaKey],
+        price: item.price,
+        image: item.image
+      });
+      openModal("checkoutModal");
+    }
+
+    function setRoom(room) {
+      state.room = room;
+      const roomDef = rooms[room];
+      state.thread = roomDef.threads[0].id;
+      renderThreads();
+      renderChat();
+      showToast(state.lang === "ru" ? "Комната переключена" : "Room switched", roomDef.name, "ok");
+    }
+
+    function selectThread(id) {
+      state.thread = id;
+      renderThreads();
+      renderChat();
+    }
+
+    function simulateTyping(callback) {
+      const bubble = document.getElementById("typingBubble");
+      if (!bubble) return;
+      bubble.style.display = "inline-flex";
+      els.messages.scrollTop = els.messages.scrollHeight;
+      setTimeout(() => {
+        bubble.style.display = "none";
+        callback();
+      }, 900);
+    }
+
+    function sendQuick(text) {
+      els.chatInput.value = text;
+      sendMessage();
+    }
+
+    function sendMessage() {
+      const text = els.chatInput.value.trim();
+      if (!text) {
+        showToast(state.lang === "ru" ? "Введите сообщение" : "Write something", state.lang === "ru" ? "Поле сообщения пустое." : "The message field is empty.", "err");
+        return;
+      }
+      const thread = currentThread();
+      const now = new Date();
+      const time = now.toLocaleTimeString(state.lang === "ru" ? "ru-RU" : "en-US", { hour: "2-digit", minute: "2-digit" });
+      thread.messages.push({ me: true, name: state.lang === "ru" ? "Вы" : "You", time, text });
+      thread.preview = text;
+      thread.time = time;
+      els.chatInput.value = "";
+      renderChat();
+      renderThreads();
+      simulateTyping(() => {
+        const reply = getAutoReply(text, state.lang);
+        const replyTime = new Date(Date.now() + 45000).toLocaleTimeString(state.lang === "ru" ? "ru-RU" : "en-US", { hour: "2-digit", minute: "2-digit" });
+        thread.messages.push({ me: false, name: thread.name.split(" • ")[0], time: replyTime, text: reply });
+        thread.preview = reply;
+        thread.time = replyTime;
+        renderChat();
+        renderThreads();
+        if (state.notify) showToast(state.lang === "ru" ? "Ответ в чате" : "Chat reply", reply, "ok");
+      });
+    }
+
+    function getAutoReply(text, lang) {
+      const t = text.toLowerCase();
+      if (t.includes("price") || t.includes("цена")) return lang === "ru" ? "Сделаем price check и сравним с последними сделками." : "We can price-check it against the latest deals.";
+      if (t.includes("team") || t.includes("team for") || t.includes("тим") || t.includes("lf")) return lang === "ru" ? "Скинь регион и роль, я подберу несколько вариантов." : "Send the region and role, and I will match a few options.";
+      if (t.includes("support") || t.includes("mod") || t.includes("мод")) return lang === "ru" ? "Модератор уже смотрит. Если есть скрин, прикрепи его в следующем сообщении." : "A moderator is already reviewing it. Attach a screenshot if you have one.";
+      if (t.includes("payment") || t.includes("оплат")) return lang === "ru" ? "Платёж видим. Держим escrow до подтверждения доставки." : "Payment is visible. Escrow stays active until delivery is confirmed.";
+      return lang === "ru" ? "Принято. Мы проверим детали и вернёмся с обновлением." : "Received. We will review the details and come back with an update.";
+    }
+
+    function toggleCart(force) {
+      const open = typeof force === "boolean" ? force : !els.cartDrawer.classList.contains("open");
+      els.cartDrawer.classList.toggle("open", open);
+      els.drawerBackdrop.classList.toggle("open", open);
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.add("open");
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("open");
+    }
+    function choosePay(btn, method) {
+      state.payment = method;
+      document.querySelectorAll("#checkoutModal .filter").forEach((el) => el.classList.remove("active"));
+      btn.classList.add("active");
+      showToast(state.lang === "ru" ? "Способ оплаты выбран" : "Payment method selected", method.toUpperCase(), "ok");
+    }
+
+    function filterSearch(query) {
+      const q = query.toLowerCase().trim();
+      const pool = [...catalogItems, ...tradingItems.map((item, index) => ({ ...item, id: products[index].id }))];
+      if (!q) {
+        els.searchDrop.classList.remove("open");
+        els.searchDrop.innerHTML = "";
+        return;
+      }
+      const results = pool.filter((item) => {
+        const title = (item.title || i18n[state.lang][item.titleKey] || "").toLowerCase();
+        const meta = (item.meta || item.metaKey && i18n[state.lang][item.metaKey] || "").toLowerCase();
+        const desc = (item.subKey ? i18n[state.lang][item.subKey] : item.desc || "").toLowerCase();
+        return [title, meta, desc].some((v) => v.includes(q));
+      }).slice(0, 6);
+      if (!results.length) {
+        els.searchDrop.innerHTML = `<div class="search-item"><div>${state.lang === "ru" ? "Ничего не найдено" : "No results found"}</div></div>`;
+      } else {
+        els.searchDrop.innerHTML = results.map((item, i) => {
+          const base = products.find((p) => p.id === item.id) || catalogItems[i];
+          const title = base.titleKey ? i18n[state.lang][base.titleKey] : item.title;
+          const meta = base.metaKey ? i18n[state.lang][base.metaKey] : item.meta;
+          const price = base.price || item.price || 0;
+          const image = base.image || item.image;
+          return `
+            <div class="search-item" onclick="openProduct('${base.id}')">
+              <div class="search-thumb"><img src="${image}" alt="${escapeHtml(title)}" /></div>
+              <div class="search-main">
+                <div class="search-name">${escapeHtml(title)}</div>
+                <div class="search-meta">${escapeHtml(meta || "")}</div>
+              </div>
+              <div class="search-price">${money(price)}</div>
+            </div>`;
+        }).join("");
+      }
+      els.searchDrop.classList.add("open");
+    }
+
+    function renderGameRooms() {
+      // keep the right-side info fresh if needed later
+    }
+
+    function simulateActivity() {
+      const item = liveActivity[Math.floor(Math.random() * liveActivity.length)];
+      const iconMap = { ok: "✓", info: "i", err: "!" };
+      showToast(item.title, item.text, item.type === "ok" ? "ok" : "info");
+      const node = {
+        icon: iconMap[item.type],
+        title: item.title,
+        text: item.text,
+        type: item.type
+      };
+      state.activity.unshift(node);
+      state.activity = state.activity.slice(0, 4);
+      els.activityFeed.innerHTML = state.activity.map((feed) => `
+        <div class="feed-item">
+          <div class="feed-icon">${feed.icon}</div>
+          <div>
+            <div class="feed-title">${escapeHtml(feed.title)}</div>
+            <div class="feed-sub">${escapeHtml(feed.text)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    els.searchInput.addEventListener("input", (e) => filterSearch(e.target.value));
+    els.searchInput.addEventListener("focus", () => filterSearch(els.searchInput.value));
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".search")) els.searchDrop.classList.remove("open");
+      if (!e.target.closest(".support")) document.querySelector(".support-panel").classList.remove("open");
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        ["productModal", "checkoutModal", "sellModal", "depositModal", "withdrawModal", "statsModal"].forEach(closeModal);
+        toggleCart(false);
+        document.querySelector(".support-panel").classList.remove("open");
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        els.searchInput.focus();
+      }
+    });
+
+    window.addEventListener("hashchange", () => {
+      const hash = location.hash.replace("#", "");
+      if (hash) setPage(hash);
+    });
+
+    function renderAll() {
+      applyTheme(state.theme);
+      applyI18n(state.lang);
+      updateFilters();
+      renderProducts();
+      renderTrading();
+      renderThreads();
+      renderChat();
+      renderActivity();
+      renderCart();
+      renderCheckout();
+      els.themeToggle.classList.toggle("on", state.theme === "dark");
+      els.notifyToggle.classList.toggle("on", state.notify);
+      showToast(state.lang === "ru" ? "PlaystoreX загружен" : "PlaystoreX loaded", state.lang === "ru" ? "Платформа готова к работе." : "The platform is ready.", "ok");
+    }
+
+    function openSupport() {
+      document.querySelector(".support-panel").classList.toggle("open");
+    }
+
+    const support = document.querySelector(".support-btn");
+    support.addEventListener("click", openSupport);
+
+    document.querySelectorAll(".sup-quick button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const input = document.querySelector(".sup-bar input");
+        input.value = btn.textContent;
+        input.focus();
+      });
+    });
+
+    document.querySelector(".sup-bar button").addEventListener("click", () => {
+      const input = document.querySelector(".sup-bar input");
+      const text = input.value.trim();
+      if (!text) return;
+      const msgs = document.getElementById("supMsgs");
+      const me = document.createElement("div");
+      me.className = "sup-bubble me";
+      me.textContent = text;
+      msgs.appendChild(me);
+      input.value = "";
+      msgs.scrollTop = msgs.scrollHeight;
+      setTimeout(() => {
+        const bot = document.createElement("div");
+        bot.className = "sup-bubble";
+        bot.textContent = state.lang === "ru"
+          ? "Поддержка: запрос принят. Если нужен разбор сделки, укажите номер заказа."
+          : "Support: request received. If you need a trade review, include the order number.";
+        msgs.appendChild(bot);
+        msgs.scrollTop = msgs.scrollHeight;
+      }, 700);
+    });
+
+    document.getElementById("themeBtn").addEventListener("click", toggleTheme);
+    document.getElementById("langBtn").addEventListener("click", () => setLang(state.lang === "ru" ? "en" : "ru"));
+
+    document.querySelectorAll(".nav-item").forEach((item) => {
+      item.addEventListener("click", () => {
+        document.querySelectorAll(".nav-item").forEach((x) => x.classList.remove("active"));
+        item.classList.add("active");
+      });
+    });
+
+    // seed activity
+    state.activity = liveActivity.slice(0, 3).map((item) => ({ icon: item.icon, title: item.title, text: item.text }));
+
+    // Support room seed
+    const supportPanel = document.createElement("div");
+    supportPanel.className = "support";
+    supportPanel.innerHTML = `
+      <div class="support-panel">
+        <div class="sup-head">
+          <div class="avatar">SP</div>
+          <div>
+            <div class="sup-title">${state.lang === "ru" ? "Support Assistant" : "Support Assistant"}</div>
+            <div class="sup-sub">${state.lang === "ru" ? "Ответы по заказам, оплате и спорам" : "Answers for orders, payment and disputes"}</div>
+          </div>
+        </div>
+        <div class="sup-msgs" id="supMsgs">
+          <div class="sup-bubble">${state.lang === "ru" ? "Привет. Я помогу с заказом, пополнением, выводом и вопросами по сделке." : "Hi. I can help with orders, deposits, withdrawals and trade questions."}</div>
+        </div>
+        <div class="sup-quick">
+          <button>${state.lang === "ru" ? "Проверить заказ" : "Check order"}</button>
+          <button>${state.lang === "ru" ? "Оплата" : "Payment"}</button>
+          <button>${state.lang === "ru" ? "Безопасность" : "Safety"}</button>
+          <button>${state.lang === "ru" ? "Спор" : "Dispute"}</button>
+        </div>
+        <div class="sup-bar">
+          <input type="text" placeholder="${state.lang === "ru" ? "Напишите вопрос..." : "Type your question..."}" />
+          <button>➤</button>
+        </div>
+      </div>`;
+    document.body.appendChild(supportPanel);
+
+    window.addToCart = addToCart;
+    window.removeFromCart = removeFromCart;
+    window.favToggle = favToggle;
+    window.openProduct = openProduct;
+    window.quickBuy = quickBuy;
+    window.openTrade = openTrade;
+    window.toggleCart = toggleCart;
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+    window.choosePay = choosePay;
+    window.setCategory = setCategory;
+    window.setRoom = setRoom;
+    window.selectThread = selectThread;
+    window.sendMessage = sendMessage;
+    window.sendQuick = sendQuick;
+    window.setPage = setPage;
+    window.toggleTheme = toggleTheme;
+    window.toggleNotify = toggleNotify;
+    window.setLang = setLang;
+
+    renderAll();
+    setInterval(simulateActivity, 16000);
+  </script>
+</body>
+</html>

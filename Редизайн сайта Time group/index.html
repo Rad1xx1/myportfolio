@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Time Group — современный застройщик в Казахстане, создающий жилые, коммерческие и социальные объекты нового поколения."
+    />
+    <title>Time Group | Современная недвижимость в Казахстане</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="Time Group главная">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="https://static.tildacdn.pro/tild3737-6364-4136-a532-376230346266/logo_.svg" alt="Time Group logo" />
+        </span>
+        <span class="brand-text">
+          <strong>Time Group</strong>
+          <small>Almaty · Kazakhstan</small>
+        </span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Открыть меню" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" aria-label="Главная навигация">
+        <a href="#about">О компании</a>
+        <a href="#projects">Проекты</a>
+        <a href="#news">Новости</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero" aria-label="Главный слайдер проектов">
+        <div class="hero-slider">
+          <article class="hero-slide is-active">
+            <div class="hero-overlay"></div>
+            <div class="hero-content reveal">
+              <p class="eyebrow">Time Group Construction</p>
+              <h1>Строим пространство для будущего.</h1>
+              <p>
+                Современные жилые комплексы, комфортные коммерческие среды и
+                продуманные социальные проекты в Казахстане.
+              </p>
+              <div class="hero-actions">
+                <a class="button button-primary" href="#projects">Подробнее</a>
+                <a class="button button-secondary" href="#contact">Связаться</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="hero-slide">
+            <div class="hero-overlay"></div>
+            <div class="hero-content reveal">
+              <p class="eyebrow">Жилые комплексы</p>
+              <h1>Комфорт, который ощущается в каждом решении.</h1>
+              <p>
+                Панорамные виды, продуманная инфраструктура и премиальный сервис
+                для современного образа жизни.
+              </p>
+              <div class="hero-actions">
+                <a class="button button-primary" href="#projects">Открыть проекты</a>
+                <a class="button button-secondary" href="#about">О компании</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="hero-slide">
+            <div class="hero-overlay"></div>
+            <div class="hero-content reveal">
+              <p class="eyebrow">Надежность и качество</p>
+              <h1>Ключевая точность в каждом этапе строительства.</h1>
+              <p>
+                От концепции до передачи жилья мы сохраняем высокий стандарт,
+                прозрачность и внимание к деталям.
+              </p>
+              <div class="hero-actions">
+                <a class="button button-primary" href="#news">Новости</a>
+                <a class="button button-secondary" href="#contact">Контакты</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="slider-controls" aria-label="Управление слайдером">
+          <button class="slider-button" type="button" data-direction="prev" aria-label="Предыдущий слайд">←</button>
+          <div class="slider-dots" aria-label="Слайды"></div>
+          <button class="slider-button" type="button" data-direction="next" aria-label="Следующий слайд">→</button>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="projects">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Проекты</p>
+          <h2>Жилые комплексы и социальные объекты Time Group — от строительства до передачи ключей.</h2>
+        </div>
+
+        <div class="project-filter reveal" role="tablist" aria-label="Проекты по статусу">
+          <button class="filter-chip is-active" data-group="building" type="button" role="tab" aria-selected="true">Строятся</button>
+          <button class="filter-chip" data-group="completed" type="button" role="tab" aria-selected="false">Сдан</button>
+        </div>
+
+        <div class="project-stage-slider is-active" data-group="building">
+          <div class="project-slider-viewport">
+            <article class="project-slide is-active">
+              <img src="https://static.tildacdn.pro/tild3339-3433-4237-b963-373565393238/__1.jpg" alt="ЖК Kokjiek City" />
+              <div class="project-slide-content">
+                <div class="project-badge">Строится</div>
+                <p class="eyebrow">ЖК</p>
+                <h3>Kokjiek City</h3>
+                <p>Жилой комплекс «Kokjiek City» — проект с продуманной инфраструктурой, удобными планировками и атмосферой спокойного городского проживания.</p>
+                <div class="project-meta">
+                  <span>Район: мкр. Кокжиек</span>
+                  <span>Тип: жилой комплекс</span>
+                </div>
+                <ul>
+                  <li>Продуманное благоустройство</li>
+                  <li>Современные планировки</li>
+                  <li>Комфортная городская среда</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-slide">
+              <img src="https://static.tildacdn.pro/tild6364-3131-4237-b763-393561333537/_20.jpg" alt="ЖК Arnau 2.0" />
+              <div class="project-slide-content">
+                <div class="project-badge">Строится</div>
+                <p class="eyebrow">ЖК</p>
+                <h3>Arnau 2.0</h3>
+                <p>Жилой комплекс «Arnau 2.0» — продолжение уже существующего проекта в функциональном микрорайоне Каскелен с акцентом на приватность, качество и удобство.</p>
+                <div class="project-meta">
+                  <span>Район: Каскелен</span>
+                  <span>Тип: премиальный ЖК</span>
+                </div>
+                <ul>
+                  <li>Архитектурная концепция</li>
+                  <li>Приватность и уют</li>
+                  <li>Современные стандарты качества</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-slide">
+              <img src="https://static.tildacdn.pro/tild6231-6535-4637-b733-393730373630/sirius.jpg" alt="ЖК Sirius" />
+              <div class="project-slide-content">
+                <div class="project-badge">Строится</div>
+                <p class="eyebrow">ЖК</p>
+                <h3>Sirius</h3>
+                <p>Проект «Sirius» — жилой комплекс бизнес-класса с продуманной планировкой, современным сервисом и качественной городской средой.</p>
+                <div class="project-meta">
+                  <span>Район: Алматы</span>
+                  <span>Тип: бизнес-класс</span>
+                </div>
+                <ul>
+                  <li>Современные планировки</li>
+                  <li>Комфортная инфраструктура</li>
+                  <li>Качественные материалы</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-slide">
+              <img src="https://static.tildacdn.pro/tild6433-6365-4637-b936-346132323264/_2__.jpeg" alt="Общежитие КазИТУ" />
+              <div class="project-slide-content">
+                <div class="project-badge">Строится</div>
+                <p class="eyebrow">Объект</p>
+                <h3>Общежитие КазИТУ</h3>
+                <p>Социальный объект с продуманной организацией пространства, удобным проживанием и современными стандартами для студентов и сотрудников.</p>
+                <div class="project-meta">
+                  <span>Роль: социальный объект</span>
+                  <span>Тип: общежитие</span>
+                </div>
+                <ul>
+                  <li>Продуманная планировка</li>
+                  <li>Функциональные зоны</li>
+                  <li>Комфортное проживание</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <div class="project-slider-controls">
+            <button class="slider-button project-prev" type="button" data-group="building" aria-label="Предыдущий проект">←</button>
+            <div class="project-slider-dots" aria-label="Навигация по проектам"></div>
+            <button class="slider-button project-next" type="button" data-group="building" aria-label="Следующий проект">→</button>
+          </div>
+        </div>
+
+        <div class="project-stage-slider" data-group="completed">
+          <div class="project-slider-viewport">
+            <article class="project-slide is-active">
+              <img src="https://static.tildacdn.pro/tild3334-6232-4037-a132-326439353731/abay_city_1_1.jpg" alt="ЖК Abai City" />
+              <div class="project-slide-content">
+                <div class="project-badge">Сдан</div>
+                <p class="eyebrow">ЖК</p>
+                <h3>Abai City</h3>
+                <p>ABAI CITY — жилой комплекс в удобном районе города, ориентированный на семейную жизнь, современные материалы и надежный уровень комфорта.</p>
+                <div class="project-meta">
+                  <span>Район: Алтын Орда</span>
+                  <span>Тип: жилой комплекс</span>
+                </div>
+                <ul>
+                  <li>Современный уровень качества</li>
+                  <li>Удобная транспортная доступность</li>
+                  <li>Закрытая охраняемая территория</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-slide">
+              <img src="https://static.tildacdn.pro/tild6166-3832-4137-b436-613638303233/_Royal_Time_04_final.jpg" alt="ЖК Royal Time" />
+              <div class="project-slide-content">
+                <div class="project-badge">Сдан</div>
+                <p class="eyebrow">ЖК</p>
+                <h3>Royal Time</h3>
+                <p>Жилой комплекс «Royal Time» — проект бизнес-класса в предгорном районе Алматы с качественной архитектурой и продуманной средой для жизни.</p>
+                <div class="project-meta">
+                  <span>Район: предгорный Алматы</span>
+                  <span>Тип: бизнес-класс</span>
+                </div>
+                <ul>
+                  <li>Качественная архитектура</li>
+                  <li>Зелёные зоны и благоустройство</li>
+                  <li>Комфортная городская инфраструктура</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-slide">
+              <img src="https://static.tildacdn.pro/tild6366-3034-4037-b135-353936343739/Fasad_01.jpg" alt="ЖК Time City" />
+              <div class="project-slide-content">
+                <div class="project-badge">Сдан</div>
+                <p class="eyebrow">ЖК</p>
+                <h3>Time City</h3>
+                <p>Жилой квартал «Time City» — проект с собственной инфраструктурой, удобной связью с городом и качественной средой для ежедневной жизни.</p>
+                <div class="project-meta">
+                  <span>Район: Турксиб</span>
+                  <span>Тип: комфорт-класс</span>
+                </div>
+                <ul>
+                  <li>Разнообразие планировок</li>
+                  <li>Охраняемая территория</li>
+                  <li>Транспортная доступность</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="project-slide">
+              <img src="https://static.tildacdn.pro/tild6336-3236-4539-a163-313633333733/2Corona_Camera004.jpg" alt="ЖК Tenir" />
+              <div class="project-slide-content">
+                <div class="project-badge">Сдан</div>
+                <p class="eyebrow">ЖК</p>
+                <h3>Tenir</h3>
+                <p>ЖК «Tenir» — проект, где комфорт, сервис и современный подход к жилой среде объединены в одном пространстве.</p>
+                <div class="project-meta">
+                  <span>Район: мкр. Теректи</span>
+                  <span>Тип: жилой комплекс</span>
+                </div>
+                <ul>
+                  <li>Благоустроенные зоны отдыха</li>
+                  <li>Функциональные планировки</li>
+                  <li>Современный архитектурный подход</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <div class="project-slider-controls">
+            <button class="slider-button project-prev" type="button" data-group="completed" aria-label="Предыдущий проект">←</button>
+            <div class="project-slider-dots" aria-label="Навигация по проектам"></div>
+            <button class="slider-button project-next" type="button" data-group="completed" aria-label="Следующий проект">→</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="news">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Новости</p>
+          <h2>Компания развивается в ритме новых стандартов.</h2>
+        </div>
+
+        <div class="news-grid">
+          <article class="news-card reveal">
+            <h3>Новые стандарты в строительстве</h3>
+            <p>Time Group расширяет партнерство с технологичными поставщиками и внедряет экологичные материалы.</p>
+          </article>
+          <article class="news-card reveal">
+            <h3>Запуск новых объектов</h3>
+            <p>В ближайших планах — выход на новые площадки и запуск нескольких жилых проектов в регионах.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section about-section" id="about">
+        <div class="about-copy reveal">
+          <p class="eyebrow">О компании</p>
+          <h2>Основанная в 2005 году, Time Group создает надежную среду для жизни и бизнеса.</h2>
+          <p>
+            Time Group — строительная компания, занимающаяся возведением жилых,
+            коммерческих и социальных объектов по всей территории Казахстана.
+          </p>
+          <p>
+            Компания известна своей стратегией по созданию новых рабочих мест,
+            улучшению жилищных условий граждан и применению современных,
+            экологически чистых материалов.
+          </p>
+          <p>
+            В 2011 году Time Group Construction стал первым застройщиком, который
+            вовремя завершил строительство 28 многоэтажных домов и обеспечил 2139 квартир.
+          </p>
+        </div>
+
+        <div class="about-panel reveal">
+          <div class="panel-card">
+            <h3>Ключевые цифры</h3>
+            <ul class="stats-list">
+              <li><strong>1 800 000 м²</strong><span>построено</span></li>
+              <li><strong>27</strong><span>жилых комплексов</span></li>
+              <li><strong>5</strong><span>бизнес-центров</span></li>
+              <li><strong>19 лет</strong><span>на рынке</span></li>
+            </ul>
+          </div>
+          <div class="panel-card director-card">
+            <h3>Директор</h3>
+            <p>Шарабаев Алтай Алпысбаевич</p>
+            <span>Личное сопровождение стратегии развития компании</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact-section" id="contact">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Контакты</p>
+          <h2>Оставьте заявку — мы свяжемся с вами в ближайшее время.</h2>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info reveal">
+            <div class="info-card">
+              <h3>Связаться</h3>
+              <p>+7 (705) 924 95 27</p>
+              <p>info@timegroup.kz</p>
+              <p>Офис Алматы, ул. Журавлева, 32а</p>
+            </div>
+          </div>
+
+          <form class="contact-form reveal">
+            <label>
+              Имя
+              <input type="text" placeholder="Ваше имя" />
+            </label>
+            <label>
+              Email
+              <input type="email" placeholder="name@example.com" />
+            </label>
+            <label>
+              Сообщение
+              <textarea rows="5" placeholder="Расскажите о вашем проекте"></textarea>
+            </label>
+            <button class="button button-primary" type="submit">Отправить</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year"></span> Time Group. Все права защищены.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
